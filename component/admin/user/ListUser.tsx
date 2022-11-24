@@ -86,13 +86,11 @@ const UserList = (props: Props) => {
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
               <div className="flex items-center">
-                <div className="flex-shrink-0 h-10 w-10">
-                  <div className="w-4 h-4 relative rounded-full object-cover">
+                <div className="w-20 h-20 relative rounded-full object-cover">
                     {item.avatar && (
                       <img src={item.avatar} alt="" className="rounded-full" />
                     )}
                   </div>
-                </div>
                 <div className="ml-4">
                   <div className="text-sm font-medium text-gray-900">
                     {item.name}
@@ -106,7 +104,7 @@ const UserList = (props: Props) => {
               {item.role ? "Admin" : "User"}
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-500">
-              {/* {formatDate(item.createdAt)} */}
+              {formatDate(item.createdAt)}
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
               <Link href={`/admin/users/${item._id}/edit`}>
