@@ -89,25 +89,25 @@ const BlogList = (props: Props) => {
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Title",
+      title: "Tên Sản Phẩm",
       dataIndex: "title",
       key: "title",
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "price",
       key: "price",
     },
     {
-      title: "Category",
+      title: "Danh mục",
       dataIndex: "categoryId",
       key: "categoryId",
       filters: productsFilter,
       onFilter: (value: any, record: any): any => record.categoryId?.includes(value),
     },
     {
-      title: "Image",
+      title: "Ảnh",
       dataIndex: "image",
       key: "image",
       render: (img) => <img src={img} width="120" alt="" />,
@@ -125,20 +125,20 @@ const BlogList = (props: Props) => {
     },
 
     {
-      title: "Action",
+      title: "Hành động",
       key: "action",
       render: (item) => (
         <>
           <Link href={`/admin/product/${item.action._id}/edit`}>
             <span className="h-8 inline-flex items-center px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              Edit
+              Sửa
             </span>
           </Link>
           <button
             onClick={() => handleRemove(item.action._id)}
             className="h-8 inline-flex items-center px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-3"
           >
-            Delete
+            Xoá
           </button>
         </>
       ),

@@ -66,18 +66,18 @@ const BlogList = (props: Props) => {
             render: text => <a>{text}</a>,
         },
         {
-            title: 'Title',
+            title: 'Tiêu đề',
             dataIndex: 'title',
             key: 'title',
             render: text => <a>{text}</a>,
         },
         {
-            title: 'Content',
+            title: 'Nội dung',
             dataIndex: 'content',
             key: 'content',
         },
         {
-            title: 'Category',
+            title: 'Danh mục',
             dataIndex: 'category',
             key: 'category',
             filters: 
@@ -86,14 +86,14 @@ const BlogList = (props: Props) => {
             onFilter: (value:any, record: any): any => record.category.includes(value),
         },
         {
-            title: 'Image',
+            title: 'Ảnh',
             dataIndex: 'image',
             key: 'image',
             render: img => <img src={img} width='120' alt="" />,
         },
        
         {
-            title: 'Action',
+            title: 'Hành động',
             key: 'action',
             render: item => (
 

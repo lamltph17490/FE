@@ -30,7 +30,7 @@ const AdminMenu = (props: Props) => {
     <nav className="dashboard__sidebar fixed top-0 left-0 z-20 h-full pb-10 overflow-x-hidden overflow-y-auto transition origin-left transform bg-gray-900 w-60 md:translate-x-0 -translate-x-full">
       <Link href="/">
         <span className="flex items-center p-4 text-white font-bold text-3xl cursor-pointer">
-          WCat
+          WhiteCat
         </span>
       </Link>
       <nav
@@ -164,7 +164,7 @@ const AdminMenu = (props: Props) => {
         className="py-2 w-full text-white font-bold text-md cursor-pointer fixed bottom-0 border-solid border-t-2 border-b-2 border-sky-500"
         onClick={handleSignout}
       >
-        <FontAwesomeIcon icon={faSignOutAlt} /> Log-out
+        <FontAwesomeIcon icon={faSignOutAlt} /> Đăng xuất
       </button>
     </nav>
   );

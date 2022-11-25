@@ -53,7 +53,7 @@ const UserList = (props: Props) => {
             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
           >
             {" "}
-            User{" "}
+            Người dùng{" "}
           </th>
           <th
             scope="col"
@@ -74,7 +74,7 @@ const UserList = (props: Props) => {
             className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
           >
             {" "}
-            Actions{" "}
+            Hành động{" "}
           </th>
         </tr>
       </thead>
@@ -111,14 +111,14 @@ const UserList = (props: Props) => {
             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
               <Link href={`/admin/users/${item._id}/edit`}>
                 <span className="h-8 inline-flex items-center px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Edit
+                  Sửa 
                 </span>
               </Link>
               <button
                 onClick={() => handleRemove(item._id)}
                 className="h-8 inline-flex items-center px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-3"
               >
-                Delete
+                Xoá
               </button>
             </td>
           </tr>

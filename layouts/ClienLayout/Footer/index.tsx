@@ -9,7 +9,7 @@ const Footer = (props: Props) => {
   <div className="w-[1410px] mx-auto flex">
     <div className="flex ml-[50px]">
       <div className="mr-[142px]">
-        <h3 className="mb-[15px]">COMPANY</h3>
+        <h3 className="mb-[15px]">LIÊN HỆ</h3>
         <span>
           <a href="">Twiter</a>{" "}
         </span>
@@ -25,16 +25,16 @@ const Footer = (props: Props) => {
         <span>Jobs</span>
       </div>
       <div className="">
-        <h3 className="mb-[15px]">SUPPORT</h3>
-        <span className=""> Help + FAQs</span>
+        <h3 className="mb-[15px]">HỖ TRỢ</h3>
+        <span className=""> Trợ Giúp Trả Lời </span>
         <br />
-        <span className="">Track Your Order</span>
+        <span className="">Đơn Hàng Của Bạn</span>
         <br />
-        <span className="">Shipping</span>
+        <span className="">Vận Chuyển</span>
         <br />
-        <span>Returns</span>
+        <span>Hoàn hàng</span>
         <br />
-        <span className="pt-[30px]">Contact Support</span>
+        <span className="pt-[30px]">Liên Hệ Hỗ Trợ</span>
       </div>
     </div>
     <div className="mx-auto">
@@ -47,16 +47,15 @@ const Footer = (props: Props) => {
       </div>
     </div>
     <div className="w-[330px]">
-      <h3>NEWSLETTER</h3>
+      <h3>THÔNG TIN</h3>
       <p className="py-[18px] font-normal">
-        Enter your email below to be the first to know about new collections and
-        product launches.
+      Nhập email của bạn dưới đây để là người đầu tiên biết về bộ sưu tập và sản phẩm mới nhất.
       </p>
       <div className="flex">
         <input
           type="email"
           placeholder="Your email..."
-          className="border border-[#000000] h-[54px] w-[251px] mr-[4px]"
+          className="border border-[#E5E5E5 ] h-[54px] w-[251px] mr-[4px]"
         />
         <div className="bg-black w-[74px] h-[54px]">
           <i

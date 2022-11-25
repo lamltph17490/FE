@@ -1,4 +1,5 @@
 import { TableProps } from 'antd';
+import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import React, { ReactElement, useEffect } from 'react'
@@ -9,7 +10,6 @@ import { TprdCate } from '../../models/prdCate';
 import { getprdCates } from '../../redux/prdCateSlice';
 import { getProducts } from '../../redux/prdSlice';
 import { RootState } from '../../redux/store';
-import Link from "next/link";
 import styles from './cate.module.css'
 
 
@@ -26,8 +26,8 @@ interface DataType {
 }
 
 
-const Product = (props: Props) => {
-  const products = useSelector((state: RootState) => state.prd.products);
+const Product = (props: Props) => { 
+  const products = useSelector((state: RootState) => state.prd.products); //ko thich dai nhu kia thi có the goi nhu na
   const dispatch = useDispatch<any>();
   useEffect(() => {
     dispatch(getProducts());
@@ -41,6 +41,9 @@ const Product = (props: Props) => {
   
   return (
     <>
+    <Head>
+        <title>Sản Phẩm</title>
+      </Head>
       <nav className="relative w-[1410px] mx-auto flex flex-wrap items-center justify-between py-8 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg navbar-light">
         <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
           <nav className="bg-grey-light rounded-md w-full" aria-label="breadcrumb">
@@ -68,7 +71,7 @@ const Product = (props: Props) => {
       <div className="w-[1410px] mx-auto pt-[50px]">
         <div className="flex flex-no-wrap">
           <div className="lg:w-1/4 pr-4 pl-4">
-            <div className="flex hidden lg:block">
+            <div className="flex-hidden lg:block">
               <div className="pt-1">
                 <div className="block border-b border-gray-300 pb-7 mb-7">
                   <div className="flex items-center justify-between mb-2.5">
