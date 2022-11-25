@@ -4,7 +4,7 @@
   Author: Colorib
   Author URI: https://www.colorib.com/
   Version: 1.0
-  Created: Colorib 
+  Created: Colorib
 ******************************************************************/
 
 /*------------------------------------------------------------------
@@ -1636,7 +1636,7 @@ text-transform: capitalize;
 }
 .product__details__cart__option a{
 	width: 100%;
-	
+
 }
 
 .product__details__cart__option .quantity {
@@ -1939,7 +1939,7 @@ text-transform: capitalize;
 }
 
 /*---------------------
-  Breadcrumb
+  AdminBreadcrumb
 -----------------------*/
 
 .breadcrumb-option {
@@ -1976,7 +1976,7 @@ text-transform: capitalize;
 }
 
 /*---------------------
-  Breadcrumb Blog
+  AdminBreadcrumb Blog
 -----------------------*/
 
 .breadcrumb-blog {

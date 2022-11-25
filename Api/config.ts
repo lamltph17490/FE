@@ -46,6 +46,10 @@ axiosClient.interceptors.response.use(
         return response.data;
     },
     function (error) {
+        // Logout when 401
+        if ([401].includes(error.response?.status)) {
+            document.location.href = '/login'
+        }
         return Promise.reject(error);
     },
 );

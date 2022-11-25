@@ -47,7 +47,7 @@ const AddUser: NextPageWithLayout = (props: Props) => {
 
       await dispatch(updateUser(values)).unwrap();
       toast.success("Cập nhật User thành công");
-      router.push("/admin/user");
+      router.push("/admin/users");
     } catch (error) {
       console.log(error);
     }
