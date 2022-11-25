@@ -37,7 +37,7 @@ const Product = (props: Props) => {
   };
   const {prdCates} = useSelector((state:RootState)=>state.prdCate)
   console.log("cate",prdCates);
-  
+
   return (
     <>
       <nav className="relative w-[1410px] mx-auto flex flex-wrap items-center justify-between py-8 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg navbar-light">
@@ -62,7 +62,7 @@ const Product = (props: Props) => {
           </nav>
         </div>
       </nav>
-      {/* Breadcrumb Section End */}
+      {/* AdminBreadcrumb Section End */}
       {/* Shop Section Begin */}
       <div className="w-[1410px] mx-auto pt-[50px]">
         <div className="flex flex-no-wrap">
@@ -88,7 +88,7 @@ const Product = (props: Props) => {
                     Danh mục
                   </h3>
                   <div className="mt-2 flex flex-col space-y-4">
-                    
+
                     {
                         prdCates?.map((item:any)=>(
                           <span className="ms-4 -mt-0.5 ml-[15px] text-normal">
@@ -205,8 +205,8 @@ const Product = (props: Props) => {
               </li>
             </ul>
           </nav>
-          </div>         
-        </div>        
+          </div>
+        </div>
       </div>
 
     </>

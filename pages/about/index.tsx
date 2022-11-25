@@ -6,7 +6,7 @@ type Props = {};
 const About = (props: Props) => {
   return (
     <>
-      {/* Breadcrumb Section Begin */}
+      {/* AdminBreadcrumb Section Begin */}
       <section className="breadcrumb-option">
         <div className="container mx-auto sm:px-4">
           <div className="flex flex-wrap ">
@@ -22,7 +22,7 @@ const About = (props: Props) => {
           </div>
         </div>
       </section>
-      {/* Breadcrumb Section End */}
+      {/* AdminBreadcrumb Section End */}
       {/* About Section Begin */}
       <section className="about spad">
         <div className="container mx-auto sm:px-4">
