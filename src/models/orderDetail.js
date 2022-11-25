@@ -35,4 +35,4 @@ orderDetailSchema.pre(/^find/, function (next) {
   next();
 });
 
-export default mongoose.model("Orderdetai", orderDetailSchema);
+export default mongoose.model("OrderDetail", orderDetailSchema);
