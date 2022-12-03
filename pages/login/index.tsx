@@ -7,7 +7,11 @@ import { loginnn } from "../../Api/authApi";
 import { Tuser } from "../../models/user";
 import { login } from "../../redux/auth";
 import Link from 'next/link';
-import userToggle from '../../hook/userToggle'
+import {
+  faEyeSlash,
+  faEye
+  } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 type Props = {};
 
 const Login = (props: Props) => {
@@ -36,7 +40,19 @@ const Login = (props: Props) => {
       toast.error(`${error.response.data.error}`);
     }
   };
-  const [PasswordInputType, ToggleIcon] = userToggle();
+  //show/hiden
+ const [type, setType] = useState('password')
+ const [icon, setIcon] = useState(faEyeSlash)
+ const handleToggle = () =>{
+  if(type==='password'){
+    setIcon(faEye);
+    setType('text')
+  }
+  else{
+    setIcon(faEyeSlash);
+    setType('password')
+  }
+ }
   return (
     <div className="h-screen w-[1240px] mx-auto">
       <div className="px-6 h-full text-gray-800">
@@ -68,13 +84,13 @@ const Login = (props: Props) => {
 
               <div className="mb-6 relative">
                 <input
-                  type={PasswordInputType}
+                  type={type}
                   className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="exampleFormControlInput2"
                   placeholder="Mật khẩu"
                   {...register("password", { required: true })}
                 />
-                <span className="absolute cursor-pointer bottom-[10px] right-[20px]">{ToggleIcon}</span>
+                <span className="absolute cursor-pointer bottom-[10px] right-[20px]" onClick={handleToggle}><FontAwesomeIcon icon={icon}/></span>
                 
                 {errors.password?.type === "required" && (
                   <span className="text-red-700">is required</span>

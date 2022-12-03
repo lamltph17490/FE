@@ -1,10 +1,14 @@
 import Link from "next/link";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import { addUser } from "../../Api/authApi";
 import { Tuser } from "../../models/user";
-import userToggle from "../../hook/userToggle";
+import {
+  faEyeSlash,
+  faEye
+  } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 type Props = {};
 
 const Register = (props: Props) => {
@@ -21,7 +25,20 @@ const Register = (props: Props) => {
       toast.error("Lỗi");
     }
   };
-  const [PasswordInputType, ToggleIcon] = userToggle();
+  
+  //show/hiden
+ const [type, setType] = useState('password')
+ const [icon, setIcon] = useState(faEyeSlash)
+ const handleToggle = () =>{
+  if(type==='password'){
+    setIcon(faEye);
+    setType('text')
+  }
+  else{
+    setIcon(faEyeSlash);
+    setType('password')
+  }
+ }
   return (
     <div className="">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -60,13 +77,13 @@ const Register = (props: Props) => {
                   Mật khẩu
                 </label>
                 <input
-                  type={PasswordInputType}
+                  type={type}
                   id="password"
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   {...register("password", { required: true })}
                 />
-                <span className="absolute cursor-pointer bottom-[8px] right-[16px]">{ToggleIcon}</span>
+                <span className="absolute cursor-pointer bottom-[8px] right-[16px]" onClick={handleToggle}><FontAwesomeIcon icon={icon}/></span>
                 {errors.name?.type === "required" && (
                   <span className="text-red-700">is required</span>
                 )}
