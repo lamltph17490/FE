@@ -12,7 +12,7 @@ export interface Tprd {
     _id?: string,
     name?: string,
     image: string
-    price?: string |number
+    price?: string | number
     desc?: string
     slug: string
     categoryId: {

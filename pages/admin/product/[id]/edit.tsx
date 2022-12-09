@@ -119,7 +119,7 @@ const AddBlog: NextPageWithLayout = (props: Props) => {
           <Col lg={{ span: 24 }} className="shadow overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6">
               <span className="font-semibold mb-4 block text-xl">Sửa sản phẩm</span>
-              <ProductForm form={form} onSubmit={onSubmit} categories={prdCate} preview={preview} setPreview={setPreview} />
+              <ProductForm data={product} form={form} onSubmit={onSubmit} categories={prdCate} preview={preview} setPreview={setPreview} />
             </div>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
               <Button

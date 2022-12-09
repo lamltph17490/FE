@@ -3,8 +3,11 @@ import { Button, Col, Divider, Form, FormInstance, Input, InputNumber, Row, Sele
 import { findStringDuplicates, parserThousandFormat, thousandFormat } from "../../../untils";
 import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
 import { TprdCate } from "../../../models/prdCate";
+import ReactQuill from "react-quill";
+import { Tprd } from "../../../models/prd";
 
 interface ProductFormProps {
+  data?: Tprd | null;
   form: FormInstance;
   onSubmit(values: any): Promise<void>;
   categories: TprdCate[];
@@ -13,7 +16,24 @@ interface ProductFormProps {
 }
 
 export default function ProductForm(props: ProductFormProps): ReactElement {
-  const { form, onSubmit, categories, preview, setPreview } = props
+  const { form, onSubmit, categories, preview, setPreview, data } = props;
+
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+      ['link', 'image'],
+      ['clean']
+    ],
+  }
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image'
+  ]
   return (
     <Form form={form} onFinish={onSubmit} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
       <Form.Item label="Tên" name="name" rules={[{ required: true, message: "Vui lòng không để trống" }]}>
@@ -24,7 +44,15 @@ export default function ProductForm(props: ProductFormProps): ReactElement {
                      parser={value => value ? parserThousandFormat(value) : 0} controls={false} addonAfter="VND" />
       </Form.Item>
       <Form.Item label="Mô tả" name="desc" rules={[{ required: true, message: "Vui lòng không để trống" }]}>
-        <Input />
+        <ReactQuill
+          modules={modules}
+          formats={formats}
+          theme="snow"
+          value={data?.desc}
+          onChange={(value) => {
+            form.setFieldsValue({ desc: value })
+          }}
+        />
       </Form.Item>
       <Form.Item label="Danh mục sản phẩm" name="categoryId" rules={[{ required: true }]}>
         <Select options={categories.map((item) => ({ label: item.name, value: item._id }))} />
@@ -92,6 +120,10 @@ export default function ProductForm(props: ProductFormProps): ReactElement {
       <Form.List rules={[{ validator: async (rule, value) => {
           if (value.length === 0) {
             return Promise.reject('Vui lòng thêm mẫu mã sản phẩm')
+          }
+          const duplicates = findStringDuplicates(value.filter((i: any) => i.colorName.trim()).map((i: any) => i.colorName))
+          if (duplicates.length > 0) {
+            return Promise.reject('Màu đã bị trùng')
           }
           return Promise.resolve()
         }}]} name="colors" initialValue={[{ colorName: '', sizes: [{ sizeName: '', amount: 0}]}]}>

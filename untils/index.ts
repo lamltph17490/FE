@@ -26,4 +26,10 @@ export const parserThousandFormat = (value: string): number => {
     return Number(value.replaceAll('.', ''))
 }
 
-export const findStringDuplicates = (arr: Array<string>) => arr.filter((item, index) => arr.indexOf(item) != index)
+export function findStringDuplicates<Type = any>(arr: Array<Type>): Array<Type> {
+    return arr.filter((item, index) => arr.indexOf(item) != index);
+}
+
+export function uniqueStringDuplicates<Type = any>(arr: Array<Type>): Set<Type> {
+    return new Set(findStringDuplicates(arr));
+}
