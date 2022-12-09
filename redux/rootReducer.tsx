@@ -7,7 +7,6 @@ import siderReducer from "./sliderSlice";
 import voucheReducer from "./voucheSlice";
 import prdReducer from "./prdSlice";
 import prdColorReducer from "./prdColorSlice";
-import prdAmountReducer from "./prdAmountSlice";
 import prdSizeReducer from "./prdSizeSlice";
 import prdCateReducer from "./prdCateSlice";
 import commentReducer from "./cmtSlice";
@@ -20,7 +19,6 @@ const rootReducer = combineReducers({
   vouche: voucheReducer,
   prd : prdReducer,
   prdColor: prdColorReducer,
-  prdAmount: prdAmountReducer,
   prdSize: prdSizeReducer,
   prdCate: prdCateReducer,
   cmt: commentReducer

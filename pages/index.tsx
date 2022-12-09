@@ -60,7 +60,7 @@ const Home = ({posts, cateProduct, product}: Props) => {
               <p>Some representative placeholder content for the first slide.</p>
             </div>
           </div>
-  
+
           <button
             className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
             type="button"
@@ -1131,7 +1131,7 @@ const Home = ({posts, cateProduct, product}: Props) => {
              </div>
            </div>
            ))}
-          
+
           </div>
         </div>
       </section>
@@ -1142,12 +1142,12 @@ const Home = ({posts, cateProduct, product}: Props) => {
   )
 }
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("https://duan01cuongnd.herokuapp.com/api/news");
+  const res = await fetch("http://localhost:8000/api/news");
   const posts = await res.json();
 
-  const req = await fetch("https://duan01cuongnd.herokuapp.com/api/categoryNews");
+  const req = await fetch("http://localhost:8000/api/categoryNews");
   const catePost = await req.json();
-  
+
   const reCate= await fetch("http://localhost:8000/api/Cateproduct");
   const cateProduct= await reCate.json();
 
