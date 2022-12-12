@@ -22,6 +22,7 @@ const ProductDetail = (product: Props) => {
   const sizes = useMemo<ProductSize[]>(() => colorSelected ? colorSelected.sizes : [], [colorSelected]);
   const [sizeSelected, setSizeSelected] = useState<ProductSize | null>(null);
   const [form] = Form.useForm();
+  const [quantity, setQuantity] = useState<number>(1);
 
   const onSelectColor = (color: ProductColor) => {
     setColorSelected(color);
@@ -58,7 +59,7 @@ const ProductDetail = (product: Props) => {
             <Col span={12}>
               {/* <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2> */}
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{data.name}</h1>
-              <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: data.desc || '' }}/>
+              <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: data.desc || "" }} />
               <Form form={form} labelAlign="left" labelCol={{ span: 3 }} style={{ marginBottom: 30 }}>
                 <Form.Item name="color" label="Màu sắc" rules={[{ required: true, message: "Vui lòng chọn màu sắc" }]}>
                   <Space>
@@ -83,12 +84,17 @@ const ProductDetail = (product: Props) => {
                 <Form.Item label="Số lượng" name="quantity"
                            rules={[{ required: true, message: "Vui lòng chọn số lượng" }]}
                            help={`${sizeSelected ? sizeSelected.amount : data.colors.map(i => i.sizes.reduce((a, b) => a + b.amount, 0)).reduce((a, b) => a + b, 0)} sản phẩm có sẵn`}>
-                  <InputNumber defaultValue={1} min={1} max={sizeSelected ? sizeSelected.amount : undefined} />
+                  <InputNumber onChange={(value) => {
+                    if (value) {
+                      setQuantity(+value);
+                    }
+                  }} defaultValue={1} min={1} max={sizeSelected ? sizeSelected.amount : undefined} />
                 </Form.Item>
               </Form>
               <Divider />
               <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">{thousandFormat(data.price ? +data.price : 0)} VND</span>
+                <span
+                  className="title-font font-medium text-2xl text-gray-900">{thousandFormat((data.price ? +data.price : 0) * quantity)} VND</span>
                 <Button size="large" htmlType="submit" type="primary"
                         className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
                         danger disabled={!colorSelected || !sizeSelected}>Thêm vào giỏ</Button>
