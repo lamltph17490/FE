@@ -56,18 +56,17 @@ const CommentList = (props: Props) => {
             title: 'Người bình luận',
             dataIndex: 'user',
             key: 'user',
-            // render: text => <a>{text}</a>,
         },
-        // {
-        //     title: 'Tên sản phẩm',
-        //     dataIndex: 'content',
-        //     key: 'content',
-        // },
+        {
+            title: 'Tên sản phẩm',
+            dataIndex: 'product',
+            key: 'product',
+
+        },
         {
             title: 'Nội dung',
             dataIndex: 'content',
             key: 'content',
-            render: text => <a>{text}</a>,
         },
 
         {
@@ -76,16 +75,7 @@ const CommentList = (props: Props) => {
             render: item => (
 
                 <>
-                    <div className="grid-cols-3">
-                        {/* <Link href={`/admin/blogs/${item.action._id}/edit`}>
-                            <a className="h-8 inline-flex items-center px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-400 hover:bg-yellow-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Chỉnh sửa
-                            </a>
-                        </Link><Link href={`/admin/blogs/${item.action._id}/info`}>
-                            <a className="h-8 inline-flex items-center px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Xem chi tiết
-                            </a>
-                        </Link> */}
+                    <div className="grid-cols-3">                       
                         <button
                             onClick={() => handleRemove(item.action._id)}
                             className="h-8 inline-flex items-center px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-3"
@@ -103,7 +93,7 @@ const CommentList = (props: Props) => {
             stt: index,
             content: item.content,
             user: item.user.name,
-            // prd: item.productId.name,
+            product: item.product.name,
             action: item
         }
     })

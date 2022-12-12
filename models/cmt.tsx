@@ -1,3 +1,4 @@
+import { Tprd } from "./prd";
 import { Tuser } from "./user";
 
 export type Tcmt = {
@@ -6,8 +7,7 @@ export type Tcmt = {
   productId: string;
   content: string;
   createdAt?: Date;
-  user?: {
-    name: Tuser
-  };
+  user?: Tuser;
+  product?:Tprd;
   slug?: string;
 };
