@@ -1,9 +1,11 @@
 export interface ProductSize {
+    _id?:string;
     sizeName: string;
     amount: number
 }
 
 export interface ProductColor {
+    _id?:string
     colorName: string
     sizes: Array<ProductSize>
 }
