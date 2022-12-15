@@ -50,14 +50,16 @@ const ProductDetail = (product: Props) => {
   }, [dispatch]);
   const AddToCart = () => {
     console.log(sizeSelected);
-    addToCart({
-      color:colorSelected,
-      size:sizeSelected,
-      quantity:quantity,
-      id:data
-    },()=>{
-
-    })
+    addToCart(
+      {
+        color: colorSelected,
+        size: sizeSelected,
+        quantity: quantity,
+        id: data,
+        randomid: "_" + Math.random().toString(36).substring(2, 9),
+      },
+      () => {},
+    );
   };
 
   if (!data) return <div>loading...</div>;

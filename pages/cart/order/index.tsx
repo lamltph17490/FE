@@ -32,6 +32,10 @@ const Cart = (props: Props) => {
       setReload(!reload);
     });
   };
+  let total = 0;
+  // let total = cart.reduce((a:any,b:any)=>{
+  //   return a.
+  // },0)
   useEffect(() => {
     setCart(getLocalStorage("cart"));
   }, [reload]);
@@ -74,7 +78,7 @@ const Cart = (props: Props) => {
                       <div>
                         <button
                           onClick={() => {
-                            decreaseItem(item?.id?._id);
+                            decreaseItem(item?.randomid);
                           }}
                         >
                           <svg
@@ -92,15 +96,10 @@ const Cart = (props: Props) => {
                             />
                           </svg>
                         </button>
-                        <input
-                          type="text"
-                          name="qty"
-                          defaultValue={item?.quantity}
-                          className="w-12 text-center bg-gray-100 outline-none"
-                        />
+                        <span className="mx-3">{item?.quantity}</span>
                         <button
                           onClick={() => {
-                            increaseItem(item?.id?._id);
+                            increaseItem(item?.randomid);
                           }}
                         >
                           <svg
@@ -123,8 +122,9 @@ const Cart = (props: Props) => {
                     <td className="p-4 px-6 text-center whitespace-nowrap">
                       {sumTotal(item?.id?.price, item?.quantity)}
                     </td>
+                    <td className="hidden"> {(total += sumTotal(item?.id?.price, item?.quantity))}</td>
                     <td className="p-4 px-6 text-center whitespace-nowrap">
-                      <button onClick={() => remove(item?.id?._id)}>
+                      <button onClick={() => remove(item)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="w-6 h-6 text-red-400"
@@ -186,7 +186,7 @@ const Cart = (props: Props) => {
               <h3 className="text-xl font-bold text-blue-600">Tổng tiền</h3>
               <div className="flex justify-between px-4">
                 <span className="font-bold">Subtotal</span>
-                <span className="font-bold">$35.25</span>
+                <span className="font-bold">{total}</span>
               </div>
               <div className="flex justify-between px-4">
                 <span className="font-bold">Discount</span>
@@ -208,7 +208,7 @@ const Cart = (props: Props) => {
         "
               >
                 <span className="text-xl font-bold">Tổng</span>
-                <span className="text-2xl font-bold">$37.50</span>
+                <span className="text-2xl font-bold">{total}</span>
               </div>
             </div>
           </div>
