@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 export const setLocalStorage = (key: any, value: any) => {
     localStorage.setItem(key, JSON.stringify(value));
 };
+let cart: any = [];
 // eslint-disable-next-line consistent-return
 export const getLocalStorage = (key: string) => {
     if (localStorage.getItem(key)) {
@@ -14,7 +15,7 @@ export const getLocalStorage = (key: string) => {
 // eslint-disable-next-line import/prefer-default-export
 export const addToCart = (newItem: any, next: any) => {
 
-    let cart: any = [];
+
     if (localStorage.getItem("cart")) {
         cart = getLocalStorage("cart");
     }
@@ -49,3 +50,37 @@ export const addToCart = (newItem: any, next: any) => {
     setLocalStorage("cart", cart);
     next();
 };
+export const sumTotal = (price:any,quantity:any)=>{
+    return price * quantity
+}
+export const increaseItemInCart = (id: any, next: () => void) => {
+    cart.find((item:any) => item.id._id === id).quantity++;
+    localStorage.setItem('cart', JSON.stringify(cart))
+    next();
+}
+export const decreaseItemInCart = (id: any, next: () => void) => {
+    const currenProduct = cart.find((product:any) => (product?.id?._id === id));
+    console.log(currenProduct);
+    console.log(id);
+    
+    // currenProduct.quantity--;
+    // // nếu sản phẩm giảm nhỏ hơn 1 thì xóa
+    // if (currenProduct.quantity < 1) {
+    //     const confirm = window.confirm('Bạn có muốn xóa sản phẩm này không?');
+    //     if (confirm) {
+    //         cart = cart.filter((item:any) => item.id._id !== currenProduct.id._id);
+    //     } else {
+    //         currenProduct.quantity = 1
+    //     }
+    // }
+    // localStorage.setItem('cart', JSON.stringify(cart))
+    // next();
+}
+export const removeItemInCart = (id: any, next: () => void) => {
+
+    cart = cart.filter((item:any) => item?.id?._id !== id);
+ 
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    next();
+}
