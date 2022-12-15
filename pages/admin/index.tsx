@@ -26,7 +26,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
   }, [])
   useEffect(() => {
     loadStatisticDashboard();
-  }, [])
+  }, [loadStatisticDashboard])
   return (
     <>
       <AppBreadcrumb title="Dashboard" description="chart" />

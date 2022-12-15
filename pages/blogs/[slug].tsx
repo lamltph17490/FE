@@ -2,13 +2,23 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import React from "react";
 import { getAll, getBySlug } from "../../Api/blogApi";
 import { Tblog } from "../../models/blogs";
+import Head from "next/head";
 
 type Props = {
   blog: Tblog;
 };
 
 const Blog = ({ blog }: Props) => {
-  return <div>{blog.slug}</div>;
+  return <div>
+    <Head>
+      <title>
+      {blog.title}
+      </title>
+    </Head>
+    <div className="mx-auto w-[1410px]">
+    {blog.content}
+    </div>
+  </div>;
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {

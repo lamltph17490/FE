@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,16 +21,16 @@ const InfoBlog = (props: Props) => {
   useEffect(() => {
     dispatch(getBlog(id));
     
-  }, [dispatch]);
+  }, [dispatch, id]);
   if (blog == "") return <div>Loading...</div>;
   return (
     <>
     <html lang="en">
-    <head>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <Head>
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Document</title>
-    </head>
+    </Head>
     <body>
     <div id="content"></div>
     </body>

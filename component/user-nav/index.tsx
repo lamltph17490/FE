@@ -12,10 +12,10 @@ const UserNav = (props: Props) => {
     const router = useRouter();
     const dispacth = useDispatch();
     const currentUser = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
-
     const handleLogout = () => {
         dispacth(logout());
         toast.success("Đăng xuất thành công");
+        router.push("/login")
       };
     
 
@@ -30,7 +30,7 @@ const UserNav = (props: Props) => {
                 <li><Link href="/user" className='mb-8'>Thông tin tài khoản</Link></li>
                 <li><Link href="/user/userCart" className='mb-[12px]'>Đơn hàng của bạn</Link></li>
                 <li><Link href="/user/changePassword" className='mb-[12px]'>Đổi lại mật khẩu</Link></li>
-                <li className='mb-[12px]' onClick={handleLogout}>Đăng xuất</li>
+                <li className='mb-[12px] cursor-pointer' onClick={handleLogout}>Đăng xuất</li>
 
             </ul>
         </div>

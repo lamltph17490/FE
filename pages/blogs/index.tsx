@@ -35,7 +35,7 @@ const index = ({ posts, catePost }: Props) => {
   {/* Posts Section */}
   <section className="w-full md:w-2/3 flex flex-col items-center px-3">
    {posts.map((item, index)=>(
-     <article className="flex flex-col shadow my-4" key={index}>
+     <article className="flex flex-col shadow my-4 w-[940px]" key={index}>
      {/* Article Image */}
      <a href="#" className="hover:opacity-75">
        <img className="object-cover object-center w-full h-64 lg:h-80
@@ -155,10 +155,10 @@ const index = ({ posts, catePost }: Props) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("https://duan01cuongnd.herokuapp.com/api/news");
+  const res = await fetch("http://localhost:8000/api/news");
   const posts = await res.json();
-
-  const req = await fetch("https://duan01cuongnd.herokuapp.com/api/categoryNews");
+  
+  const req = await fetch("http://localhost:8000/api/categorynews");
   const catePost = await req.json();
 
   return {

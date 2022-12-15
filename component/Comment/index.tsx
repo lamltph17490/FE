@@ -34,7 +34,7 @@ const Comment = ({ product }: CommentProps) => {
   useEffect(() => {
     if (product._id) {
       (async () => {
-        await dispatch(getCommentsByProduct(product.slug)).unwrap();
+        await dispatch(getCommentsByProduct(product._id)).unwrap();
       })();
     }
   }, [dispatch, product._id, product.slug]);
@@ -107,7 +107,7 @@ const Comment = ({ product }: CommentProps) => {
               ></textarea>
               <div className="text-sm mt-0.5 text-red-500">{errors.content?.message}</div>
             </div>
-            <button className="my-3 px-4 py-2 bg-[#4d8a54] font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+            <button className="text-white-500 my-3 px-4 py-2 bg-red-500 font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
               Gửi đi
             </button>
           </form>
@@ -123,14 +123,18 @@ const Comment = ({ product }: CommentProps) => {
             {comments?.map((item, index) => (
               <li className="flex py-4" key={index}>
                 <div className="w-16 h-16 object-cover rounded-full relative">
-                  {item.user?.avatar && (
+                  <picture>
+                    <img src={item.user.avatar} alt="" className="w-6 h-6 rounded-full "/>
+                  </picture>
+                  
+                  {/* {item.user?.avatar && (
                     <Image
                       layout="fill"
                       alt=""
                       src={item.user?.avatar}
                       className="w-16 h-16 rounded-full object-cover"
                     />
-                  )}
+                  )} */}
                 </div>
                 <div className="ml-2">
                   <span className="font-bold">{item.user?.name}</span>
