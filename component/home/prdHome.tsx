@@ -21,7 +21,8 @@ const PrdHome = (props: Props) => {
 
         <section className="grid grid-cols-4 gap-[30px] w-[1410px] mx-auto pt-20 ">
         {products?.slice(0, 8)?.map((item:any, index) => (
-              <div className="w-full pb-8" key={index}>
+          <Link href={`/product/${item._id}`}>
+              <div className="cursor-pointer w-full pb-8" key={index}>
                 <div className="p-0 bg-light group text-center">
                   <div className="block mb-2">
                     <div className="relative overflow-hidden">
@@ -66,11 +67,11 @@ const PrdHome = (props: Props) => {
                         </div>
                       </div>
                     </div>
-                    <Link href={`/product/${item._id}`}>
+                    
                     <h3 className="mb-2 text-xl font-normal text-[#999999] uppercase">
                       {item.name}
                     </h3>
-                    </Link>
+            
                     <p className="text-lg font-semibold text-[#A71010] ">
                       {/* <span className="text-lg mr-[8px] font-semibold text-gray-400 line-through ">
                       $33.69
@@ -80,6 +81,7 @@ const PrdHome = (props: Props) => {
                   </div>
                 </div>
               </div>
+              </Link>
             ))}
             </section>
     </div>

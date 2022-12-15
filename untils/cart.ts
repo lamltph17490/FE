@@ -28,14 +28,17 @@ export const addToCart = (newItem: any, next: any) => {
             showConfirmButton: false,
           })
     } else {
-        if(existItem.quantity>=newItem.size?.amount){
-            return Swal.fire({
+        existItem.quantity += newItem.quantity;
+        if(existItem.quantity > existItem.size?.amount){
+             existItem.quantity = existItem.size?.amount
+             return Swal.fire({
                 icon: 'warning',
-                title: "Không được thêm quá số lượng kho ",
+                title: "Số lượng sản phẩm trong giỏ hàng của bạn không được thêm quá số lượng kho ",
               })
+              
         }
         // eslint-disable-next-line no-plusplus
-        existItem.quantity += newItem.quantity;
+        
         Swal.fire({
             icon: 'success',
             title: "Sản phẩm này đã có trong giỏ, tăng số lượng thêm " + newItem.quantity,

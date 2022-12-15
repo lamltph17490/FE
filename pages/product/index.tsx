@@ -114,6 +114,7 @@ const Product = (props: Props) => {
 
           <div className="grid grid-cols-3 gap-[30px] lg:w-3/4 mx-auto pt-6 ml-[30px] ">
             {products?.map((item, index) => (
+              <Link href={`/product/${item._id}`}>
               <div className="w-full pb-8" key={index}>
                 <div className="p-0 bg-light group text-center">
                   <div className="block mb-2">
@@ -159,11 +160,11 @@ const Product = (props: Props) => {
                         </div>
                       </div>
                     </div>
-                    <Link href={`/product/${item._id}`}>
-                    <h3 className="mb-2 text-xl font-normal text-[#999999] uppercase">
+                   
+                    <h3 className="cursor-pointer mb-2 text-xl font-normal text-[#999999] uppercase">
                       {item.name}
                     </h3>
-                    </Link>
+                   
                     <p className="text-lg font-semibold text-[#A71010] ">
                       {/* <span className="text-lg mr-[8px] font-semibold text-gray-400 line-through ">
                       $33.69
@@ -173,6 +174,7 @@ const Product = (props: Props) => {
                   </div>
                 </div>
               </div>
+              </Link>
             ))}
             <nav aria-label="Page navigation example">
             <ul className="inline-flex items-center -space-x-px">
