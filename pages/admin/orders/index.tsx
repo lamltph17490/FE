@@ -1,11 +1,18 @@
 import Head from "next/head";
 import React, { ReactElement } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AdminLayout } from "../../../layouts";
+import { getallorderdetail, getallorders } from "../../../redux/orders";
 import ListOrders from "./lists";
 
 type Props = {};
 
 const Orders = (props: Props) => {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getallorders());
+    dispatch(getallorderdetail());
+  }, [dispatch]);
   return (
     <>
       <Head>

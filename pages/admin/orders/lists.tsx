@@ -1,20 +1,41 @@
 import React from "react";
-import { Space, Table, Tag } from "antd";
+import { message, Select, Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { updateOrder } from "../../../redux/orders";
 type Props = {};
-
+const { Option } = Select;
 const ListOrders = (props: Props) => {
+  const { orders } = useSelector((state: RootState) => state.orderReducer);
+  const dispatch = useDispatch();
+  const onChange = (id: any, value: any) => {
+    console.log(id, value);
+    dispatch(updateOrder({ _id: id, status: value }))
+      .unwrap()
+      .then(() => {
+        message.success({ content: "Đổi trạng thái thành công" });
+      })
+      .catch((err: any) => alert(err));
+  };
+  const dataStatus = [
+    { name: "Đang xử lý", value: 0 },
+    { name: "Xác nhận đơn hàng", value: 1 },
+    { name: "Chờ giao hàng", value: 2 },
+    { name: "Đang giao hàng", value: 3 },
+    { name: "Nhận hàng thành công", value: 4 },
+    { name: "Hủy đơn hàng", value: 5 },
+  ];
   const columns: any = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      render: (text: any) => <a>{text}</a>,
+      title: "Người đặt",
+      key: "user",
+      render: (text: any) => <a>{text.user.name}</a>,
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Người nhận",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Address",
@@ -22,45 +43,69 @@ const ListOrders = (props: Props) => {
       key: "address",
     },
     {
-      title: "Tags",
-      key: "tags",
-      dataIndex: "tags",
+      title: "Email",
+      key: "email",
+      dataIndex: "email",
     },
     {
-      title: "Action",
-      key: "action",
-      render: (_: any, record: any) => (
-        <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </Space>
+      title: "Số điện thoại",
+      key: "phone",
+      dataIndex: "phone",
+    },
+    {
+      title: "Tổng tiền",
+      key: "money",
+      dataIndex: "money",
+    },
+    {
+      title: "Trạng thái",
+      key: "money",
+      dataIndex: "status",
+      render: (_: any, { _id, status }: any) => (
+        <Select
+          style={{ minWidth: "150px" }}
+          value={
+            status === 0
+              ? "Đang xử lý"
+              : status === 1
+              ? "Xác nhận đơn hàng"
+              : status === 2
+              ? "Chờ giao hàng"
+              : status === 3
+              ? "Chờ giao hàng"
+              : status === 4
+              ? "Nhận hàng thành công"
+              : "Hủy đơn hàng"
+          }
+          onChange={(value: any) => {
+            onChange(_id, value);
+          }}
+        >
+          {dataStatus?.map((item: any) => (
+            <Option value={item?.value} key={item?.value}>
+              {item?.name}
+            </Option>
+          ))}
+        </Select>
       ),
     },
   ];
 
-  const data: any = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
+  const data = orders
+    .sort((a: any, b: any) => a.status - b.status)
+    .map((item: any) => {
+      return {
+        _id: item._id,
+        user: item.userId,
+        name: item.customerName,
+        address: item.address,
+        phone: item.phone,
+        email: item.email,
+        money: item.totalPrice,
+        message: item.message,
+        status: item.status,
+      };
+    });
   return (
     <>
       <div className="p-6 mt-24 overflow-hidden">
