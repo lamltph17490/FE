@@ -97,7 +97,7 @@ const Contact = (props: Props) => {
               className="w-[590px] h-[60px] border border-[#A4A5AE] pl-[24px] mt-[30px]"
             />
             <textarea name="message" id="" className="w-[590px] h-[120px] border border-[#A4A5AE] mt-[30px]"></textarea>
-            <input type="submit" value="Send" className="bg-black w-[590px] h-[60px] mt-[28px] text-slate-50" />
+            <input type="submit" value="Gửi" className="bg-black w-[590px] h-[60px] mt-[28px] text-slate-50" />
             {/* <div>
                             <button className="bg-black w-[590px] h-[60px] mt-[28px] ">
                                 <a href="" className="text-slate-50 ">Gửi</a>

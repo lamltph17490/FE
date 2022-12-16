@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import { Tprd } from "../../models/prd";
 import { Tuser } from "../../models/user";
 import Link from "next/link";
+import { Button } from "antd";
 
 type CommentProps = {
   product: Tprd;
@@ -80,7 +81,11 @@ const Comment = ({ product }: CommentProps) => {
       }
     });
   };
-
+  const imagePerRow = 4;
+  const [next, setNext] = useState(imagePerRow);
+  const handleMoreImage = () => {
+    setNext(next + imagePerRow);
+  };
   return (
     <section>
       <div>
@@ -107,34 +112,25 @@ const Comment = ({ product }: CommentProps) => {
               ></textarea>
               <div className="text-sm mt-0.5 text-red-500">{errors.content?.message}</div>
             </div>
-            <button className="text-white-500 my-3 px-4 py-2 bg-red-500 font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+            <button className="text-white-500 my-3 px-4 py-2 bg-gray-900 rounded  font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
               Gửi đi
             </button>
           </form>
-        ):(
+        ) : (
           <div>Vui lòng đăng nhập để bình luận
             <div><Link className="" href="/login">
-                <p className="text-red-500">Đăng nhập</p>
-              </Link></div>
+              <p className="text-red-500">Đăng nhập</p>
+            </Link></div>
           </div>
         )}
         <div>
           <ul className="mt-4 grid grid-cols-1 divide-y divide-dashed">
-            {comments?.map((item, index) => (
+            {comments?.slice(0, next)?.map((item, index) => (
               <li className="flex py-4" key={index}>
                 <div className="w-16 h-16 object-cover rounded-full relative">
                   <picture>
-                    <img src={item.user.avatar} alt="" className="w-6 h-6 rounded-full "/>
+                    <img src={item.user.avatar} alt="" className="w-[40px] h-[40px]" />
                   </picture>
-                  
-                  {/* {item.user?.avatar && (
-                    <Image
-                      layout="fill"
-                      alt=""
-                      src={item.user?.avatar}
-                      className="w-16 h-16 rounded-full object-cover"
-                    />
-                  )} */}
                 </div>
                 <div className="ml-2">
                   <span className="font-bold">{item.user?.name}</span>
@@ -149,10 +145,16 @@ const Comment = ({ product }: CommentProps) => {
                         Xóa
                       </li>
                     )}
+                    
                   </ul>
                 </div>
               </li>
             ))}
+            {next < comments?.length && (
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[100px]" onClick={handleMoreImage}>
+              Xem thêm 
+            </button>
+            )}
           </ul>
         </div>
       </section>
