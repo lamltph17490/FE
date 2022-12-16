@@ -16,7 +16,7 @@ const Orders = (props: Props) => {
   return (
     <>
       <Head>
-        <title>Danh sách mã giảm giá</title>
+        <title>Danh sách đơn hàng</title>
       </Head>
       <header className="z-10 fixed top-0 eft-0 md:left-60 right-0 px-4 py-1.5 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-between">
         <div className="flex items-center text-sm text-gray-600">

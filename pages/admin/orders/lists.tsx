@@ -4,6 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { updateOrder } from "../../../redux/orders";
+import Link from "next/link";
 type Props = {};
 const { Option } = Select;
 const ListOrders = (props: Props) => {
@@ -59,8 +60,18 @@ const ListOrders = (props: Props) => {
     },
     {
       title: "Trạng thái",
-      key: "money",
       dataIndex: "status",
+      key: "status",
+      filters: [
+        { text: "Đang xử lý", value: 0 },
+        { text: "Xác nhận đơn hàng", value: 1 },
+        { text: "Chờ giao hàng", value: 2 },
+        { text: "Đang giao hàng", value: 3 },
+        { text: "Nhận hàng thành công", value: 4 },
+        { text: "Hủy đơn hàng", value: 5 },
+      ],
+      // onFilter: (value: number, record: any) => record.status.indexOf(value) === 0,
+      filterSearch: true,
       render: (_: any, { _id, status }: any) => (
         <Select
           style={{ minWidth: "150px" }}
@@ -88,6 +99,11 @@ const ListOrders = (props: Props) => {
           ))}
         </Select>
       ),
+    },
+    {
+      title: "Chi tiết đơn hàng",
+      key: "order",
+      render: (item: any) => <Link href={`/admin/orders/${item._id}`}>Chi tiết</Link>,
     },
   ];
 

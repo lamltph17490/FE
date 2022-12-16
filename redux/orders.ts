@@ -7,18 +7,18 @@ const initialState: any = {
     orderDetail: {},
 };
 
-export const getallorders = createAsyncThunk("orders/getall", 
+export const getallorders = createAsyncThunk<any>("orders/getall", 
     async () => {
         const response = await getAllOrders();
         return response;
     });
 
-export const getallorderdetail = createAsyncThunk("orders/getallorderdetail", 
+export const getallorderdetail = createAsyncThunk<any>("orders/getallorderdetail", 
     async () => {
         const response = await getAllOrderDetail();
         return response;
     });
-export const updateOrder = createAsyncThunk("order/update", async (orders: any) => {
+export const updateOrder = createAsyncThunk<any>("order/update", async (orders: any) => {
     const res = await updateOrders(orders);
 
     return res;
