@@ -8,7 +8,7 @@ import {
   faThList,
   faDroplet,
   faScaleUnbalancedFlip,
-  faRuler
+  faRuler,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,14 +29,9 @@ const AdminMenu = (props: Props) => {
   return (
     <nav className="dashboard__sidebar fixed top-0 left-0 z-20 h-full pb-10 overflow-x-hidden overflow-y-auto transition origin-left transform bg-gray-900 w-60 md:translate-x-0 -translate-x-full">
       <Link href="/">
-        <span className="flex items-center p-4 text-white font-bold text-3xl cursor-pointer">
-          WhiteCat
-        </span>
+        <span className="flex items-center p-4 text-white font-bold text-3xl cursor-pointer">WhiteCat</span>
       </Link>
-      <nav
-        className="text-sm font-medium text-gray-500"
-        aria-label="Main Navigation"
-      >
+      <nav className="text-sm font-medium text-gray-500" aria-label="Main Navigation">
         <Link href="/admin">
           <span className="flex items-center px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200">
             <svg
@@ -159,7 +154,7 @@ const AdminMenu = (props: Props) => {
             </div>
           </span>
         </Link>
-        <Link href="/admin/contact">
+        <Link href="/admin/orders">
           <span className="flex items-center justify-between px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200">
             <div className="flex items-center">
               <div className="shrink-0 w-5 h-5 mr-2 text-gray-300 transition group-hover:text-gray-300">
