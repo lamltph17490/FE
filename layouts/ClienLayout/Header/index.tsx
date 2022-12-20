@@ -83,7 +83,7 @@ const header = (props: Props) => {
             <a className="flex items-center hover:text-gray-200" href="#">
               <img src="img/icon/heart.png" />
             </a>
-            <a className="flex items-center hover:text-gray-200" href="#">
+            <a className="flex items-center hover:text-gray-200" href="/cart/order">
               <img src="img/icon/cart.png" />
             </a>
           </div>
