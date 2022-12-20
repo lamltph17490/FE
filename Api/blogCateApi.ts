@@ -4,22 +4,22 @@ import { TblogCate } from "../models/blogCates";
 import axiosClient from "./config";
 
 export const getAll = (): Promise<TblogCate[]> => {
-    return axiosClient.get("/CategoryNews");
+    return axiosClient.get("/categorynews");
 };
 
 export const remove = (id: string): Promise<TblogCate> => {
-    return axiosClient.delete(`/CategoryNews/${id}`);
+    return axiosClient.delete(`/categorynews/${id}`);
 };
 
 export const add = (cateNew: TblogCate): Promise<TblogCate> => {
-    return axiosClient.post("/CategoryNews", cateNew);
+    return axiosClient.post("/categorynews", cateNew);
 };
 
 export const get = (id: string): Promise<TblogCate> => {
-    return axiosClient.get(`/CategoryNews/${id}`);
+    return axiosClient.get(`/categorynews/${id}`);
 };
 
 export const update = (cateNew: TblogCate): Promise<TblogCate> => {
-    return axiosClient.put(`/CategoryNews/${cateNew._id}`, cateNew);
+    return axiosClient.put(`/categorynews/${cateNew._id}`, cateNew);
 };
 

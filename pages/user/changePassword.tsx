@@ -48,12 +48,12 @@ const ChangePassword :NextPageWithLayout  = (props: Props) => {
                             <input type="text" {...register("_id")} className="hidden" value={currentUser._id} />
                             <div className='mb-8'>
                                 <label htmlFor="">Mật khẩu cũ</label><br />
-                                <input type="text"  {...register("oldPassword", { required: "Vui lòng" })} className='mt-2 w-[400px] h-[40px] border'/>
+                                <input type="password"  {...register("oldPassword", { required: "Vui lòng" })} className='mt-2 w-[400px] h-[40px] border'/>
                                 <p className="text-red-400">{errors.oldPassword?.message}</p>
                             </div>
                             <div>
                                 <label htmlFor="">Mật khẩu mới</label><br />
-                                <input type="text" {...register("newPassword", { required: "Vui lòng nhập họ tên" })} className='mt-2 w-[400px] h-[40px] border'/>
+                                <input type="password" {...register("newPassword", { required: "Vui lòng nhập họ tên" })} className='mt-2 w-[400px] h-[40px] border'/>
                                 <p className="text-red-400">{errors.newPassword?.message}</p>
                             </div>
                             <button className='bg-black text-white text-center w-[160px] h-[38px] mt-4 rounded-full'>Đổi mật khẩu</button>

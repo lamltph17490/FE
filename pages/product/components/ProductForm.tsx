@@ -1,11 +1,11 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import { Button, Col, Divider, Form, FormInstance, Input, InputNumber, Row, Select, Space, Typography } from "antd";
 import { findStringDuplicates, parserThousandFormat, thousandFormat } from "../../../untils";
 import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
 import { TprdCate } from "../../../models/prdCate";
-import ReactQuill from "react-quill";
 import { Tprd } from "../../../models/prd";
-
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 interface ProductFormProps {
   data?: Tprd | null;
   form: FormInstance;
@@ -121,7 +121,7 @@ export default function ProductForm(props: ProductFormProps): ReactElement {
           if (value.length === 0) {
             return Promise.reject('Vui lòng thêm mẫu mã sản phẩm')
           }
-          const duplicates = findStringDuplicates(value.filter((i: any) => i.colorName.trim()).map((i: any) => i.colorName))
+          const duplicates = findStringDuplicates(value.filter((i: any) => i.colorName?.trim()).map((i: any) => i.colorName.toLowerCase()))
           if (duplicates.length > 0) {
             return Promise.reject('Màu đã bị trùng')
           }
@@ -139,7 +139,7 @@ export default function ProductForm(props: ProductFormProps): ReactElement {
                   </Col>
                   <Col span={11}>
                     <Form.List name={[color.name, 'sizes']} rules={[{ validator: async (rule, value) => {
-                        const duplicates = findStringDuplicates(value.filter((i: any) => i.sizeName.trim()).map((i: any) => i.sizeName))
+                        const duplicates = findStringDuplicates(value.filter((i: any) => i.sizeName?.trim()).map((i: any) => i.sizeName.toLowerCase()))
                         if (duplicates.length > 0) {
                           return Promise.reject('Size đã bị trùng')
                         }
