@@ -4,12 +4,17 @@ import { Tuser } from "../../../models/user";
 import { RootState } from "../../../redux/store";
 import Link from "next/link";
 import styles from './header.module.css'
-
+import {
+  faSearch, faUser, faHeart, faCartShopping
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {};
 
 const header = (props: Props) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const isLogged = useSelector((state: RootState) => state.auth.isLogged);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const curentUser = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
 
   return <header className="flex flex-wrap">
@@ -18,7 +23,7 @@ const header = (props: Props) => {
       <nav className="flex justify-between bg-black text-white w-screen">
         <div className="px-0 xl: py-6 flex w-[1410px] mx-auto items-center">
           <a className="text-3xl font-bold font-heading" href="#">
-            <img className="h-12" src="img/logo.png" alt="logo" />
+            <picture><img className="h-12" src="img/logo.png" alt="logo" /></picture>           
           </a>
           {/* Nav Links */}
           <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
@@ -29,63 +34,71 @@ const header = (props: Props) => {
             </li>
             <li>
               <Link className="hover:text-gray-200" href="/product">
-              <a href="" className="text-white">Sản Phẩm</a>
+                <a href="" className="text-white">Sản Phẩm</a>
               </Link>
             </li>
             <li>
               <Link className="hover:text-gray-200" href="/contact">
-              <a href="" className="text-white">Liên Hệ</a>
+                <a href="" className="text-white">Liên Hệ</a>
               </Link>
             </li>
             <li>
               <Link className="hover:text-gray-200" href="/blogs">
-              <a href="" className="text-white">Tin Tức</a>
+                <a href="" className="text-white">Tin Tức</a>
               </Link>
             </li>
             <li>
               <a className="hover:text-gray-200" href="#">
-              <a href="" className="text-white">Giới Thiệu</a>
+                <a href="" className="text-white">Giới Thiệu</a>
               </a>
             </li>
           </ul>
           {/* Header Icons */}
           <div className="hidden xl:flex space-x-5 items-center">
-            <a className="hover:text-gray-200" href="#">
-              <img src="img/icon/search.png" />
+            <a className="hover:text-gray-200 text-white" href="#">
+              {/* <img src="img/icon/search.png" /> */}
+              <FontAwesomeIcon className="text-2xl" icon={faSearch} />
             </a>
-            
-            <a className="flex items-center hover:text-gray-200" href="#">
-            {isLogged ? (
-              <li className="relative flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">
-                 <Link href="/user"><img src="img/icon/user.png" /></Link>
-                <span className="ml-1 hover:text-[#282828]">
-                  <Link href={curentUser.role ? "/admin" : "/user"}>{curentUser.name}</Link>
-                </span>
-              </li>
-            ) : (
-              <li className="relative group flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">             
-                <Link href="/user"><img src="img/icon/user.png" /></Link>
-                <span className="ml-1 group-hover:text-[#282828]">Tài khoản</span>
 
-                <ul className="bg-white hidden group-hover:block absolute top-[calc(100%+8px)] left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
-                  <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#4d8a54]">
-                    <Link href="/login">Đăng nhập</Link>
-                  </li>
-                  <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#4d8a54]">
-                    <Link href="/register">Đăng ký</Link>
-                  </li>
-                </ul>
-              </li>
-            )}
-              
+            <a className="flex items-center hover:text-gray-200 text-white" href="#">
+              {isLogged ? (
+                <li className="relative flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">
+                  <Link href="/user"><FontAwesomeIcon className="text-2xl" icon={faUser} /></Link>
+                  <span className="ml-1 hover:text-[#282828]">
+                    <Link href={curentUser.role ? "/admin" : "/user"}>{curentUser.name}</Link>
+                  </span>
+                </li>
+              ) : (
+                <li className="relative group flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">
+                  <Link href="/user"><a className="hover:text-gray-200 text-white" href="#">
+
+                    <FontAwesomeIcon className="text-2xl" icon={faUser} />
+                  </a></Link>
+                  <span className="ml-1 group-hover:text-[#282828]">Tài khoản</span>
+
+                  <ul className="bg-white hidden group-hover:block absolute top-[calc(100%+8px)] left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
+                    <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#4d8a54]">
+                      <Link href="/login"><a href="" className="text-black">Đăng nhập</a></Link>
+                    </li>
+                    <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#4d8a54]">
+                      <Link href="/register"><a href="" className="text-black">Đăng ký </a></Link>
+                    </li>
+                  </ul>
+                </li>
+              )}
+
             </a>
             {/* Sign In / Register      */}
-            <a className="flex items-center hover:text-gray-200" href="#">
-              <img src="img/icon/heart.png" />
+            <a className="hover:text-gray-200 text-white" href="#">
+              <FontAwesomeIcon className="text-2xl" icon={faHeart} />
             </a>
-            <a className="flex items-center hover:text-gray-200" href="#">
-              <img src="img/icon/cart.png" />
-            </a>
+            <Link href={'/cart/order'}>
+              <a className="hover:text-gray-200 text-white" href="#">
+                {/* <img src="img/icon/search.png" /> */}
+                <FontAwesomeIcon className="text-2xl" icon={faCartShopping} />
+              </a>
+            </Link>
+
           </div>
         </div>
         {/* Responsive navbar */}

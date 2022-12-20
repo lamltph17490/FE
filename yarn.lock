@@ -5342,7 +5342,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.6.2", "prop-types@^15.8.1":
+"prop-types@^15", "prop-types@^15.6.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -5875,6 +5875,13 @@
     "use-sync-external-store" "^1.0.0"
     "whatwg-fetch" "^3.0.0"
     "ws" "^6.1.4"
+
+"react-paginate@^8.1.4":
+  "integrity" "sha512-c3rxjcTEqeDQa6LqXifxLeFguY2qy2CHGRphVjHLFFMGfIHyaJ+v3bOvIlLYEeohwQ1q+cQpknjsqBVrkc/SNA=="
+  "resolved" "https://registry.npmjs.org/react-paginate/-/react-paginate-8.1.4.tgz"
+  "version" "8.1.4"
+  dependencies:
+    "prop-types" "^15"
 
 "react-quill@^2.0.0":
   "integrity" "sha512-4qQtv1FtCfLgoD3PXAur5RyxuUbPXQGOHgTlFie3jtxp43mXDtzCKaOgQ3mLyZfi1PUlyjycfivKelFhy13QUg=="
