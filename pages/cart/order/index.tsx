@@ -8,6 +8,7 @@ import {
   sumTotal,
 } from "../../../untils/cart";
 import AlertMessage from "../../../untils/alert";
+import Swal from "sweetalert2";
 type Props = {};
 
 const Cart = (props: Props) => {
@@ -15,12 +16,29 @@ const Cart = (props: Props) => {
   const [reload, setReload] = useState<any>(true);
   const { success, error } = AlertMessage();
   const remove = (id: any) => {
-    if (window.confirm("bạn có muốn xóa không ?")) {
-      removeItemInCart(id, () => {
-        success("xóa thành công");
-        setReload(!reload);
-      });
-    }
+    Swal.fire({
+      title: "Bạn có chắc chắn muốn xóa không?",
+      text: "Không thể hoàn tác sau khi xóa",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Vâng chắc chắn rồi!",
+  }).then(async (result) => {
+      if (result.isConfirmed) {
+          await removeItemInCart(id, () => {
+                // success("xóa thành công");
+                setReload(!reload);
+              });
+          Swal.fire("Thành công!", "Xóa thành công.", "success");
+      }
+  });
+    // if (window.confirm("bạn có muốn xóa không ?")) {
+    //   removeItemInCart(id, () => {
+    //     success("xóa thành công");
+    //     setReload(!reload);
+    //   });
+    // }
   };
   const increaseItem = (id: any) => {
     increaseItemInCart(id, () => {

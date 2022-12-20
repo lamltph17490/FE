@@ -90,8 +90,8 @@ const Product = (props: Props) => {
                   <div className="mt-2 flex flex-col space-y-4">
 
                     {
-                      prdCates?.map((item: any) => (
-                        <span className="ms-4 -mt-0.5 ml-[15px] text-normal">
+                      prdCates?.map((item: any,index) => (
+                        <span className="ms-4 -mt-0.5 ml-[15px] text-normal" key={index}>
                           <label className="group flex items-center text-heading text-sm cursor-pointer">
                             <input
                               type="checkbox"
