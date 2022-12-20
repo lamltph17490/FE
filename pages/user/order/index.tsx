@@ -23,6 +23,8 @@ const userCart = (props: Props) => {
   const data3 = orders.filter((item: any) => item.status == 3);
   const data4 = orders.filter((item: any) => item.status == 4);
   const data5 = orders.filter((item: any) => item.status == 5);
+  console.log(orderDetail);
+
   if (orders.length == 0) return <div>Loading...</div>;
   return (
     <div>
