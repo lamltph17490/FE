@@ -8,7 +8,7 @@ import { RootState } from "../../redux/store";
 import { thousandFormat } from "../../untils";
 import AlertMessage from "../../untils/alert";
 import { getLocalStorage, sumTotal } from "../../untils/cart";
-
+import { Tuser } from "../../models/user";
 type Inputs = {
   customerName: string;
   email: string;
@@ -21,7 +21,7 @@ type Props = {};
 
 const CheckOut = (props: Props) => {
   const [cart, setCart] = useState<any>([]);
-  const currentUser = useSelector((state: RootState) => state.auth.currentUser);
+  const currentUser = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
 
   const { success, error } = AlertMessage();
   const {
@@ -37,11 +37,10 @@ const CheckOut = (props: Props) => {
       addOrders({
         ...data,
         totalPrice: total,
+        userId: currentUser?._id,
       })
         .then((res) => {
           orderDetail.push(res);
-          console.log(orderDetail);
-
           return cart?.map((item: any) =>
             addOrderDetail({
               orderId: orderDetail[0]?._id,
@@ -65,6 +64,7 @@ const CheckOut = (props: Props) => {
   useEffect(() => {
     reset(currentUser);
     setCart(getLocalStorage("cart"));
+    console.log(getLocalStorage("persist:root").auth?._id);
   }, []);
   return (
     <div>
