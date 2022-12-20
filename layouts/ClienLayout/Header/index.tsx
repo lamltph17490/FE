@@ -23,7 +23,7 @@ const header = (props: Props) => {
       <nav className="flex justify-between bg-black text-white w-screen">
         <div className="px-0 xl: py-6 flex w-[1410px] mx-auto items-center">
           <a className="text-3xl font-bold font-heading" href="#">
-            <picture><img className="h-12" src="img/logo.png" alt="logo" /></picture>           
+            <picture><img className="h-12" src="https://res.cloudinary.com/dklgetybe/image/upload/v1671522564/Group_88_gisjuz.png" alt="logo" /></picture>           
           </a>
           {/* Nav Links */}
           <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
