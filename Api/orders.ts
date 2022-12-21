@@ -22,3 +22,12 @@ export const updateOrders = (product: any) => {
 export const getAllOrderDetail = () => {
     return axiosClient.get("/orderDetail");
 };
+export const createPayment = (payment: any) => {
+    return axiosClient.post("/order/create_payment_url", payment);
+}
+export const vnpayReturn = (payment: any) => {
+    return axiosClient.get("/order/vnpay_return", payment);
+}
+export const vnpayIpn = (payment: any) => {
+    return axiosClient.get("/order/vnpay_ipn", payment);
+}

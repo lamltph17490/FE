@@ -65,6 +65,7 @@ const CheckOut = (props: Props) => {
         .then(() => {
           success("Đặt hàng thành công,đi tới trang thanh toán");
           localStorage.removeItem("cart");
+          sessionStorage.setItem("total", total);
           setTimeout(() => {
             return route.push("/payment");
           }, 2000);
