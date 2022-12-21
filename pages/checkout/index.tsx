@@ -52,9 +52,11 @@ const CheckOut = (props: Props) => {
           return cart?.map((item: any) =>
             addOrderDetail({
               orderId: orderDetail[0]?._id,
-              productId: item?.id?._id,
+              productId: item?.id,
               quantity: item?.quantity,
-              productPrice: item?.id?.price,
+              // productPrice: item?.id?.price,
+              size: item?.size,
+              color: item?.color,
             }),
           );
         })
@@ -76,6 +78,7 @@ const CheckOut = (props: Props) => {
   useEffect(() => {
     reset(currentUser);
     setCart(getLocalStorage("cart"));
+    console.log(cart);
   }, []);
   return (
     <>
