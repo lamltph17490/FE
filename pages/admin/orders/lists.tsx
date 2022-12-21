@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { updateOrder } from "../../../redux/orders";
 import Link from "next/link";
+import moment from "moment";
 type Props = {};
 const { Option } = Select;
 const ListOrders = (props: Props) => {
@@ -52,6 +53,10 @@ const ListOrders = (props: Props) => {
       title: "Số điện thoại",
       key: "phone",
       dataIndex: "phone",
+    },
+    {
+      title: "Ngày đặt",
+      render: (item: any) => <p>{moment(item.date).format("DD/MM/YYYY")}</p>,
     },
     {
       title: "Tổng tiền",
@@ -119,6 +124,7 @@ const ListOrders = (props: Props) => {
         money: item.totalPrice,
         message: item.message,
         status: item.status,
+        date: item.date,
       };
     });
 
