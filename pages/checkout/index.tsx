@@ -32,8 +32,8 @@ const CheckOut = (props: Props) => {
     formState: { errors },
     reset,
   } = useForm<Inputs>();
-  let orderDetail: any = [];
-  const onSubmit: SubmitHandler<Inputs> = (data: any) => {
+
+  const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
     if (data) {
       data = {
         customerName: data.customerName,
@@ -42,26 +42,31 @@ const CheckOut = (props: Props) => {
         email: data.email,
         message: data.message,
       };
-      addOrders({
+      await addOrders({
         ...data,
         totalPrice: total,
         userId: currentUser?._id,
       })
-        .then((res) => {
-          orderDetail.push(res);
+        .then((res: any) => {
+          // console.log(res._id);
+
           return cart?.map((item: any) =>
             addOrderDetail({
-              orderId: orderDetail[0]?._id,
-              productId: item?.id?._id,
+              orderId: res._id,
+              productId: item?.id,
               quantity: item?.quantity,
-              productPrice: item?.id?.price,
+              // productPrice: item?.id?.price,
+              size: item?.size,
+              color: item?.color,
             }),
           );
         })
         .then(() => {
-          success("Đặt hàng thành công");
+          success("Đặt hàng thành công,đi tới trang thanh toán");
           localStorage.removeItem("cart");
-          route.push("/");
+          setTimeout(() => {
+            return route.push("/payment");
+          }, 2000);
         })
         .catch((err) => {
           console.log(err);
@@ -76,6 +81,7 @@ const CheckOut = (props: Props) => {
   useEffect(() => {
     reset(currentUser);
     setCart(getLocalStorage("cart"));
+    console.log(cart);
   }, []);
   return (
     <>
