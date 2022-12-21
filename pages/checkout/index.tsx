@@ -34,6 +34,14 @@ const CheckOut = (props: Props) => {
   let orderDetail: any = [];
   const onSubmit: SubmitHandler<Inputs> = (data: any) => {
     if (data) {
+      data = {
+        customerName: data.customerName,
+        address: data.address,
+        phone: data.phone,
+        email: data.email,
+        message: data.message,
+      };
+      console.log(data);
       addOrders({
         ...data,
         totalPrice: total,
@@ -50,7 +58,10 @@ const CheckOut = (props: Props) => {
             }),
           );
         })
-        .then(() => success("Đặt hàng thành công"))
+        .then(() => {
+          success("Đặt hàng thành công");
+          localStorage.removeItem("cart");
+        })
         .catch((err) => {
           console.log(err);
           error(err);
@@ -64,7 +75,6 @@ const CheckOut = (props: Props) => {
   useEffect(() => {
     reset(currentUser);
     setCart(getLocalStorage("cart"));
-    console.log(getLocalStorage("persist:root").auth?._id);
   }, []);
   return (
     <>
