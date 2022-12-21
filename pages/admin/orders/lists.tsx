@@ -108,7 +108,7 @@ const ListOrders = (props: Props) => {
   ];
 
   const data = orders
-    .sort((a: any, b: any) => a.status - b.status)
+    // .sort((a: any, b: any) => a.status - b.status)
     .map((item: any) => {
       return {
         _id: item._id,
