@@ -70,7 +70,7 @@ const CheckOut = (props: Props) => {
     }
   };
 
-  let total = cart.reduce((sum: any, i: any) => {
+  let total = cart?.reduce((sum: any, i: any) => {
     return sum + i?.id?.price * i?.quantity;
   }, 0);
   useEffect(() => {
