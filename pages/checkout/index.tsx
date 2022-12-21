@@ -62,9 +62,11 @@ const CheckOut = (props: Props) => {
           );
         })
         .then(() => {
-          success("Đặt hàng thành công");
+          success("Đặt hàng thành công,đi tới trang thanh toán");
           localStorage.removeItem("cart");
-          route.push("/");
+          setTimeout(() => {
+            return route.push("/payment");
+          }, 2000);
         })
         .catch((err) => {
           console.log(err);
