@@ -1,6 +1,7 @@
 import { Table } from "antd";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminLayout } from "../../../layouts";
@@ -11,57 +12,65 @@ type Props = {};
 
 const OrderDetail = (props: Props) => {
   const dispatch = useDispatch();
+  const route = useRouter();
+  const { id } = route.query;
   const { orders, orderDetail } = useSelector((state: RootState) => state.orderReducer);
+  let dataOrder = orderDetail.filter((item: any) => item.orderId?._id === id);
   const columns: any = [
     {
-      title: "Người đặt",
+      title: "Sản phẩm",
       key: "user",
-      render: (text: any) => <a>{text.user.name}</a>,
+      render: (text: any) => (
+        <div className="flex">
+          <img src={text.image} width={120} />
+          <p className="px-2">{text.name}</p>
+        </div>
+      ),
     },
     {
-      title: "Người nhận",
-      dataIndex: "name",
-      key: "name",
+      title: "Đơn giá",
+      render: (text: any) => (
+        <div>
+          <span>{text.price}</span>
+        </div>
+      ),
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Số lượng",
+      render: (text: any) => (
+        <div>
+          <span>{text.quantity}</span>
+        </div>
+      ),
     },
     {
-      title: "Email",
-      key: "email",
-      dataIndex: "email",
+      title: "Màu sắc",
+      render: (text: any) => (
+        <div>
+          <span>{text.color}</span>
+        </div>
+      ),
     },
     {
-      title: "Số điện thoại",
-      key: "phone",
-      dataIndex: "phone",
-    },
-    {
-      title: "Tổng tiền",
-      key: "money",
-      dataIndex: "money",
-    },
-    {
-      title: "Chi tiết đơn hàng",
-      key: "order",
-      render: (item: any) => <Link href={`/admin/orders/${item._id}`}>Chi tiết</Link>,
+      title: "Kích cỡ",
+      render: (text: any) => (
+        <div>
+          <span>{text.size}</span>
+        </div>
+      ),
     },
   ];
-  const data = orders
-    .sort((a: any, b: any) => a.status - b.status)
+
+  const data = dataOrder
+    // .sort((a: any, b: any) => a.status - b.status)
     .map((item: any) => {
       return {
-        _id: item._id,
-        user: item.userId,
-        name: item.customerName,
-        address: item.address,
-        phone: item.phone,
-        email: item.email,
-        money: item.totalPrice,
-        message: item.message,
-        status: item.status,
+        name: item.productId?.name,
+        image: item.productId?.image,
+        price: item.productId?.price,
+        quantity: item.quantity,
+        size: item.size?.sizeName,
+        color: item.color?.colorName,
       };
     });
   React.useEffect(() => {
