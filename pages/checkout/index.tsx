@@ -9,6 +9,7 @@ import { thousandFormat } from "../../untils";
 import AlertMessage from "../../untils/alert";
 import { getLocalStorage, sumTotal } from "../../untils/cart";
 import { Tuser } from "../../models/user";
+import { useRouter } from "next/router";
 type Inputs = {
   customerName: string;
   email: string;
@@ -22,7 +23,7 @@ type Props = {};
 const CheckOut = (props: Props) => {
   const [cart, setCart] = useState<any>([]);
   const currentUser = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
-
+  const route = useRouter();
   const { success, error } = AlertMessage();
   const {
     register,
@@ -41,7 +42,6 @@ const CheckOut = (props: Props) => {
         email: data.email,
         message: data.message,
       };
-      console.log(data);
       addOrders({
         ...data,
         totalPrice: total,
@@ -61,6 +61,7 @@ const CheckOut = (props: Props) => {
         .then(() => {
           success("Đặt hàng thành công");
           localStorage.removeItem("cart");
+          route.push("/");
         })
         .catch((err) => {
           console.log(err);
