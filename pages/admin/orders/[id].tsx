@@ -15,7 +15,7 @@ const OrderDetail = (props: Props) => {
   const route = useRouter();
   const { id } = route.query;
   const { orders, orderDetail } = useSelector((state: RootState) => state.orderReducer);
-  const dataOrder = orderDetail.filter((item: any) => item.orderId?._id === id);
+  let dataOrder = orderDetail.filter((item: any) => item.orderId?._id === id);
   const columns: any = [
     {
       title: "Sản phẩm",

@@ -1,3 +1,4 @@
+import { Modal, Table } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,25 +9,99 @@ type Props = {};
 
 const userCart = (props: Props) => {
   const [active, setActive] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [idOrder, setIdOrder] = useState("");
+  const showModal = (id: any) => {
+    setIsModalOpen(true);
+    setIdOrder(id);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const isToggle = (number: number) => {
     setActive(number);
   };
   const { currentUser } = useSelector((state: RootState) => state.auth);
+  const { orders, orderDetail } = useSelector((state: RootState) => state.orderReducer);
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getallorders());
     dispatch(getallorderdetail());
   }, [dispatch]);
-  const { orders, orderDetail } = useSelector((state: RootState) => state.orderReducer);
+
   const order = orders.filter((item: any) => item.userId?._id === currentUser?._id);
+
   const data0 = order.filter((item: any) => item.status == 0);
   const data1 = order.filter((item: any) => item.status == 1);
   const data2 = order.filter((item: any) => item.status == 2);
   const data3 = order.filter((item: any) => item.status == 3);
   const data4 = order.filter((item: any) => item.status == 4);
   const data5 = order.filter((item: any) => item.status == 5);
+  const columns: any = [
+    {
+      title: "Sản phẩm",
+      key: "user",
+      render: (text: any) => (
+        <div className="flex">
+          <img src={text.image} width={120} />
+          <p className="px-2">{text.name}</p>
+        </div>
+      ),
+    },
+    {
+      title: "Đơn giá",
+      render: (text: any) => (
+        <div>
+          <span>{text.price}</span>
+        </div>
+      ),
+    },
+    {
+      title: "Số lượng",
+      render: (text: any) => (
+        <div>
+          <span>{text.quantity}</span>
+        </div>
+      ),
+    },
+    {
+      title: "Màu sắc",
+      render: (text: any) => (
+        <div>
+          <span>{text.color}</span>
+        </div>
+      ),
+    },
+    {
+      title: "Kích cỡ",
+      render: (text: any) => (
+        <div>
+          <span>{text.size}</span>
+        </div>
+      ),
+    },
+  ];
+  const dataOrder = orderDetail?.filter((item: any) => item.orderId?._id === idOrder);
+  const data = dataOrder.map((item: any) => {
+    return {
+      name: item.productId?.name,
+      image: item.productId?.image,
+      price: item.productId?.price,
+      quantity: item.quantity,
+      size: item.size?.sizeName,
+      color: item.color?.colorName,
+    };
+  });
   return (
     <div>
+      <Modal title="Basic Modal" width={1200} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <Table columns={columns} dataSource={data} />;
+      </Modal>
       <div className="main w-[1410px] mx-auto mt-[80px]">
         <h2 className="text-2xl">
           Trang chủ/{" "}
@@ -102,7 +177,9 @@ const userCart = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.createAt).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td>Chi tiết</td>
+                          <td onClick={() => showModal(item._id)} className="cursor-pointer">
+                            Chi tiết
+                          </td>
                         </tr>
                       ))}
                   </tbody>
@@ -116,7 +193,9 @@ const userCart = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.createAt).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td>Chi tiết</td>
+                          <td onClick={() => showModal(item._id)} className="cursor-pointer">
+                            Chi tiết
+                          </td>
                         </tr>
                       ))}
                   </tbody>
@@ -130,7 +209,9 @@ const userCart = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.createAt).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td>Chi tiết</td>
+                          <td onClick={() => showModal(item._id)} className="cursor-pointer">
+                            Chi tiết
+                          </td>
                         </tr>
                       ))}
                   </tbody>
@@ -144,7 +225,9 @@ const userCart = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.createAt).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td>Chi tiết</td>
+                          <td onClick={() => showModal(item._id)} className="cursor-pointer">
+                            Chi tiết
+                          </td>
                         </tr>
                       ))}
                   </tbody>
@@ -158,7 +241,9 @@ const userCart = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.createAt).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td>Chi tiết</td>
+                          <td onClick={() => showModal(item._id)} className="cursor-pointer">
+                            Chi tiết
+                          </td>
                         </tr>
                       ))}
                   </tbody>
@@ -172,7 +257,9 @@ const userCart = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.createAt).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td>Chi tiết</td>
+                          <td onClick={() => showModal(item._id)} className="cursor-pointer">
+                            Chi tiết
+                          </td>
                         </tr>
                       ))}
                   </tbody>

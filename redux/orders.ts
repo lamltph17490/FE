@@ -4,7 +4,7 @@ import { getAllOrderDetail, getAllOrders, updateOrders } from "../Api/orders";
 
 const initialState: any = {
     orders: [],
-    orderDetail: {},
+    orderDetail: [],
 };
 
 export const getallorders = createAsyncThunk<any>("orders/getall", 
