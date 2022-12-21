@@ -9,9 +9,11 @@ import {
 } from "../../../untils/cart";
 import AlertMessage from "../../../untils/alert";
 import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 type Props = {};
 
 const Cart = (props: Props) => {
+  const router = useRouter();
   const [cart, setCart] = useState<any>([]);
   const [reload, setReload] = useState<any>(true);
   const { success, error } = AlertMessage();
@@ -24,15 +26,15 @@ const Cart = (props: Props) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Vâng chắc chắn rồi!",
-  }).then(async (result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-          await removeItemInCart(id, () => {
-                // success("xóa thành công");
-                setReload(!reload);
-              });
-          Swal.fire("Thành công!", "Xóa thành công.", "success");
+        await removeItemInCart(id, () => {
+          // success("xóa thành công");
+          setReload(!reload);
+        });
+        Swal.fire("Thành công!", "Xóa thành công.", "success");
       }
-  });
+    });
     // if (window.confirm("bạn có muốn xóa không ?")) {
     //   removeItemInCart(id, () => {
     //     success("xóa thành công");
@@ -240,7 +242,11 @@ const Cart = (props: Props) => {
         rounded-md
         shadow
         hover:bg-blue-600
+        
       "
+              onClick={() => {
+                router.push("/checkout");
+              }}
             >
               Tới trang thanh toán
             </button>
