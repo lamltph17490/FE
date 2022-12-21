@@ -41,6 +41,7 @@ const CheckOut = (props: Props) => {
         phone: data.phone,
         email: data.email,
         message: data.message,
+        date: new Date(),
       };
       await addOrders({
         ...data,

@@ -102,7 +102,6 @@ const userCart = (props: Props) => {
       color: item.color?.colorName,
     };
   });
-  const dateNow = new Date();
 
   const onUpdateOrder = (values: any) => {
     Swal.fire({
@@ -115,7 +114,7 @@ const userCart = (props: Props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         if (values.status == 0) {
-          dispatch(updateOrder({ _id: values._id, status: values.status }))
+          dispatch(updateOrder({ _id: values._id, status: values.status, date: new Date() }))
             .unwrap()
             .then(() => {
               Swal.fire({
@@ -228,7 +227,7 @@ const userCart = (props: Props) => {
                           <td>{item.customerName}</td>
                           <td>{item.phone}</td>
                           <td>{item.email}</td>
-                          <td>{moment(item.createdAt).format("DD/MM/YYYY")}</td>
+                          <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
                           <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
                             Chi tiết
@@ -252,7 +251,7 @@ const userCart = (props: Props) => {
                           <td>{item.customerName}</td>
                           <td>{item.phone}</td>
                           <td>{item.email}</td>
-                          <td>{moment(item.createdAt).format("DD/MM/YYYY")}</td>
+                          <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
                           <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
                             Chi tiết
@@ -268,7 +267,7 @@ const userCart = (props: Props) => {
                           <td>{item.customerName}</td>
                           <td>{item.phone}</td>
                           <td>{item.email}</td>
-                          <td>{moment(item.createdAt).format("DD/MM/YYYY")}</td>
+                          <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
                           <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
                             Chi tiết
@@ -284,7 +283,7 @@ const userCart = (props: Props) => {
                           <td>{item.customerName}</td>
                           <td>{item.phone}</td>
                           <td>{item.email}</td>
-                          <td>{moment(item.createdAt).format("DD/MM/YYYY")}</td>
+                          <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
                           <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
                             Chi tiết
@@ -300,7 +299,7 @@ const userCart = (props: Props) => {
                           <td>{item.customerName}</td>
                           <td>{item.phone}</td>
                           <td>{item.email}</td>
-                          <td>{moment(item.createdAt).format("DD/MM/YYYY")}</td>
+                          <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
                           <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
                             Chi tiết
@@ -316,7 +315,7 @@ const userCart = (props: Props) => {
                           <td>{item.customerName}</td>
                           <td>{item.phone}</td>
                           <td>{item.email}</td>
-                          <td>{moment(item.createdAt).format("DD/MM/YYYY")}</td>
+                          <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
                           <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
                             Chi tiết
