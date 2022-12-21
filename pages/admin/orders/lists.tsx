@@ -8,7 +8,7 @@ import Link from "next/link";
 type Props = {};
 const { Option } = Select;
 const ListOrders = (props: Props) => {
-  const { orders } = useSelector((state: RootState) => state.orderReducer);
+  let { orders } = useSelector((state: RootState) => state.orderReducer);
   const dispatch = useDispatch();
   const onChange = (id: any, value: any) => {
     console.log(id, value);
@@ -106,9 +106,8 @@ const ListOrders = (props: Props) => {
       render: (item: any) => <Link href={`/admin/orders/${item._id}`}>Chi tiết</Link>,
     },
   ];
-
   const data = orders
-    .sort((a: any, b: any) => a.status - b.status)
+    // .sort((a: any, b: any) => a.status - b.status)
     .map((item: any) => {
       return {
         _id: item._id,
@@ -122,6 +121,7 @@ const ListOrders = (props: Props) => {
         status: item.status,
       };
     });
+
   return (
     <>
       <div className="p-6 mt-24 overflow-hidden">
@@ -129,7 +129,7 @@ const ListOrders = (props: Props) => {
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
               <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <Table columns={columns} dataSource={data} />;
+                <Table columns={columns} dataSource={data} />
               </div>
             </div>
           </div>
