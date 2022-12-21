@@ -32,8 +32,8 @@ const CheckOut = (props: Props) => {
     formState: { errors },
     reset,
   } = useForm<Inputs>();
-  let orderDetail: any = [];
-  const onSubmit: SubmitHandler<Inputs> = (data: any) => {
+
+  const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
     if (data) {
       data = {
         customerName: data.customerName,
@@ -42,16 +42,17 @@ const CheckOut = (props: Props) => {
         email: data.email,
         message: data.message,
       };
-      addOrders({
+      await addOrders({
         ...data,
         totalPrice: total,
         userId: currentUser?._id,
       })
-        .then((res) => {
-          orderDetail.push(res);
+        .then((res: any) => {
+          // console.log(res._id);
+
           return cart?.map((item: any) =>
             addOrderDetail({
-              orderId: orderDetail[0]?._id,
+              orderId: res._id,
               productId: item?.id,
               quantity: item?.quantity,
               // productPrice: item?.id?.price,
