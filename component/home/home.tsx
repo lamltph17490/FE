@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
+import CateHome from './catePrdHome'
 import PostHome from './postHome'
 import PrdHome from './prdHome'
 
@@ -367,27 +368,8 @@ const HomePage = (props: Props) => {
       </section>
 
       {/* service */}
-      <section
-        className="categories container-full py-5 bg-rose-50"
-        data-aos="zoom-in-up"
-      >
-        <div className="w-[1410px] mx-auto  flex-wrap  flex justify-center">
-          {/* {cateProduct.map((item:any)=>(
-            <div className="cate_item lg:w-1/5 md:w-2/5 pr-4 pl-4">
-            <a href="#">
-             <picture>
-              <img
-                  src={item.image}
-                  className="rounded-full max-w-full h-auto border" alt=''
-                />
-             </picture>
-            </a>
-            <h5 className="text-center title mt-3 mb-3 text-sm capitalize text-black">
-              <a href="#">{item.name}</a>
-            </h5>
-          </div>
-          ))} */}
-        </div>
+      <section className="categories container-full py-5 bg-rose-50" data-aos="zoom-in-up">
+        <CateHome posts={[]}/>
       </section>
 
       {/* Product Section Begin */}
@@ -434,7 +416,7 @@ const HomePage = (props: Props) => {
           </div>
         </div>
       </section>
-      <section className="w-[1410px] mx-auto">
+      {/* <section className="w-[1410px] mx-auto">
         <div className="container px-6 text-gray-600 md:px-12 xl:px-6">
           <h2 className="mb-12 text-center text-2xl text-gray-900 font-light md:text-4xl">
             Đánh Giá Từ Khách Hàng
@@ -593,7 +575,7 @@ const HomePage = (props: Props) => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Latest Blog Section Begin */}
       <section className="bg-white dark:bg-gray-900">
