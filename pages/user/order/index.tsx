@@ -40,22 +40,22 @@ const userCart = (props: Props) => {
   // const [order, setOrder] = useState<any>([]);
   const order = orders.filter((item: any) => item.userId?._id === currentUser?._id);
   const data0 = order
-    .sort((a: any, b: any) => moment(a.date).unix() - moment(b.date).unix())
+    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
     .filter((item: any) => item.status == 0);
   const data1 = order
-    .sort((a: any, b: any) => moment(a.date).unix() - moment(b.date).unix())
+    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
     .filter((item: any) => item.status == 1);
   const data2 = order
-    .sort((a: any, b: any) => moment(a.date).unix() - moment(b.date).unix())
+    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
     .filter((item: any) => item.status == 2);
   const data3 = order
-    .sort((a: any, b: any) => moment(a.date).unix() - moment(b.date).unix())
+    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
     .filter((item: any) => item.status == 3);
   const data4 = order
-    .sort((a: any, b: any) => moment(a.date).unix() - moment(b.date).unix())
+    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
     .filter((item: any) => item.status == 4);
   const data5 = order
-    .sort((a: any, b: any) => moment(a.date).unix() - moment(b.date).unix())
+    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
     .filter((item: any) => item.status == 5);
   const columns: any = [
     {
