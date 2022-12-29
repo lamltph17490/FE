@@ -7,7 +7,7 @@ const index = (props: Props) => {
     <div>
       <h1>Thanh toán thành công !</h1>{" "}
       <button>
-        <Link href="/payment">Quay về trang chủ </Link>
+        <Link href="/">Quay về trang chủ </Link>
       </button>
     </div>
   );

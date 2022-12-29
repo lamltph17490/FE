@@ -54,9 +54,8 @@ const CheckOut = (props: Props) => {
           return cart?.map((item: any) =>
             addOrderDetail({
               orderId: res._id,
-              productId: item?.id,
+              productId: { ...item?.id },
               quantity: item?.quantity,
-              // productPrice: item?.id?.price,
               size: item?.size,
               color: item?.color,
             }),
