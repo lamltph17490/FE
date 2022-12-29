@@ -1,4 +1,5 @@
 import { Table } from "antd";
+import moment from "moment";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -7,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AdminLayout } from "../../../layouts";
 import { getallorderdetail, getallorders } from "../../../redux/orders";
 import { RootState } from "../../../redux/store";
+import { thousandFormat } from "../../../untils";
 
 type Props = {};
 
@@ -16,6 +18,8 @@ const OrderDetail = (props: Props) => {
   const { id } = route.query;
   const { orders, orderDetail } = useSelector((state: RootState) => state.orderReducer);
   let dataOrder = orderDetail.filter((item: any) => item.orderId?._id === id);
+  console.log(dataOrder);
+
   const columns: any = [
     {
       title: "Sản phẩm",
@@ -90,7 +94,13 @@ const OrderDetail = (props: Props) => {
           <span>Chi tiết đơn hàng</span>
         </div>
       </header>
-      <div className="p-6 mt-24 overflow-hidden">
+      <div className="mt-20 px-10 border-b border-gray-700">
+        <p>Ngày đặt: {moment(dataOrder[0]?.orderId?.date).format("DD/MM/YYYY")}</p>
+        <p>Người nhận: {dataOrder[0]?.orderId?.customerName}</p>
+        <p>Đơn hàng {dataOrder[0]?.orderId?.paid == true ? "đã thanh toán" : "chưa thanh toán"}</p>
+        <p>Tổng tiền đơn: {thousandFormat(dataOrder[0]?.orderId?.totalPrice)}đ</p>
+      </div>
+      <div className="p-6 overflow-hidden">
         <div className="flex flex-col">
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
