@@ -43,6 +43,20 @@ export default function ProductForm(props: ProductFormProps): ReactElement {
         <InputNumber style={{ width: "auto", minWidth: 200 }} formatter={value => (value ? thousandFormat(+value) : "")}
                      parser={value => value ? parserThousandFormat(value) : 0} controls={false} addonAfter="VND" />
       </Form.Item>
+      <Form.Item label="Trạng thái" name="status" rules={[{ required: true }]}>
+        <Select 
+          style={{ width: 220 }}
+          options={[
+            {
+              value: '0',
+              label: 'Ngừng kinh doanh',
+            },
+            {
+              value: '1',
+              label: 'Còn kinh doanh',
+            },
+          ]} />
+      </Form.Item>
       <Form.Item label="Mô tả" name="desc" rules={[{ required: true, message: "Vui lòng không để trống" }]}>
         <ReactQuill
           modules={modules}

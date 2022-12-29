@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { RootState } from "../../../redux/store";
 import { Tblog } from "../../../models/blogs";
-import { deleteprdSize, getprdSizes } from "../../../redux/prdSizeSlice";
-import { getVouches } from "../../../redux/voucheSlice";
+
+import { deleteVouche, getVouches } from "../../../redux/voucheSlice";
 
 type Props = {};
 interface DataType {
@@ -39,7 +39,7 @@ const PrdSizeList = (props: Props) => {
             confirmButtonText: "Vâng chắc chắn rồi!",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await dispatch(deleteprdSize(id)).unwrap();
+                await dispatch(deleteVouche(id)).unwrap();
                 Swal.fire("Thành công!", "Xóa thành công.", "success");
             }
         });

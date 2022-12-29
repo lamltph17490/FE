@@ -111,6 +111,7 @@ const BlogList = (props: Props) => {
       title: "Ảnh",
       dataIndex: "image",
       key: "image",
+      // eslint-disable-next-line @next/next/no-img-element
       render: (img) => <img src={img} width="120" alt="" />,
     },
     {
@@ -121,7 +122,12 @@ const BlogList = (props: Props) => {
         return data.action.colors.map((i: ProductColor) => i.sizes.reduce((a, b) => a + b.amount, 0)).reduce((a: number, b: number) => a + b, 0) || 0
       },
     },
-
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+      render: (item)=> (<>{item.status ? "Ngừng kinh doanh" :  "Còn kinh doanh"}</>),
+    },
     {
       title: "Hành động",
       key: "action",
@@ -151,6 +157,7 @@ const BlogList = (props: Props) => {
       categoryId: item.categoryId?.name,
       image: item.image,
       desc: item.desc,
+      status:item,
       action: item,
       id: item._id,
     };
