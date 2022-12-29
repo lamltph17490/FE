@@ -52,7 +52,7 @@ const CheckOut = (props: Props) => {
       })
         .then((res: any) => {
           // console.log(res._id);
-
+          sessionStorage.setItem("oderId", res._id);
           return cart?.map((item: any) =>
             addOrderDetail({
               orderId: res._id,

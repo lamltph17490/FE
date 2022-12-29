@@ -1,33 +1,36 @@
 import axiosClient from "./config";
 
 export const getAllOrders = () => {
-    return axiosClient.get("/order");
+  return axiosClient.get("/order");
 };
 
 export const removeOrders = (id: string) => {
-    return axiosClient.delete(`/order/${id}`);
+  return axiosClient.delete(`/order/${id}`);
 };
 
 export const addOrders = (product: any) => {
-    return axiosClient.post("/order", product);
+  return axiosClient.post("/order", product);
 };
 
 export const getOrders = (id: string) => {
-    return axiosClient.get(`/order/${id}`);
+  return axiosClient.get(`/order/${id}`);
 };
 
 export const updateOrders = (product: any) => {
-    return axiosClient.put(`/order/${product._id}`, product);
+  return axiosClient.put(`/order/${product._id}`, product);
+};
+export const updatePaidOrder = (id: any, product: any) => {
+  return axiosClient.put(`/order/${id}`, product);
 };
 export const getAllOrderDetail = () => {
-    return axiosClient.get("/orderDetail");
+  return axiosClient.get("/orderDetail");
 };
 export const createPayment = (payment: any) => {
-    return axiosClient.post("/order/create_payment_url", payment);
-}
+  return axiosClient.post("/order/create_payment_url", payment);
+};
 export const vnpayReturn = (payment: any) => {
-    return axiosClient.get("/order/vnpay_return", payment);
-}
+  return axiosClient.get("/order/vnpay_return", payment);
+};
 export const vnpayIpn = (payment: any) => {
-    return axiosClient.get("/order/vnpay_ipn", payment);
-}
+  return axiosClient.get("/order/vnpay_ipn", payment);
+};
