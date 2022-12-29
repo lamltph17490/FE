@@ -60,20 +60,29 @@ const header = (props: Props) => {
                   </a>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <a className="hover:text-gray-200" href="#">
                   <a href="" className="text-white">
                     Giới Thiệu
                   </a>
                 </a>
-              </li>
+              </li> */}
             </ul>
             {/* Header Icons */}
             <div className="hidden xl:flex space-x-5 items-center">
-              <a className="hover:text-gray-200 text-white" href="#">
-                {/* <img src="img/icon/search.png" /> */}
+              {/* <a className="hover:text-gray-200 text-white" href="#">         
                 <FontAwesomeIcon className="text-2xl" icon={faSearch} />
-              </a>
+              </a> */}
+              <div className="max-w-lg w-full lg:max-w-xs">
+                <form method="get" action="#" className="relative z-50">
+                  <button type="submit" id="searchsubmit" className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path>
+                    </svg>
+                  </button>
+                  <input type="text" name="s" id="s" className="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-white-200 text-gray-300 placeholder-gray-400 focus:outline-none focus:bg-white focus:text-gray-900 sm:text-sm transition duration-150 ease-in-out" placeholder="Tìm kiếm"/>
+                </form>
+              </div>
 
               <a className="flex items-center hover:text-gray-200 text-white" href="#">
                 {isLogged ? (
@@ -89,11 +98,10 @@ const header = (props: Props) => {
                   <li className="relative group flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">
                     <Link href="/user">
                       <a className="hover:text-gray-200 text-white" href="#">
-                        <FontAwesomeIcon className="text-2xl" icon={faUser} />
+                        
+                        <span className="ml-1 group-hover:text-[#282828]"><FontAwesomeIcon className="text-2xl" icon={faUser} /></span>
                       </a>
-                    </Link>
-                    <span className="ml-1 group-hover:text-[#282828]">Tài khoản</span>
-
+                    </Link>                 
                     <ul className="bg-white hidden group-hover:block absolute top-[calc(100%+8px)] left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
                       <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#4d8a54]">
                         <Link href="/login">
@@ -114,12 +122,6 @@ const header = (props: Props) => {
                 )}
               </a>
               {/* Sign In / Register      */}
-              <a className="flex items-center hover:text-gray-200" href="#">
-                <img src="img/icon/heart.png" />
-              </a>
-              <a className="flex items-center hover:text-gray-200" href="/cart/order">
-                <img src="img/icon/cart.png" />
-              </a>
               <Link href={"/cart/order"}>
                 <a className="hover:text-gray-200 text-white" href="#">
                   {/* <img src="img/icon/search.png" /> */}

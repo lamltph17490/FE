@@ -22,34 +22,40 @@ const UserNav = (props: Props) => {
     <div className="w-[200px]">
       <h2 className="text-xl">Trang tài khoản</h2>
       <div className="mt-[14px]">
-        <span>
-          <a href="" className="text-lg">
-            Xin chào:{" "}
-          </a>
-          <a href="" className="text-red-500 text-lg">
-            {currentUser.name}
-          </a>
-        </span>
+        
+          <ul className="flex">
+            <li className="mr-[40px]">
+              <a href="" className="text-lg">
+              Xin chào:{" "}
+              </a>
+            </li>
+            <li>
+              <a href="" className="text-red-500 text-lg">
+              {currentUser.name}
+              </a>
+            </li>
+
+          </ul>
       </div>
 
       <ul className=" text-lg">
         <li>
           <Link href="/user" className="mb-8">
-            Thông tin tài khoản
+            <span>Thông tin tài khoản</span>
           </Link>
         </li>
         <li>
           <Link href="/user/order" className="mb-[12px]">
-            Đơn hàng của bạn
+            <span>Đơn hàng của bạn</span>
           </Link>
         </li>
         <li>
           <Link href="/user/changePassword" className="mb-[12px]">
-            Đổi lại mật khẩu
+            <span>Đổi lại mật khẩu</span>
           </Link>
         </li>
         <li className="mb-[12px] cursor-pointer" onClick={handleLogout}>
-          Đăng xuất
+          <span>Đăng xuất</span>
         </li>
       </ul>
     </div>

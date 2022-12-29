@@ -17,6 +17,11 @@ const User = (props: Props) => {
                     <div className='ml-[140px]'>
                         <h2 className='text-xl'>Thông tin tài khoản</h2>
                         <div className='mt-[14px]'>
+                            <ul>
+                                <li><a href=""></a></li>
+                                <li><a href=""></a></li>
+                                <li><a href=""></a></li>
+                            </ul>
                             <div className='text-lg'><a href="" >Họ và tên: </a> <a href="">{currentUser.name}</a></div>
                             <div className='text-lg'><a href="" >Email: </a> <a href="">{currentUser.email}</a></div>
                             <div className='text-lg'><a href="" >Số điện thoại: </a> <a href="">{currentUser.phone}</a></div>
