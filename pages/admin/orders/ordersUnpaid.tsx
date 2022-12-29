@@ -1,15 +1,21 @@
-import React, { useState } from "react";
-import { message, Select, Space, Table, Tag } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import React, { useRef, useState } from "react";
+import { InputRef, message, Select, Space, Table, Input, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { getallorderdetail, getallorders, updateOrder } from "../../../redux/orders";
 import Link from "next/link";
 import moment from "moment";
 import { thousandFormat } from "../../../untils";
+import { SearchOutlined } from "@ant-design/icons";
+import type { ColumnsType, ColumnType } from "antd/es/table";
+import type { FilterConfirmProps } from "antd/es/table/interface";
+import Highlighter from "react-highlight-words";
 type Props = {};
 const { Option } = Select;
 const OrdersUnpaid = (props: Props) => {
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef<InputRef>(null);
   const [active, setActive] = useState(0);
   const [flag, setFlag] = useState(false);
   const isToggle = (number: number) => {
@@ -39,12 +45,102 @@ const OrdersUnpaid = (props: Props) => {
     { name: "Hoàn thành", value: 4 },
     { name: "Hủy đơn hàng", value: 5 },
   ];
+  // search
+
+  const handleSearch = (selectedKeys: string[], confirm: (param?: FilterConfirmProps) => void, dataIndex: any) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters: () => void) => {
+    clearFilters();
+    setSearchText("");
+  };
+
+  const getColumnSearchProps = (dataIndex: any): ColumnType<any> => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
+      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
+          style={{ marginBottom: 8, display: "block" }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button onClick={() => clearFilters && handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+            Reset
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({ closeDropdown: false });
+              setSearchText((selectedKeys as string[])[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Filter
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              close();
+            }}
+          >
+            close
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />,
+    onFilter: (value, record) =>
+      record[dataIndex]
+        .toString()
+        .toLowerCase()
+        .includes((value as string).toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+  //   end search
   const columns: any = [
     {
-      title: "Người đặt",
-      key: "user",
-      render: (text: any) => <a>{text.user}</a>,
+      title: "MĐH",
+      key: "mdh",
+      dataIndex: "_id",
+      ...getColumnSearchProps("_id"),
     },
+    // {
+    //   title: "Người đặt",
+    //   key: "user",
+    //   render: (text: any) => <a>{text.user}</a>,
+    // },
     {
       title: "Người nhận",
       dataIndex: "name",
@@ -59,11 +155,13 @@ const OrdersUnpaid = (props: Props) => {
       title: "Email",
       key: "email",
       dataIndex: "email",
+      ...getColumnSearchProps("email"),
     },
     {
       title: "Số điện thoại",
       key: "phone",
       dataIndex: "phone",
+      ...getColumnSearchProps("phone"),
     },
     {
       title: "Ngày đặt",
@@ -240,7 +338,7 @@ const OrdersUnpaid = (props: Props) => {
         date: item.date,
       };
     });
-  const data5 = orders
+  let data5 = orders
     .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
     .filter((item: any) => item.status == 5)
     .map((item: any) => {
@@ -257,9 +355,10 @@ const OrdersUnpaid = (props: Props) => {
         date: item.date,
       };
     });
+
   return (
     <>
-      <div className="p-6 mt-10 overflow-hidden">
+      <div className="p-6 overflow-hidden">
         <div className="my-10">
           <button
             onClick={() => isToggle(0)}
