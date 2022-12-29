@@ -17,6 +17,7 @@ type Inputs = {
   address: string;
   city: string;
   message: string;
+  payment: string;
 };
 type Props = {};
 
@@ -24,7 +25,7 @@ const CheckOut = (props: Props) => {
   const [cart, setCart] = useState<any>([]);
   const currentUser = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
   const route = useRouter();
-  const { success, error } = AlertMessage();
+  const { success, error, confirmCustom } = AlertMessage();
   const {
     register,
     handleSubmit,
@@ -34,6 +35,7 @@ const CheckOut = (props: Props) => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
+    const payment = data.payment;
     if (data) {
       data = {
         customerName: data.customerName,
@@ -62,12 +64,27 @@ const CheckOut = (props: Props) => {
           );
         })
         .then(() => {
-          success("Đặt hàng thành công,đi tới trang thanh toán");
-          localStorage.removeItem("cart");
-          sessionStorage.setItem("total", total);
-          setTimeout(() => {
-            return route.push("/payment");
-          }, 2000);
+          if (payment === "cod") {
+            confirmCustom(
+              "Đặt hàng thành công !",
+              "Đơn hàng của bạn đang được xử lý",
+              "Tiếp tục mua hàng",
+              "Về trang chủ",
+              () => {
+                return route.push("/product");
+              },
+              () => {
+                return route.push("/");
+              },
+            );
+          } else {
+            success("Đặt hàng thành công,đi tới trang thanh toán");
+            localStorage.removeItem("cart");
+            sessionStorage.setItem("total", total);
+            setTimeout(() => {
+              return route.push("/payment");
+            }, 2000);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -180,6 +197,34 @@ const CheckOut = (props: Props) => {
                     placeholder=""
                     {...register("message")}
                   />
+                </div>
+                <div className="relative pt-3 xl:pt-6">
+                  <label htmlFor="note" className="block mb-3 text-sm font-semibold text-gray-500">
+                    {" "}
+                    Chọn phương thức thanh toán
+                  </label>
+                  <div className="">
+                    <label htmlFor="" className="p-1">
+                      <input
+                        type="radio"
+                        id=""
+                        {...register("payment", { required: "vui lòng chọn phương thúc thanh toán", value: "cod" })}
+                        value="cod"
+                        className=""
+                      />
+                      <span className="p-1">Thanh toán khi nhận hàng</span>
+                    </label>
+                    <label htmlFor="" className="p-1">
+                      <input
+                        type="radio"
+                        id=""
+                        {...register("payment", { required: "vui lòng chọn phương thúc thanh toán" })}
+                        value="online"
+                      />
+                      <span className="p-1">Thanh toán ngay</span>
+                    </label>
+                    <p className="text-red-600 mt-1"> {errors?.payment?.message}</p>
+                  </div>
                 </div>
                 <div className="mt-4">
                   <button className="w-full px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900">Thanh toán</button>
