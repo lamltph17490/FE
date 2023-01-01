@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 import { AdminLayout } from "../../layouts";
 import { NextPageWithLayout } from "../../models/layout";
-import { Card, Col, Row, Select, Space, Spin, Table } from "antd";
+import { Avatar, Card, Col, List, Row, Select, Space, Spin, Table, Typography } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import DataDisplayWidget from "../../component/admin/dashboard/DataDisplayWidget";
 import "antd/dist/antd.css";
@@ -12,6 +12,7 @@ import { ApexOptions } from "apexcharts";
 import moment from "moment";
 import dynamic from "next/dynamic";
 import { thousandFormat } from "../../untils";
+import { Tprd } from "../../models/prd";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -25,7 +26,7 @@ interface StatisticDashboard {
     totalSaleProducts: number;
   };
   orders: any;
-  ordersDetail: any;
+  populateProducts: Array<Tprd & { quantity: number }>;
 }
 
 const Andex: NextPageWithLayout = (props: Props) => {
@@ -39,24 +40,24 @@ const Andex: NextPageWithLayout = (props: Props) => {
       totalRevenue: 0,
     },
     orders: {},
-    ordersDetail: {},
+    populateProducts: [],
   });
   const [seriesMonthly, setSeriesMonthly] = useState<ApexOptions["series"]>([]);
-  const [seriesProducts, setSeriesProducts] = useState<Array<number>>([]);
-  const [labelsProducts, setLabelsProducts] = useState<Array<string>>([]);
+  const [seriesProducts, setSeriesProducts] = useState<Array<any>>([]);
+  const [seriesToday, setSeriesToday] = useState<Array<any>>([]);
 
   const chartMonthOptions: ApexOptions = {
     noData: {
-      text: 'Không có dữ liệu',
-      align: 'center',
-      verticalAlign: 'middle',
+      text: "Không có dữ liệu",
+      align: "center",
+      verticalAlign: "middle",
       offsetX: 0,
       offsetY: 0,
       style: {
         color: undefined,
-        fontSize: '14px',
-        fontFamily: undefined
-      }
+        fontSize: "14px",
+        fontFamily: undefined,
+      },
     },
     chart: {
       height: 350,
@@ -102,38 +103,25 @@ const Andex: NextPageWithLayout = (props: Props) => {
       },
     },
   };
-
-  const chartProductsOptions: ApexOptions = useMemo(() => ({
-      noData: {
-        text: 'Không có dữ liệu',
-        align: 'center',
-        verticalAlign: 'middle',
-        offsetX: 0,
-        offsetY: 0,
-        style: {
-          color: undefined,
-          fontSize: '14px',
-          fontFamily: undefined
-        }
-      },
-      chart: {
-        width: 380,
-        type: "pie",
-      },
-      labels: labelsProducts,
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: "bottom",
-          },
+  const todayChartOptions = useMemo(() => ({
+    chart: {
+      width: 380,
+      type: "pie",
+    },
+    labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200,
         },
-      }],
-    }
-  ), [labelsProducts]);
+        legend: {
+          position: "bottom",
+        },
+      },
+    }],
+  }), [seriesToday]);
+
   const loadStatisticDashboard = useCallback((monthSelected?: number | undefined) => {
     setLoading(true);
     StatisticApi.dashboard().then((res: any) => {
@@ -147,18 +135,10 @@ const Andex: NextPageWithLayout = (props: Props) => {
           return 0;
         }),
       }];
-      const seriesProduct = Object.keys(res.ordersDetail).map((productId) => {
-        const orderDetails: Array<OrderDetail> = res.ordersDetail[productId];
-        return {
-          ...orderDetails[0].product,
-          month: moment(orderDetails[0].createdAt).month() + 1,
-          quantity: orderDetails.reduce((a, b) => a + b.quantity, 0),
-        };
-      });
       setSeriesMonthly(seriesMonthly);
-      console.log('monthSelected', monthSelected);
-      setSeriesProducts(seriesProduct.filter(i => monthSelected ? i.month === monthSelected : true).map(i => i.quantity));
-      setLabelsProducts(seriesProduct.filter(i => monthSelected ? i.month === monthSelected : true).map(i => i.name || ""));
+      setSeriesProducts(res.populateProducts);
+      console.log("res.ordersToday", res.ordersToday);
+      setSeriesToday(res.ordersToday);
       setLoading(false);
     });
   }, [months]);
@@ -167,7 +147,13 @@ const Andex: NextPageWithLayout = (props: Props) => {
   }, []);
   return (
     <>
-      <AppBreadcrumb title="Dashboard" description="chart" />
+      <AppBreadcrumb title="Dashboard" description="chart" button={<Select
+        style={{ width: 120 }}
+        placeholder="Chọn tháng"
+        options={Array.from(new Array(moment().month() + 1)).map((_, index) => ({
+          label: `Tháng ${index + 1}`,
+          value: index + 1,
+        }))} />} />
       <Space direction="vertical" size="middle" style={{ display: "flex", marginTop: 60, padding: 24 }}>
         <Row gutter={16}>
           <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={6}>
@@ -213,18 +199,37 @@ const Andex: NextPageWithLayout = (props: Props) => {
           </Col>
         </Row>
         <Row gutter={16}>
-          <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+          <Col md={24} lg={8}>
             <Card title="Doanh thu theo tháng">
               <ReactApexChart series={seriesMonthly} options={chartMonthOptions} type="line" height={350} />
             </Card>
           </Col>
-          <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-            <Card title="Thống kê sản phẩm"
-                  extra={<Select placeholder="Chọn tháng" style={{ width: 150 }} onSelect={(value: number) => {
-                    loadStatisticDashboard(value);
-                  }} options={months.map(i => ({ label: `Tháng ${i}`, value: i }))} />}>
+          <Col md={24} lg={8}>
+            <Card title="Tổng hóa đơn hôm nay">
+              <ReactApexChart series={seriesMonthly} options={chartMonthOptions} type="pie" height={350} />
+            </Card>
+          </Col>
+          <Col md={24} lg={8}>
+            <Card title="Sản phẩm bán chạy" extra="số lượng">
               <Spin spinning={loading}>
-                <ReactApexChart options={chartProductsOptions} series={seriesProducts} type="pie" width={550} />
+                <List itemLayout="vertical" size="large" dataSource={seriesProducts} renderItem={(item, index) => (
+                  <List.Item key={item._id}
+                             style={{ display: "flex", justifyContent: "space-between", padding: "5px 0 0 0" }}>
+                    <List.Item.Meta
+                      title={item.name}
+                      avatar={
+                        <Avatar
+                          size="large"
+                          style={{
+                            backgroundColor: index === 0 ? "#c6401c" : index === 1 ? "rgb(245, 106, 0)" : index === 2 ? "orange" : "#888888",
+                          }}
+                        >
+                          {index + 1}
+                        </Avatar>}
+                    />
+                    <Typography.Title level={4}>{item.quantity}</Typography.Title>
+                  </List.Item>
+                )} />
               </Spin>
             </Card>
           </Col>
