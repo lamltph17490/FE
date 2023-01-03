@@ -124,7 +124,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
 
   const loadStatisticDashboard = useCallback((monthSelected?: number | undefined) => {
     setLoading(true);
-    StatisticApi.dashboard().then((res: any) => {
+    StatisticApi.dashboard(monthSelected).then((res: any) => {
       setStatisticDashboard(res);
       const seriesMonthly: ApexOptions["series"] = [{
         name: "Doanh thu", data: months.map((month) => {
@@ -148,6 +148,9 @@ const Andex: NextPageWithLayout = (props: Props) => {
   return (
     <>
       <AppBreadcrumb title="Dashboard" description="chart" button={<Select
+        onSelect={(value: number) => {
+          loadStatisticDashboard(value)
+        }}
         style={{ width: 120 }}
         placeholder="Chọn tháng"
         options={Array.from(new Array(moment().month() + 1)).map((_, index) => ({
