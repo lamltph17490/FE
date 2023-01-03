@@ -148,6 +148,10 @@ const Andex: NextPageWithLayout = (props: Props) => {
   return (
     <>
       <AppBreadcrumb title="Dashboard" description="chart" button={<Select
+        allowClear
+        onClear={() => {
+          loadStatisticDashboard()
+        }}
         onSelect={(value: number) => {
           loadStatisticDashboard(value)
         }}
