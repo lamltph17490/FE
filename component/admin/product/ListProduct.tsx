@@ -123,12 +123,6 @@ const BlogList = (props: Props) => {
       },
     },
     {
-      title: "Trạng thái",
-      dataIndex: "status",
-      key: "status",
-      render: (item)=> (<>{item.status ? "Còn kinh doanh" :  "Ngừng kinh doanh"}</>),
-    },
-    {
       title: "Hành động",
       key: "action",
       render: (item) => (
