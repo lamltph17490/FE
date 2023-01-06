@@ -43,7 +43,18 @@ export default function ProductForm(props: ProductFormProps): ReactElement {
         <InputNumber style={{ width: "auto", minWidth: 200 }} formatter={value => (value ? thousandFormat(+value) : "")}
                      parser={value => value ? parserThousandFormat(value) : 0} controls={false} addonAfter="VND" />
       </Form.Item>
-      <Form.Item label="Mô tả" name="desc" rules={[{ required: true, message: "Vui lòng không để trống" }]}>
+      <Form.Item label="Mô tả" name="content" rules={[{ required: true, message: "Vui lòng không để trống" }]}>
+        <ReactQuill
+          modules={modules}
+          formats={formats}
+          theme="snow"
+          value={data?.content}
+          onChange={(value) => {
+            form.setFieldsValue({ content: value })
+          }}
+        />
+      </Form.Item>
+      <Form.Item label="Mô tả chi tiết" name="desc" rules={[{ required: true, message: "Vui lòng không để trống" }]}>
         <ReactQuill
           modules={modules}
           formats={formats}
