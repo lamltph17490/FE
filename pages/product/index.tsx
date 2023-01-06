@@ -9,6 +9,7 @@ import { TprdCate } from '../../models/prdCate';
 import { getprdCates } from '../../redux/prdCateSlice';
 import { getProducts } from '../../redux/prdSlice';
 import { RootState } from '../../redux/store';
+import { thousandFormat } from '../../untils';
 import styles from './cate.module.css'
 
 
@@ -164,10 +165,7 @@ const Product = (props: Props) => {
                       </h3>
                     </Link>
                     <p className="text-lg font-semibold text-[#A71010] ">
-                      {/* <span className="text-lg mr-[8px] font-semibold text-gray-400 line-through ">
-                      $33.69
-                    </span> */}
-                      <span>${item.price}</span>
+                      <span>{thousandFormat(item.price)} VNĐ</span>
                     </p>
                   </div>
                 </div>

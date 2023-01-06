@@ -26,7 +26,7 @@ const CateHome = (props: Props) => {
               </picture>
             </a>
             <h5 className="text-center title mt-3 mb-3">
-              <a href="#">{item.name}</a>
+              <a href="#" className='text-black'>{item.name}</a>
             </h5>
           </div>
           ))}

@@ -160,7 +160,7 @@ const HomePage = (props: Props) => {
                 <h4 className="font-semibold text-xl text-dark mb-3">
                   Thanh Toán Tiện Lợi
                 </h4>
-                <p className="text-body-color">We dejoy working with discerning</p>
+                {/* <p className="text-body-color">We dejoy working with discerning</p> */}
               </div>
             </div>
             <div className="w-full md:w-1/2 lg:w-1/4 px-4">
@@ -220,7 +220,7 @@ const HomePage = (props: Props) => {
                 <h4 className="font-semibold text-xl text-dark mb-3">
                   Tư Vấn Nhiệt Tình
                 </h4>
-                <p className="text-body-color">We dejoy working with discerning</p>
+                {/* <p className="text-body-color">We dejoy working with discerning</p> */}
               </div>
             </div>
             <div className="w-full md:w-1/2 lg:w-1/4 px-4">
@@ -300,7 +300,7 @@ const HomePage = (props: Props) => {
                 <h4 className="font-semibold text-xl text-dark mb-3">
                   Giao Hàng Nhanh
                 </h4>
-                <p className="text-body-color">We dejoy working with discerning</p>
+                {/* <p className="text-body-color">We dejoy working with discerning</p> */}
               </div>
             </div>
             <div className="w-full md:w-1/2 lg:w-1/4 px-4">
@@ -360,7 +360,7 @@ const HomePage = (props: Props) => {
                 <h4 className="font-semibold text-xl text-dark mb-3">
                   Đổi Trả Trong 14 Ngày
                 </h4>
-                <p className="text-body-color">We dejoy working with discerning</p>
+                {/* <p className="text-body-color">We dejoy working with discerning</p> */}
               </div>
             </div>
           </div>
@@ -402,14 +402,16 @@ const HomePage = (props: Props) => {
                     className="w-[440px] form-control block  px-4 py-2 mb-2 md:mb-0 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Email của bạn"
                   />
-                  <button
-                    type="submit"
-                    className="inline-block px-7 py-3 bg-black text-white font-normal text-sm leading-snug uppercase hover:bg-black hover:text-black "
-                    data-mdb-ripple="true"
-                    data-mdb-ripple-color="light"
-                  >
-                    Đăng ký
-                  </button>
+                  <Link href="/register">
+                    <button
+                      type="submit"
+                      className="inline-block px-7 py-3 bg-black text-white font-normal text-sm leading-snug uppercase hover:bg-black hover:text-white "
+                      data-mdb-ripple="true"
+                      data-mdb-ripple-color="light"
+                    >
+                      Đăng ký
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

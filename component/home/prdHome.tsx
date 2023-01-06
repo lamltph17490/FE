@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tprd } from '../../models/prd';
 import { getProducts } from '../../redux/prdSlice';
 import { RootState } from '../../redux/store';
+import { thousandFormat } from '../../untils';
 
 type Props = {
     products: Tprd[];
@@ -21,6 +22,7 @@ const PrdHome = (props: Props) => {
 
         <section className="grid grid-cols-4 gap-[30px] w-[1410px] mx-auto pt-20 ">
         {products?.slice(0, 8)?.map((item:any, index) => (
+          // eslint-disable-next-line react/jsx-key
           <Link href={`/product/${item._id}`}>
               <div className="cursor-pointer w-full pb-8" key={index}>
                 <div className="p-0 bg-light group text-center">
@@ -76,7 +78,7 @@ const PrdHome = (props: Props) => {
                       {/* <span className="text-lg mr-[8px] font-semibold text-gray-400 line-through ">
                       $33.69
                     </span> */}
-                      <span>${item.price}</span>
+                      <span>{thousandFormat(item.price)} VNĐ</span>
                     </p>
                   </div>
                 </div>
