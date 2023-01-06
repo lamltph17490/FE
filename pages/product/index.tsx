@@ -9,7 +9,6 @@ import { TprdCate } from '../../models/prdCate';
 import { getprdCates } from '../../redux/prdCateSlice';
 import { getProducts } from '../../redux/prdSlice';
 import { RootState } from '../../redux/store';
-import { thousandFormat } from '../../untils';
 import styles from './cate.module.css'
 
 
@@ -96,10 +95,11 @@ const Product = (props: Props) => {
                           <label className="group flex items-center text-heading text-sm cursor-pointer">
                             <input
                               type="checkbox"
-                              className="mr-2 form-checkbox w-5 h-5 border border-gray-300 rounded cursor-pointer transition duration-500 ease-in-out focus:ring-offset-0 hover:border-heading focus:outline-none focus:ring-0 focus-visible:outline-none checked:bg-heading checked:hover:bg-heading checked:focus:bg-heading"
+                              className="form-checkbox w-5 h-5 border border-gray-300 rounded cursor-pointer transition duration-500 ease-in-out focus:ring-offset-0 hover:border-heading focus:outline-none focus:ring-0 focus-visible:outline-none checked:bg-heading checked:hover:bg-heading checked:focus:bg-heading"
                               name="woman"
                               defaultValue="woman"
                             />
+
                             {item.name}
                           </label>
 
@@ -165,7 +165,10 @@ const Product = (props: Props) => {
                       </h3>
                     </Link>
                     <p className="text-lg font-semibold text-[#A71010] ">
-                      <span>{thousandFormat(item.price)} VNĐ</span>
+                      {/* <span className="text-lg mr-[8px] font-semibold text-gray-400 line-through ">
+                      $33.69
+                    </span> */}
+                      <span>${item.price}</span>
                     </p>
                   </div>
                 </div>
