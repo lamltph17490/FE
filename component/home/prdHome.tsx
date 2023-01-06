@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tprd } from '../../models/prd';
 import { getProducts } from '../../redux/prdSlice';
 import { RootState } from '../../redux/store';
+import { thousandFormat } from '../../untils';
 
 type Props = {
     products: Tprd[];
@@ -77,7 +78,7 @@ const PrdHome = (props: Props) => {
                       {/* <span className="text-lg mr-[8px] font-semibold text-gray-400 line-through ">
                       $33.69
                     </span> */}
-                      <span>${item.price}</span>
+                      <span>{thousandFormat(item.price)} VNĐ</span>
                     </p>
                   </div>
                 </div>
