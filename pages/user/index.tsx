@@ -11,21 +11,18 @@ const User = (props: Props) => {
     return (
         <div>
             <div className="main w-[1410px] mx-auto mt-[80px]">
-                <h2 className='text-2xl'>Trang chủ/ <a href="" className='text-red-500'>Tài khoản</a></h2> 
+                <h2 className='text-2xl'>Trang chủ / Tài khoản</h2>
                 <div className=' flex mt-[14px]'>
                     <UserNav />
-                    <div className='ml-[140px]'>
+                    <div className='ml-[60px]'>
                         <h2 className='text-xl'>Thông tin tài khoản</h2>
-                        <div className='mt-[14px]'>
-                            <ul>
-                                <li><a href=""></a></li>
-                                <li><a href=""></a></li>
-                                <li><a href=""></a></li>
-                            </ul>
-                            <div className='text-lg'><a href="" >Họ và tên: </a> <a href="">{currentUser.name}</a></div>
-                            <div className='text-lg'><a href="" >Email: </a> <a href="">{currentUser.email}</a></div>
-                            <div className='text-lg'><a href="" >Số điện thoại: </a> <a href="">{currentUser.phone}</a></div>
-
+                        <div className='flex'>
+                            <div><picture><img src={currentUser.avatar} alt="" className='w-[200px] h-[120px]' /></picture></div>
+                            <div className='ml-[20px]'>
+                                <div className='text-lg'><span >Họ và tên: </span> <span>{currentUser.name}</span></div>
+                                <div className='text-lg'><span >Email: </span> <span >{currentUser.email}</span></div>
+                                <div className='text-lg'><span >Số điện thoại: </span> <span >{currentUser.phone}</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>

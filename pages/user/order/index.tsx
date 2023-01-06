@@ -20,7 +20,7 @@ const userCart = (props: Props) => {
 
   return (
     <>
-      <div className=" float-right">
+      <div className=" float-right mr-[80px]">
         <button
           onClick={() => isToggle2(0)}
           className={
@@ -42,11 +42,13 @@ const userCart = (props: Props) => {
           Đã thanh toán
         </button>
       </div>
-      <div className={active2 == 1 ? "" : "hidden"}>
-        <OrderPaid />
-      </div>
-      <div className={active2 == 0 ? "" : "hidden"}>
-        <OrderUnpaid />
+      <div className="">
+        <div className={active2 == 1 ? "" : "hidden"}>
+          <OrderPaid />
+        </div>
+        <div className={active2 == 0 ? "" : "hidden"}>
+          <OrderUnpaid />
+        </div>
       </div>
     </>
   );

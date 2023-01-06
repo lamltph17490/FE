@@ -74,7 +74,7 @@ const ProductDetail = (product: Props) => {
             <Col span={12}>
               {/* <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2> */}
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-8">{data.name}</h1>
-              <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: data.desc || "" }} />
+              <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: data.content || "" }} />
               <Form form={form} labelAlign="left" labelCol={{ span: 3 }} style={{ marginBottom: 30 }}>
                 <Form.Item name="color" label="Màu sắc" rules={[{ required: true, message: "Vui lòng chọn màu sắc" }]}>
                   <Space>
