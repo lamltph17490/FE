@@ -21,6 +21,7 @@ const PrdHome = (props: Props) => {
 
         <section className="grid grid-cols-4 gap-[30px] w-[1410px] mx-auto pt-20 ">
         {products?.slice(0, 8)?.map((item:any, index) => (
+          // eslint-disable-next-line react/jsx-key
           <Link href={`/product/${item._id}`}>
               <div className="cursor-pointer w-full pb-8" key={index}>
                 <div className="p-0 bg-light group text-center">

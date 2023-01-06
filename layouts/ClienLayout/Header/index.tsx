@@ -86,13 +86,22 @@ const header = (props: Props) => {
 
               <a className="flex items-center hover:text-gray-200 text-white" href="#">
                 {isLogged ? (
-                  <li className="relative flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">
+                  <li className="relative group flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">
                     <Link href="/user">
                       <FontAwesomeIcon className="text-2xl" icon={faUser} />
                     </Link>
-                    <span className="ml-1 hover:text-[#282828]">
+
+                    {/* <span className="ml-1 hover:text-[#282828]">
                       <Link href={curentUser.role ? "/admin" : "/user"}>{curentUser.name}</Link>
-                    </span>
+                    </span> */}
+                    <ul className="bg-white hidden group-hover:block absolute top-[calc(100%+8px)] left-0 shadow px-2 py-1 z-[50] divide-y min-w-[150px]">
+                      <li className="text-[#282828] text-sm py-1.5 font-semibold hover:text-[#4d8a54]">
+                          Tên tài khoản:
+                          <a href={curentUser.role ? "/admin" : "/user"} className="text-black">
+                          {curentUser.name}
+                          </a>                   
+                      </li>                     
+                    </ul>
                   </li>
                 ) : (
                   <li className="relative group flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0">

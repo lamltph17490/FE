@@ -18,7 +18,7 @@ const User = (props: Props) => {
                         <h2 className='text-xl'>Thông tin tài khoản</h2>
                         <div className='flex'>
                             <div><picture><img src={currentUser.avatar} alt="" className='w-[200px] h-[120px]' /></picture></div>
-                            <div className='ml-[20px]'>
+                            <div className='ml-[20px] space-y-2'>
                                 <div className='text-lg'><span >Họ và tên: </span> <span>{currentUser.name}</span></div>
                                 <div className='text-lg'><span >Email: </span> <span >{currentUser.email}</span></div>
                                 <div className='text-lg'><span >Số điện thoại: </span> <span >{currentUser.phone}</span></div>

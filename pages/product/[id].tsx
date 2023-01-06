@@ -58,7 +58,7 @@ const ProductDetail = (product: Props) => {
         id: data,
         randomid: "_" + Math.random().toString(36).substring(2, 9),
       },
-      () => {},
+      () => { },
     );
   };
 
@@ -73,8 +73,11 @@ const ProductDetail = (product: Props) => {
             </Col>
             <Col span={12}>
               {/* <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2> */}
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-8">{data.name}</h1>
-              <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: data.content || "" }} />
+              <h1 className="text-gray-900 text-3xl title-font font-medium mb-6">{data.name}</h1>
+              <div className="text-xl mb-4">              
+                {thousandFormat(data.price)} VNĐ
+              </div>
+              <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: data.content || "" }} />             
               <Form form={form} labelAlign="left" labelCol={{ span: 3 }} style={{ marginBottom: 30 }}>
                 <Form.Item name="color" label="Màu sắc" rules={[{ required: true, message: "Vui lòng chọn màu sắc" }]}>
                   <Space>
@@ -113,11 +116,10 @@ const ProductDetail = (product: Props) => {
                   label="Số lượng"
                   name="quantity"
                   rules={[{ required: true, message: "Vui lòng chọn số lượng" }]}
-                  help={`${
-                    sizeSelected
+                  help={`${sizeSelected
                       ? sizeSelected.amount
                       : data.colors.map((i) => i.sizes.reduce((a, b) => a + b.amount, 0)).reduce((a, b) => a + b, 0)
-                  } sản phẩm có sẵn`}
+                    } sản phẩm có sẵn`}
                 >
                   <InputNumber
                     onChange={(value) => {
@@ -134,7 +136,7 @@ const ProductDetail = (product: Props) => {
               <Divider />
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900">
-                  {thousandFormat((data.price ? +data.price : 0) * quantity)} VND
+                  {thousandFormat((data.price ? +data.price : 0) * quantity)} VNĐ
                 </span>
                 <Button
                   size="large"
