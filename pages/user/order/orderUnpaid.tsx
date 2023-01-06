@@ -166,14 +166,14 @@ const OrderUnpaid = (props: Props) => {
       </Modal>
       <div className="main w-[1410px] mx-auto mt-[80px]">
         <h2 className="text-2xl">
-          Trang chủ/{" "}
-          <a href="" className="text-red-500">
+          Trang chủ /{" "}
+          <a href="" className="text-black">
             Tài khoản
           </a>
         </h2>
         <div className=" flex mt-[14px]">
           <UserNav />
-          <div className="ml-[140px] w-full min-h-[400px]">
+          <div className="ml-[60px] w-full min-h-[400px]">
             <h2 className="text-xl my-5">Đơn hàng của bạn</h2>
             {order.length == 0 ? (
               <div className="text-center font-bold text-2xl">Hiện tại bạn chưa có đơn hàng nào</div>
