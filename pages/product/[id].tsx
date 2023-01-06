@@ -73,7 +73,7 @@ const ProductDetail = (product: Props) => {
             </Col>
             <Col span={12}>
               {/* <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2> */}
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{data.name}</h1>
+              <h1 className="text-gray-900 text-3xl title-font font-medium mb-8">{data.name}</h1>
               <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: data.desc || "" }} />
               <Form form={form} labelAlign="left" labelCol={{ span: 3 }} style={{ marginBottom: 30 }}>
                 <Form.Item name="color" label="Màu sắc" rules={[{ required: true, message: "Vui lòng chọn màu sắc" }]}>
@@ -155,6 +155,7 @@ const ProductDetail = (product: Props) => {
               </div>
             </Col>
           </Row>
+          <div className="leading-relaxed text-xl mt-4" dangerouslySetInnerHTML={{ __html: data.desc || "" }} />
         </div>
       </section>
       <div className="container px-5 py-12 mx-auto">

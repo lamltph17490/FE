@@ -95,11 +95,10 @@ const Product = (props: Props) => {
                           <label className="group flex items-center text-heading text-sm cursor-pointer">
                             <input
                               type="checkbox"
-                              className="form-checkbox w-5 h-5 border border-gray-300 rounded cursor-pointer transition duration-500 ease-in-out focus:ring-offset-0 hover:border-heading focus:outline-none focus:ring-0 focus-visible:outline-none checked:bg-heading checked:hover:bg-heading checked:focus:bg-heading"
+                              className="mr-2 form-checkbox w-5 h-5 border border-gray-300 rounded cursor-pointer transition duration-500 ease-in-out focus:ring-offset-0 hover:border-heading focus:outline-none focus:ring-0 focus-visible:outline-none checked:bg-heading checked:hover:bg-heading checked:focus:bg-heading"
                               name="woman"
                               defaultValue="woman"
                             />
-
                             {item.name}
                           </label>
 
