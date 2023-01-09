@@ -1,6 +1,3 @@
-import { TableProps } from 'antd';
-import { GetStaticProps } from 'next';
-import Link from 'next/link';
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { ClientLayout } from '../../layouts'
@@ -9,11 +6,9 @@ import { TprdCate } from '../../models/prdCate';
 import { getprdCates } from '../../redux/prdCateSlice';
 import { getProducts } from '../../redux/prdSlice';
 import { RootState } from '../../redux/store';
-import { thousandFormat } from '../../untils';
-import styles from './cate.module.css'
+
 import ProductCard from './components/ProductCard';
-import Paginate from '../../component/Paginate';
-import { Header } from 'antd/lib/layout/layout';
+
 
 type Props = {
   products: Tprd[];
