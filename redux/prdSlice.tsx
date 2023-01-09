@@ -5,11 +5,13 @@ import { Tprd } from "../models/prd";
 type ProductState = {
     products: Tprd[];
     product: Tprd | {};
+    page: any,
 };
 
 const initialState: ProductState = {
     products: [],
     product: {},
+    page: 1,
 };
 
 export const getProducts = createAsyncThunk("Product/getProducts", async () => {
