@@ -16,7 +16,7 @@ const ProductCard = ( product : Props) => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  const postPerPage = 3;
+  const postPerPage = 9;
   const totalPosts = products.length;
 
   const indexOfLastPost = currentPage * postPerPage;
