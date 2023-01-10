@@ -28,5 +28,6 @@ export interface Order {
   "createdAt": string,
   "updatedAt": string,
   "orderDetails": Array<OrderDetail>,
-  "id": string
+  "id": string,
+  paid: boolean
 }
