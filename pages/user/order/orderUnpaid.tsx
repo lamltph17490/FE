@@ -1,4 +1,4 @@
-import { Modal, Table } from "antd";
+import { Modal, Radio, RadioChangeEvent, Space, Table } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,16 +7,22 @@ import UserNav from "../../../component/user-nav";
 import { getallorderdetail, getallorders, updateOrder } from "../../../redux/orders";
 import { RootState } from "../../../redux/store";
 import AlertMessage from "../../../untils/alert";
+import { datareason } from "../../../untils/dataFake";
 import styles from "./order.module.css";
 type Props = {};
 
-const OrderUnpaid = (props: Props) => {
+const OrderPaid = (props: Props) => {
   const [active, setActive] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [idOrder, setIdOrder] = useState("");
-  const showModal = (id: any) => {
+  const [reason, setReason] = useState("");
+  const [cancelData, setCancelData] = useState();
+  const [messageReason, setMessageReason] = useState();
+  const showModal = (id: any, reason: any) => {
     setIsModalOpen(true);
     setIdOrder(id);
+    setMessageReason(reason);
   };
 
   const handleOk = () => {
@@ -26,6 +32,38 @@ const OrderUnpaid = (props: Props) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  const showModal2 = (values: any) => {
+    setIsModalOpen2(true);
+    setCancelData(values);
+  };
+  const handleOk2 = () => {
+    setIsModalOpen2(false);
+    // console.log({ reason: reason, cancelData });
+    // return;
+    if (cancelData) {
+      dispatch(updateOrder({ _id: cancelData._id, status: cancelData.status, reason: reason }))
+        .unwrap()
+        .then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Thành công",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setFlag(!flag);
+        })
+        .catch((err: any) => alert(err));
+    }
+  };
+
+  const handleCancel2 = () => {
+    setIsModalOpen2(false);
+  };
+
+  const onChange = (e: any) => {
+    setReason(e.target.value);
+  };
+
   const isToggle = (number: number) => {
     setActive(number);
   };
@@ -123,33 +161,32 @@ const OrderUnpaid = (props: Props) => {
       confirmButtonText: "Đồng ý",
     }).then((result) => {
       if (result.isConfirmed) {
-        if (values.status == 0) {
-          dispatch(updateOrder({ _id: values._id, status: values.status, date: new Date() }))
-            .unwrap()
-            .then(() => {
-              Swal.fire({
-                icon: "success",
-                title: "Thành công",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              setFlag(!flag);
-            })
-            .catch((err: any) => alert(err));
-        } else if (values.status == 5) {
-          dispatch(updateOrder({ _id: values._id, status: values.status }))
-            .unwrap()
-            .then(() => {
-              Swal.fire({
-                icon: "success",
-                title: "Thành công",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              setFlag(!flag);
-            })
-            .catch((err: any) => alert(err));
-        }
+        return showModal2(values);
+      }
+    });
+  };
+  const onRepurchase = (values: any) => {
+    Swal.fire({
+      title: values.message,
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Đồng ý",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(updateOrder({ _id: values._id, status: values.status, date: new Date(), reason: "" }))
+          .unwrap()
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Thành công",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            setFlag(!flag);
+          })
+          .catch((err: any) => alert(err));
       }
     });
   };
@@ -162,7 +199,26 @@ const OrderUnpaid = (props: Props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <Table columns={columns} dataSource={data} />;
+        {messageReason != "" && messageReason ? (
+          <div>
+            <span className="font-bold text-xl">Lý do hủy: </span>
+            {messageReason}
+          </div>
+        ) : (
+          ""
+        )}
+        <Table columns={columns} dataSource={data} />
+      </Modal>
+      <Modal title={`Lý do hủy đơn hàng`} width={800} open={isModalOpen2} onOk={handleOk2} onCancel={handleCancel2}>
+        <Radio.Group onChange={onChange}>
+          <Space direction="vertical">
+            {datareason?.map((item: any, index: number) => (
+              <Radio value={item.value} key={index}>
+                {item.value}
+              </Radio>
+            ))}
+          </Space>
+        </Radio.Group>
       </Modal>
       <div className="main w-[1410px] mx-auto mt-[80px]">
         <h2 className="text-2xl">
@@ -239,7 +295,7 @@ const OrderUnpaid = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
+                          <td onClick={() => showModal(item._id, item.reason)} className="cursor-pointer text-blue-600">
                             Chi tiết
                           </td>
                           <td
@@ -263,7 +319,7 @@ const OrderUnpaid = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
+                          <td onClick={() => showModal(item._id, item.reason)} className="cursor-pointer text-blue-600">
                             Chi tiết
                           </td>
                         </tr>
@@ -279,7 +335,7 @@ const OrderUnpaid = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
+                          <td onClick={() => showModal(item._id, item.reason)} className="cursor-pointer text-blue-600">
                             Chi tiết
                           </td>
                         </tr>
@@ -295,7 +351,7 @@ const OrderUnpaid = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
+                          <td onClick={() => showModal(item._id, item.reason)} className="cursor-pointer text-blue-600">
                             Chi tiết
                           </td>
                         </tr>
@@ -311,7 +367,7 @@ const OrderUnpaid = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
+                          <td onClick={() => showModal(item._id, item.reason)} className="cursor-pointer text-blue-600">
                             Chi tiết
                           </td>
                         </tr>
@@ -327,13 +383,11 @@ const OrderUnpaid = (props: Props) => {
                           <td>{item.email}</td>
                           <td>{moment(item.date).format("DD/MM/YYYY")}</td>
                           <td>{item.totalPrice}</td>
-                          <td onClick={() => showModal(item._id)} className="cursor-pointer text-blue-600">
+                          <td onClick={() => showModal(item._id, item.reason)} className="cursor-pointer text-blue-600">
                             Chi tiết
                           </td>
                           <td
-                            onClick={() =>
-                              onUpdateOrder({ _id: item._id, status: 0, message: "Mua lại sản phẩm này?" })
-                            }
+                            onClick={() => onRepurchase({ _id: item._id, status: 0, message: "Mua lại sản phẩm này?" })}
                             className="cursor-pointer text-blue-600"
                           >
                             Mua lại
@@ -351,4 +405,4 @@ const OrderUnpaid = (props: Props) => {
   );
 };
 
-export default OrderUnpaid;
+export default OrderPaid;
