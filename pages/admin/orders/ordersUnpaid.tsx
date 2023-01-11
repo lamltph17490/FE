@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { InputRef, message, Select, Space, Table, Input, Button } from "antd";
+import { InputRef, message, Select, Space, Table, Input, Button, Modal, Radio } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { getallorderdetail, getallorders, updateOrder } from "../../../redux/orders";
@@ -10,14 +10,19 @@ import { SearchOutlined } from "@ant-design/icons";
 import type { ColumnsType, ColumnType } from "antd/es/table";
 import type { FilterConfirmProps } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
+import { datareason } from "../../../untils/dataFake";
+import Swal from "sweetalert2";
 type Props = {};
 const { Option } = Select;
-const OrdersUnpaid = (props: Props) => {
+const OrdersPaid = (props: Props) => {
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [cancelData, setCancelData] = useState();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
   const [active, setActive] = useState(0);
   const [flag, setFlag] = useState(false);
+  const [reason, setReason] = useState("");
   const isToggle = (number: number) => {
     setActive(number);
   };
@@ -28,14 +33,53 @@ const OrdersUnpaid = (props: Props) => {
     dispatch(getallorders());
     dispatch(getallorderdetail());
   }, [flag]);
+  const showModal2 = (values: any) => {
+    setIsModalOpen2(true);
+    setCancelData(values);
+  };
+  const handleOk2 = () => {
+    setIsModalOpen2(false);
+    // console.log({ reason: reason, cancelData });
+    // return;
+    if (cancelData) {
+      dispatch(updateOrder({ _id: cancelData.id, status: cancelData.status, reason: reason }))
+        .unwrap()
+        .then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Thành công",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setFlag(!flag);
+        })
+        .catch((err: any) => alert(err));
+    }
+  };
+
+  const handleCancel2 = () => {
+    setIsModalOpen2(false);
+  };
+
+  const onChangeReason = (e: any) => {
+    setReason(e.target.value);
+  };
+
   const onChange = (id: any, value: any) => {
-    dispatch(updateOrder({ _id: id, status: value }))
-      .unwrap()
-      .then(() => {
-        message.success({ content: "Đổi trạng thái thành công" });
-        setFlag(!flag);
-      })
-      .catch((err: any) => alert(err));
+    if (value == 5) {
+      return showModal2({
+        status: value,
+        id: id,
+      });
+    } else {
+      dispatch(updateOrder({ _id: id, status: value }))
+        .unwrap()
+        .then(() => {
+          message.success({ content: "Đổi trạng thái thành công" });
+          setFlag(!flag);
+        })
+        .catch((err: any) => alert(err));
+    }
   };
   const dataStatus = [
     { name: "Đang xử lý", value: 0 },
@@ -358,6 +402,17 @@ const OrdersUnpaid = (props: Props) => {
 
   return (
     <>
+      <Modal title={`Lý do hủy đơn hàng`} width={800} open={isModalOpen2} onOk={handleOk2} onCancel={handleCancel2}>
+        <Radio.Group onChange={onChangeReason}>
+          <Space direction="vertical">
+            {datareason?.map((item: any, index: number) => (
+              <Radio value={item.value} key={index}>
+                {item.value}
+              </Radio>
+            ))}
+          </Space>
+        </Radio.Group>
+      </Modal>
       <div className="p-6 overflow-hidden">
         <div className="my-10">
           <button
@@ -428,4 +483,4 @@ const OrdersUnpaid = (props: Props) => {
   );
 };
 
-export default OrdersUnpaid;
+export default OrdersPaid;

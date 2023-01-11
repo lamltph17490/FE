@@ -7,17 +7,11 @@ import UserNav from "../../../component/user-nav";
 import { getallorderdetail, getallorders, updateOrder } from "../../../redux/orders";
 import { RootState } from "../../../redux/store";
 import AlertMessage from "../../../untils/alert";
+import { datareason } from "../../../untils/dataFake";
 import styles from "./order.module.css";
 type Props = {};
 
 const OrderPaid = (props: Props) => {
-  const datareason = [
-    { value: "Tôi muốn cập nhật địa chỉ/sđt nhận hàng" },
-    { value: "Tôi muốn thêm/thay đổi Mã giảm giá" },
-    { value: "Tôi muốn thay đổi sản phẩm(kích thước, màu sắc, số lượng,...)" },
-    { value: "Tôi muốn thay đổi hình thức thanh toán" },
-    { value: "Tôi không có nhu cầu mua nữa" },
-  ];
   const [active, setActive] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);

@@ -99,13 +99,18 @@ const OrderDetail = (props: Props) => {
         <p>Người nhận: {dataOrder[0]?.orderId?.customerName}</p>
         <p>Đơn hàng {dataOrder[0]?.orderId?.paid == true ? "đã thanh toán" : "chưa thanh toán"}</p>
         <p>Tổng tiền đơn: {thousandFormat(dataOrder[0]?.orderId?.totalPrice)}đ</p>
+        {dataOrder[0]?.orderId?.reason != "" && dataOrder[0]?.orderId?.customerName ? (
+          <div>Lý do hủy đơn hàng: {dataOrder[0]?.orderId?.reason} </div>
+        ) : (
+          ""
+        )}
       </div>
       <div className="p-6 overflow-hidden">
         <div className="flex flex-col">
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
               <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <Table columns={columns} dataSource={data} />;
+                <Table columns={columns} dataSource={data} />
               </div>
             </div>
           </div>
