@@ -42,7 +42,6 @@ const OrderPaid = (props: Props) => {
     setIsModalOpen2(true);
     setCancelData(values);
   };
-
   const handleOk2 = () => {
     setIsModalOpen2(false);
     // console.log({ reason: reason, cancelData });
