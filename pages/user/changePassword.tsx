@@ -38,7 +38,7 @@ const ChangePassword :NextPageWithLayout  = (props: Props) => {
     };
     return (
         <div>
-            <div className="main w-[1410px] mx-auto mt-[80px]">
+            <div className="main w-[1410px] mx-auto mt-[80px] mb-[20px]">
                 <h2 className='text-2xl'>Trang chủ/ <a href="" className='text-red-500'>Tài khoản</a></h2>
                 <div className=' flex mt-[14px]'>
                     <UserNav />
