@@ -103,8 +103,8 @@ const CheckOut = (props: Props) => {
   }, []);
   return (
     <>
-      <div className="mt-20">
-        <h1 className="flex items-center justify-center font-bold text-blue-600 text-md lg:text-3xl">
+      <div className="mt-[60px]">
+        <h1 className="flex items-center justify-center font-bold text-md lg:text-3xl">
           Trang Thanh Toán
         </h1>
       </div>
@@ -244,7 +244,7 @@ const CheckOut = (props: Props) => {
                       </div>
                       <div>
                         <h2 className="text-xl font-bold">{item?.id?.name}</h2>
-                        <p className="text-sm" dangerouslySetInnerHTML={{ __html: item?.id?.desc }}></p>
+                        {/* <p className="text-sm" dangerouslySetInnerHTML={{ __html: item?.id?.desc }}></p> */}
                         <span className="text-red-600">Giá</span>{" "}
                         {thousandFormat(sumTotal(item?.id?.price, item?.quantity))}đ
                       </div>
@@ -294,17 +294,17 @@ const CheckOut = (props: Props) => {
               </div> */}
                 </div>
               </div>
-              <div className="flex p-4 mt-4">
+              {/* <div className="flex p-4 mt-4">
                 <h2 className="text-xl font-bold">ITEMS 2</h2>
+              </div> */}
+              <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
+                Giảm giá<span className="ml-2">20.000 VNĐ</span>
               </div>
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                Subtotal<span className="ml-2">$40.00</span>
+                Phí vận chuyển<span className="ml-2">30.000 VNĐ</span>
               </div>
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                Shipping Tax<span className="ml-2">$10</span>
-              </div>
-              <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                Total<span className="ml-2">{thousandFormat(total)}đ</span>
+                Tổng tiền<span className="ml-2">{thousandFormat(total)} VNĐ</span>
               </div>
             </div>
           </div>
