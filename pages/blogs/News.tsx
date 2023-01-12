@@ -33,7 +33,7 @@ const News = ({ postsNews, catePost }: NewsProps) => {
                             <a href="#" className="text-blue-700 text-sm font-bold uppercase pb-4">
                                 {item.categoryId.name}
                             </a>
-                            <a href="#" className="text-3xl font-bold hover:text-gray-700 pb-4">
+                            <a href="#" className="text-2xl font-bold hover:text-gray-700 pb-4">
                                 {item.title}
                             </a>
                             <p>{formatDate(item.createdAt!)}</p>
