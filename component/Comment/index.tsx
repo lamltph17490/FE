@@ -81,6 +81,7 @@ const Comment = ({ product }: CommentProps) => {
       }
     });
   };
+  // 
   const imagePerRow = 4;
   const [next, setNext] = useState(imagePerRow);
   const handleMoreImage = () => {
