@@ -20,7 +20,7 @@ const index = ({ posts, catePost }: Props) => {
       <div className="w-full container mx-auto">
         <div className="flex flex-col items-center mt-[20px]">
           <a
-            className="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl"
+            className="font-bold text-gray-800 uppercase hover:text-gray-700 text-4xl"
             href="#"
           >
             Tin tức
