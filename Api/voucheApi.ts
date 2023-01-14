@@ -21,7 +21,7 @@ export const update = (sale: Tvouche): Promise<Tvouche> => {
     return axiosClient.put(`/sales/${sale._id}`, sale);
 };
 
-export const useVoucher = ( data: any) => {
-    return axiosClient.post(`/use-voucher`, data);
+export const useVoucher = (id: string, data: any) => {
+    return axiosClient.post(`/use-voucher/${id}`, data);
   };
   

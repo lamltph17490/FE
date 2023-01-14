@@ -26,7 +26,6 @@ const CheckOut = (props: Props) => {
   const [cart, setCart] = useState<any>([]);
   const currentUser = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
   const route = useRouter();
-  const [priceVoucher, setPriceVoucher] = useState(0);
   const { success, error, confirmCustom } = AlertMessage();
   const {
     register,
@@ -37,15 +36,7 @@ const CheckOut = (props: Props) => {
   } = useForm<Inputs>();
 
   const handleUseVoucher = async () => {
-    const codeVou = document.getElementById("voucherCode");
-   try {
-    const data = await useVoucher( {code:codeVou.value, price: total})
-    setPriceVoucher(data)
-    message.success("Áp voucher thành công");
-   } catch (error) {
-    setPriceVoucher(0)
-     message.error(`${error.response?.data?.message}`);  
-   }
+    const data = await useVoucher()
   }
 
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
@@ -280,7 +271,7 @@ const CheckOut = (props: Props) => {
                           Nhập mã khuyến mãi
                         </label>
                         <input
-                          id="voucherCode"
+                        onClick={() => handleUseVoucher()}
                           type="text"
                           placeholder="Nhập mã"
                           className="
@@ -294,7 +285,6 @@ const CheckOut = (props: Props) => {
                         />
                         <span className="block text-green-600"></span>
                         <button
-                        onClick={() => handleUseVoucher()}
                           className="
             px-6
             py-2
@@ -346,13 +336,13 @@ const CheckOut = (props: Props) => {
                 <h2 className="text-xl font-bold">ITEMS 2</h2>
               </div> */}
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                Giảm giá<span className="ml-2">{thousandFormat(priceVoucher)} VNĐ</span>
+                Giảm giá<span className="ml-2">20.000 VNĐ</span>
               </div>
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
                 Phí vận chuyển<span className="ml-2">30.000 VNĐ</span>
               </div>
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                Tổng tiền<span className="ml-2">{thousandFormat(total - priceVoucher)} VNĐ</span>
+                Tổng tiền<span className="ml-2">{thousandFormat(total)} VNĐ</span>
               </div>
             </div>
           </div>
