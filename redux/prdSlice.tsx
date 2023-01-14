@@ -1,15 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { add, get, getAll, remove, update } from "../Api/prdApi";
+import { filterProduct } from "../Api/products";
 import { Tprd } from "../models/prd";
 
 type ProductState = {
     products: Tprd[];
     product: Tprd | {};
     page: any,
+    productsFilter: any
 };
 
 const initialState: ProductState = {
     products: [],
+    productsFilter: [],
     product: {},
     page: 1,
 };
@@ -25,6 +28,9 @@ export const deleteProduct = createAsyncThunk("Product/deleteProduct", async (id
 
     return res;
 });
+
+
+
 
 export const addProduct = createAsyncThunk("Product/addProduct", async (product: any) => {
     const res = await add(product);
@@ -47,11 +53,21 @@ export const updateProduct = createAsyncThunk("Product/updateProduct", async (pr
 const ProductSlice = createSlice({
     name: "Product",
     initialState,
-    reducers: {},
+    reducers: { 
+         filterProductS(state, {payload}) {
+            state.products = payload || [];
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(getProducts.fulfilled, (state, { payload }) => {
             state.products = payload || [];
         });
+
+        // builder.addCase(filterProductS.fulfilled, (state, { payload }) => {
+        //     console.log(payload);
+            
+        //     state.products = payload || [];
+        // });
 
         builder.addCase(deleteProduct.fulfilled, (state, { payload }) => {
             state.products = state.products.filter((item) => item._id !== payload?._id);
@@ -70,5 +86,5 @@ const ProductSlice = createSlice({
         });
     },
 });
-
+export const { filterProductS } = ProductSlice.actions;
 export default ProductSlice.reducer;
