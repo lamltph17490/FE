@@ -10,6 +10,7 @@ import AlertMessage from "../../untils/alert";
 import { getLocalStorage, sumTotal } from "../../untils/cart";
 import { Tuser } from "../../models/user";
 import { useRouter } from "next/router";
+import { useVoucher } from "../../Api/voucheApi";
 type Inputs = {
   customerName: string;
   email: string;
@@ -33,6 +34,10 @@ const CheckOut = (props: Props) => {
     formState: { errors },
     reset,
   } = useForm<Inputs>();
+
+  const handleUseVoucher = async () => {
+    const data = await useVoucher()
+  }
 
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
     const payment = data.payment;
@@ -104,9 +109,7 @@ const CheckOut = (props: Props) => {
   return (
     <>
       <div className="mt-[60px]">
-        <h1 className="flex items-center justify-center font-bold text-md lg:text-3xl">
-          Trang Thanh Toán
-        </h1>
+        <h1 className="flex items-center justify-center font-bold text-md lg:text-3xl">Trang Thanh Toán</h1>
       </div>
       <div className="container p-12 mx-auto">
         <div className="flex flex-col w-full px-0 mx-auto md:flex-row">
@@ -261,7 +264,42 @@ const CheckOut = (props: Props) => {
                       </div>
                     </div>
                   ))}
-
+                  <div className="lg:w-2/2">
+                    <div className="mt-4">
+                      <div className="px-4 py-4 rounded-md">
+                        <label htmlFor="coupon code" className="font-semibold text-gray-600">
+                          Nhập mã khuyến mãi
+                        </label>
+                        <input
+                        onClick={() => handleUseVoucher()}
+                          type="text"
+                          placeholder="Nhập mã"
+                          className="
+            w-full
+            px-2
+            py-2
+            border border-blue-600
+            rounded-md
+            outline-none
+          "
+                        />
+                        <span className="block text-green-600"></span>
+                        <button
+                          className="
+            px-6
+            py-2
+            mt-2
+            text-sm text-indigo-100
+            bg-indigo-600
+            rounded-md
+            hover:bg-indigo-700
+          "
+                        >
+                          Áp mã
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                   {/* <div className="flex space-x-4">
                 <div>
                   <img

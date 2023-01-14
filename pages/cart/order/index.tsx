@@ -170,42 +170,7 @@ const Cart = (props: Props) => {
                   ))}
               </tbody>
             </table>
-            <div className="lg:w-2/4">
-              <div className="mt-4">
-                <div className="px-4 py-4 rounded-md">
-                  <label htmlFor="coupon code" className="font-semibold text-gray-600">
-                    Nhập mã khuyến mãi
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="coupon code"
-                    defaultValue="whitecat"
-                    className="
-            w-full
-            px-2
-            py-2
-            border border-blue-600
-            rounded-md
-            outline-none
-          "
-                  />
-                  <span className="block text-green-600">Áp mã khuyến mãi thành công</span>
-                  <button
-                    className="
-            px-6
-            py-2
-            mt-2
-            text-sm text-indigo-100
-            bg-indigo-600
-            rounded-md
-            hover:bg-indigo-700
-          "
-                  >
-                    Áp mã
-                  </button>
-                </div>
-              </div>
-            </div>
+           
             <div className="mt-4">
               <div className="py-4 rounded-md shadow">
                 <h3 className="text-xl font-bold text-blue-600">Tổng tiền</h3>
