@@ -20,3 +20,4 @@ export const get = (id: string): Promise<TprdColor> => {
 export const update = (color: TprdColor): Promise<TprdColor> => {
     return axiosClient.put(`/prd_color/${color._id}`, color);
 };
+
