@@ -3,9 +3,9 @@ import { Card, Avatar, Space } from "antd";
 import { CustomStatistic } from "./CustomStatistic";
 
 const DataDisplayWidget = (props: any) => {
-  const { size, value, title, icon, color, avatarSize = 50, vertical = false, loading } =
+  const { size, value, title, icon, color, avatarSize = 50, vertical = false, loading, prefix, suffix } =
     props;
-  const customStatisticProps = { size, value, title, loading };
+  const customStatisticProps = { size, value, title, loading, prefix, suffix };
   return (
     <Card>
       <Space align="center" direction={vertical ? "vertical" : "horizontal"}>

@@ -5,8 +5,8 @@ interface StatisticDashboard {
 }
 
 const StatisticApi = {
-  async dashboard() {
-    return axiosClient.get('/statistic/dashboard')
+  async dashboard(data?: any) {
+    return axiosClient.post('/statistic/dashboard', data)
   }
 }
 

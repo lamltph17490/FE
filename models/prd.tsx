@@ -16,6 +16,7 @@ export interface Tprd {
     image: string
     price?: string | number
     desc?: string
+    content:string
     slug: string
     categoryId: {
         name: string

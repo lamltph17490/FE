@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
+import CateHome from './catePrdHome'
 import PostHome from './postHome'
 import PrdHome from './prdHome'
 
@@ -159,7 +160,7 @@ const HomePage = (props: Props) => {
                 <h4 className="font-semibold text-xl text-dark mb-3">
                   Thanh Toán Tiện Lợi
                 </h4>
-                <p className="text-body-color">We dejoy working with discerning</p>
+                {/* <p className="text-body-color">We dejoy working with discerning</p> */}
               </div>
             </div>
             <div className="w-full md:w-1/2 lg:w-1/4 px-4">
@@ -219,7 +220,7 @@ const HomePage = (props: Props) => {
                 <h4 className="font-semibold text-xl text-dark mb-3">
                   Tư Vấn Nhiệt Tình
                 </h4>
-                <p className="text-body-color">We dejoy working with discerning</p>
+                {/* <p className="text-body-color">We dejoy working with discerning</p> */}
               </div>
             </div>
             <div className="w-full md:w-1/2 lg:w-1/4 px-4">
@@ -299,7 +300,7 @@ const HomePage = (props: Props) => {
                 <h4 className="font-semibold text-xl text-dark mb-3">
                   Giao Hàng Nhanh
                 </h4>
-                <p className="text-body-color">We dejoy working with discerning</p>
+                {/* <p className="text-body-color">We dejoy working with discerning</p> */}
               </div>
             </div>
             <div className="w-full md:w-1/2 lg:w-1/4 px-4">
@@ -359,7 +360,7 @@ const HomePage = (props: Props) => {
                 <h4 className="font-semibold text-xl text-dark mb-3">
                   Đổi Trả Trong 14 Ngày
                 </h4>
-                <p className="text-body-color">We dejoy working with discerning</p>
+                {/* <p className="text-body-color">We dejoy working with discerning</p> */}
               </div>
             </div>
           </div>
@@ -367,27 +368,8 @@ const HomePage = (props: Props) => {
       </section>
 
       {/* service */}
-      <section
-        className="categories container-full py-5 bg-rose-50"
-        data-aos="zoom-in-up"
-      >
-        <div className="w-[1410px] mx-auto  flex-wrap  flex justify-center">
-          {/* {cateProduct.map((item:any)=>(
-            <div className="cate_item lg:w-1/5 md:w-2/5 pr-4 pl-4">
-            <a href="#">
-             <picture>
-              <img
-                  src={item.image}
-                  className="rounded-full max-w-full h-auto border" alt=''
-                />
-             </picture>
-            </a>
-            <h5 className="text-center title mt-3 mb-3 text-sm capitalize text-black">
-              <a href="#">{item.name}</a>
-            </h5>
-          </div>
-          ))} */}
-        </div>
+      <section className="categories container-full py-5 bg-rose-50" data-aos="zoom-in-up">
+        <CateHome posts={[]}/>
       </section>
 
       {/* Product Section Begin */}
@@ -420,21 +402,23 @@ const HomePage = (props: Props) => {
                     className="w-[440px] form-control block  px-4 py-2 mb-2 md:mb-0 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Email của bạn"
                   />
-                  <button
-                    type="submit"
-                    className="inline-block px-7 py-3 bg-black text-white font-normal text-sm leading-snug uppercase hover:bg-black hover:text-black "
-                    data-mdb-ripple="true"
-                    data-mdb-ripple-color="light"
-                  >
-                    Đăng ký
-                  </button>
+                  <Link href="/register">
+                    <button
+                      type="submit"
+                      className="inline-block px-7 py-3 bg-black text-white font-normal text-sm leading-snug uppercase hover:bg-black hover:text-white "
+                      data-mdb-ripple="true"
+                      data-mdb-ripple-color="light"
+                    >
+                      Đăng ký
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section className="w-[1410px] mx-auto">
+      {/* <section className="w-[1410px] mx-auto">
         <div className="container px-6 text-gray-600 md:px-12 xl:px-6">
           <h2 className="mb-12 text-center text-2xl text-gray-900 font-light md:text-4xl">
             Đánh Giá Từ Khách Hàng
@@ -593,7 +577,7 @@ const HomePage = (props: Props) => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Latest Blog Section Begin */}
       <section className="bg-white dark:bg-gray-900">

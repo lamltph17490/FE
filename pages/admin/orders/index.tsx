@@ -8,11 +8,6 @@ import ListOrders from "./lists";
 type Props = {};
 
 const Orders = (props: Props) => {
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(getallorders());
-    dispatch(getallorderdetail());
-  }, [dispatch]);
   return (
     <>
       <Head>

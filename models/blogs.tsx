@@ -1,4 +1,5 @@
 export interface Tblog {
+    createdAt: Date
     _id?: string,
     title: string,
     slug: string,
