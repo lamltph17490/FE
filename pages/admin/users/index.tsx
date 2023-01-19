@@ -1,12 +1,18 @@
 import Head from "next/head";
 import Link from "next/link";
 import React, { ReactElement } from "react";
+import { useSelector } from "react-redux";
 import UserList from "../../../component/admin/user/ListUser";
 import { AdminLayout } from "../../../layouts";
+import { Tuser } from "../../../models/user";
+import { RootState } from "../../../redux/store";
 
 type Props = {};
 
 const index = (props: Props) => {
+  const curentUser = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
+  console.log(curentUser);
+ 
   return (
     <>
       <Head>

@@ -77,6 +77,7 @@ const OrdersPaid = (props: Props) => {
         .then(() => {
           message.success({ content: "Đổi trạng thái thành công" });
           setFlag(!flag);
+
         })
         .catch((err: any) => alert(err));
     }
