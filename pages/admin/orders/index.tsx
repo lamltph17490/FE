@@ -1,13 +1,24 @@
 import Head from "next/head";
 import React, { ReactElement } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Tuser } from "../../../models/user";
 import { AdminLayout } from "../../../layouts";
 import { getallorderdetail, getallorders } from "../../../redux/orders";
 import ListOrders from "./lists";
 
+import {  SocketEvent, socket } from "../../../untils/SocketConstant";
+import { RootState } from "../../../redux/store";
+import { notification } from "antd";
+import moment from "moment";
+
 type Props = {};
 
 const Orders = (props: Props) => {
+  const curentUser = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
+  console.log(curentUser);
+ 
+  
+  
   return (
     <>
       <Head>

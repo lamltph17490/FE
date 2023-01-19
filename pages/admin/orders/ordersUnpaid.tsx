@@ -12,6 +12,8 @@ import type { FilterConfirmProps } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
 import { datareason } from "../../../untils/dataFake";
 import Swal from "sweetalert2";
+import { getOrders } from "../../../Api/orders";
+import { socket } from "../../../untils/SocketConstant";
 type Props = {};
 const { Option } = Select;
 const OrdersPaid = (props: Props) => {
@@ -44,7 +46,7 @@ const OrdersPaid = (props: Props) => {
     if (cancelData) {
       dispatch(updateOrder({ _id: cancelData.id, status: cancelData.status, reason: reason }))
         .unwrap()
-        .then(() => {
+        .then( async () => {
           Swal.fire({
             icon: "success",
             title: "Thành công",
@@ -52,6 +54,20 @@ const OrdersPaid = (props: Props) => {
             timer: 1500,
           });
           setFlag(!flag);
+          const res = await getOrders(cancelData.id) 
+          console.log(res);
+
+            const notification = {
+              orderId: res._id,
+              userId: res.userId,
+              text: res.status == 0 ? "Đơn hàng của bạn đang chờ xử lý" : res.status == 1 ? "Đơn hàng của bạn đã được xác nhận" : res.status == 2 ? "Đơn hàng của bạn đã chuẩn bị xong và sớm sẽ được chuyển đi" : res.status == 3 ? "Đơn hàng của bạn đang vận chuyển" : res.status == 4 ? "Đơn hàng của bạn đã giao thành công" : "Đơn hàng của bạn đã bị hủy",
+              notificationType: "employee",
+              // employeeId: response.employeeId,
+            };
+            socket.emit("newNotification", notification);
+            socket.off("newNotification");
+            console.log("1");
+            
         })
         .catch((err: any) => alert(err));
     }
@@ -65,22 +81,37 @@ const OrdersPaid = (props: Props) => {
     setReason(e.target.value);
   };
 
-  const onChange = (id: any, value: any) => {
+  const onChange =  (id: any, value: any) => {
     if (value == 5) {
       return showModal2({
         status: value,
         id: id,
       });
     } else {
-      dispatch(updateOrder({ _id: id, status: value }))
+      dispatch( updateOrder({ _id: id, status: value }))
         .unwrap()
-        .then(() => {
+        .then( async() => {
           message.success({ content: "Đổi trạng thái thành công" });
+          const res = await getOrders(id) 
+          console.log(res);
+
+          const notification = {
+            orderId: res._id,
+            userId: res.userId,
+            text: res.status == 0 ? "Đơn hàng của bạn đang chờ xử lý" : res.status == 1 ? "Đơn hàng của bạn đã được xác nhận" : res.status == 2 ? "Đơn hàng của bạn đã chuẩn bị xong và sớm sẽ được chuyển đi" : res.status == 3 ? "Đơn hàng của bạn đang vận chuyển" : res.status == 4 ? "Đơn hàng của bạn đã giao thành công" : "Đơn hàng của bạn đã bị hủy",
+            notificationType: "employee",
+            // employeeId: response.employeeId,
+          };
+            socket.emit("newNotification", notification);
+            socket.off("newNotification");
+            console.log("2");
+
           setFlag(!flag);
         })
         .catch((err: any) => alert(err));
     }
   };
+  // this
   const dataStatus = [
     { name: "Đang xử lý", value: 0 },
     { name: "Xác nhận đơn hàng", value: 1 },

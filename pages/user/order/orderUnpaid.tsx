@@ -12,7 +12,7 @@ import styles from "./order.module.css";
 type Props = {};
 
 const OrderPaid = (props: Props) => {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(localStorage.getItem("readNo") ? localStorage.getItem("readNo") : 0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [idOrder, setIdOrder] = useState("");
@@ -25,6 +25,7 @@ const OrderPaid = (props: Props) => {
     setMessageReason(reason);
   };
 
+  
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -190,6 +191,12 @@ const OrderPaid = (props: Props) => {
       }
     });
   };
+  useEffect(() => {
+    if(localStorage.getItem("readNo")) {
+      setActive(localStorage.getItem("readNo"))
+      localStorage.removeItem("readNo")
+    }
+  })
   return (
     <div>
       <Modal
