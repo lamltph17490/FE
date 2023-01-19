@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { AdminLayout } from "../../../../layouts";
 import { NextPageWithLayout } from "../../../../models/layout";
+import { Modal, Upload } from 'antd';
+import type { RcFile, UploadProps } from 'antd/es/upload';
+import type { UploadFile } from 'antd/es/upload/interface';
+
 import { RootState } from "../../../../redux/store";
 import { findStringDuplicates, parserThousandFormat, thousandFormat, uploadImage } from "../../../../untils";
 import dynamic from "next/dynamic";
@@ -33,6 +37,7 @@ const AddBlog: NextPageWithLayout = (props: Props) => {
   const prdCate = useSelector((state: RootState) => state.prdCate.prdCates);
   const dispatch = useDispatch<any>();
   const editor = useRef(null);
+
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState();
   const [product, setProduct] = useState<any>(null);
@@ -45,7 +50,38 @@ const AddBlog: NextPageWithLayout = (props: Props) => {
       ["clean"],
     ],
   };
+  const getBase64 = (file: RcFile): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const handleCancel = () => setPreviewOpen(false);
 
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as RcFile);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
+  };
+
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
+
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
   const formats = [
     "header",
     "bold", "italic", "underline", "strike", "blockquote",
@@ -69,6 +105,9 @@ const AddBlog: NextPageWithLayout = (props: Props) => {
           setContent(user.content);
           form.setFieldsValue(user);
           setPreview(user.image);
+          if(user.subImage) {
+            setFileList(user.subImage) 
+          }
         }
       } catch (error) {
         console.log(error);
@@ -82,7 +121,7 @@ const AddBlog: NextPageWithLayout = (props: Props) => {
         const { data } = await uploadImage(values.image[0]);
         values.image = data.url;
       }
-      await dispatch(updateProduct({ ...values, _id: id })).unwrap();
+      await dispatch(updateProduct({ ...values, _id: id , subImage: fileList })).unwrap();
       toast.success("Cập nhật  thành công");
       router.push("/admin/product");
       console.log(content);
@@ -121,6 +160,16 @@ const AddBlog: NextPageWithLayout = (props: Props) => {
               <span className="font-semibold mb-4 block text-xl">Sửa sản phẩm</span>
               <ProductForm data={product} form={form} onSubmit={onSubmit} categories={prdCate} preview={preview} setPreview={setPreview} />
             </div>
+            <h3>Sub Imgae</h3>
+            <Upload
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              listType="picture-card"
+              fileList={fileList}
+              onPreview={handlePreview}
+              onChange={handleChange}
+            >
+              {fileList.length >= 8 ? null : uploadButton}
+            </Upload>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
               <Button
                 type="primary"
