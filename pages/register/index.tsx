@@ -5,9 +5,8 @@ import { toast } from "react-toastify";
 import { addUser } from "../../Api/authApi";
 import { Tuser } from "../../models/user";
 import {
-  faEyeSlash,
-  faEye
-  } from "@fortawesome/free-solid-svg-icons";
+  faEyeSlash, faEye, faUser, faPhone, faEnvelope, faLock
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 type Props = {};
 
@@ -25,124 +24,92 @@ const Register = (props: Props) => {
       toast.error("Lỗi");
     }
   };
-  
-  //show/hiden
- const [type, setType] = useState('password')
- const [icon, setIcon] = useState(faEyeSlash)
- const handleToggle = () =>{
-  if(type==='password'){
-    setIcon(faEye);
-    setType('text')
-  }
-  else{
-    setIcon(faEyeSlash);
-    setType('password')
-  }
- }
-  return (
-    <div className="">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a
-          href="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-        >
-          Đăng ký
-        </a>
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Tạo tài khoản mới
-            </h1>
-            <form
-              className="space-y-4 md:space-y-6"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
-                  {...register("email", { required: true })}
-                />
-                {errors.password?.type === "required" && (
-                  <span className="text-red-700">is required</span>
-                )}
-              </div>
-              <div className="relative">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Mật khẩu
-                </label>
-                <input
-                  type={type}
-                  id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  {...register("password", { required: true })}
-                />
-                <span className="absolute cursor-pointer bottom-[8px] right-[16px]" onClick={handleToggle}><FontAwesomeIcon icon={icon}/></span>
-                {errors.name?.type === "required" && (
-                  <span className="text-red-700">is required</span>
-                )}
-              </div>
-              <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  phone
-                </label>
-                <input
-                  id="phone"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  {...register("phone", { required: true })}
-                />
-                {errors.phone?.type === "required" && (
-                  <span className="text-red-700">is required</span>
-                )}
-              </div>
-              <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  name
-                </label>
-                <input
-                  id="name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  {...register("name", { required: true })}
-                />
-                {errors.name?.type === "required" && (
-                  <span className="text-red-700">is required</span>
-                )}
-              </div>
-              {/* <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Nhập lại mật khẩu
-                </label>
-                <input
-                  type="confirm-password"
-                  name="confirm-password"
-                  id="confirm-password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div> */}
 
-              <button
-                type="submit"
-                className="w-full text-white bg-black hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Tạo tài khoản
-              </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Bạn đã có tài khoản ?{" "}
-                <Link
-                  href="login"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Đăng nhập tại đây
-                </Link>
-              </p>
-            </form>
+  //show/hiden
+  const [type, setType] = useState('password')
+  const [icon, setIcon] = useState(faEyeSlash)
+  const handleToggle = () => {
+    if (type === 'password') {
+      setIcon(faEye);
+      setType('text')
+    }
+    else {
+      setIcon(faEyeSlash);
+      setType('password')
+    }
+  }
+  return (
+    <div className="w-[1200px] mx-auto">
+      <div className="min-w-screen min-h-screen  flex items-center justify-center px-5 py-5">
+        <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" >
+          <div className="md:flex w-full">
+            <div className="w-3/5 py-10 ">
+              <picture>
+                <img className="h-[500px] w-full ml-[60px]" src="https://images.pexels.com/photos/14893202/pexels-photo-14893202.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+              </picture>
+            </div>
+            <div className="w-full md:w-1/2 py-10 px-5 md:px-10">
+              <div className="text-center mb-10">
+                <h1 className="font-bold text-3xl text-gray-900">ĐĂNG KÝ</h1>
+                <p className="text-lg">Nhập thông tin của bạn để đăng ký
+                </p>
+              </div>
+              <form className="text-lg" onSubmit={handleSubmit(onSubmit)}>
+                <div className="flex -mx-3">
+                  <div className="w-1/2 px-3 mb-5">
+                    <label htmlFor="" className="text-lg font-semibold px-1">Họ và tên</label>
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><FontAwesomeIcon icon={faUser} /></div>
+                      <input type="text" {...register("name", { required: true })} className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Nhập tên" />
+                      {errors.name?.type === "required" && (
+                        <span className="text-red-700">is required</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="w-1/2 px-3 mb-5">
+                    <label htmlFor="" className="text-lg font-semibold px-1">Số điện thoại</label>
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><FontAwesomeIcon icon={faPhone} /></div>
+                      <input type="text" {...register("phone", { required: true })} className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Nhập SĐT" />
+                    </div>
+                    {errors.phone?.type === "required" && (
+                      <span className="text-red-700">is required</span>
+                    )}
+                  </div>
+                </div>
+                <div className="flex -mx-3">
+                  <div className="w-full px-3 mb-5">
+                    <label htmlFor="" className="text-lg font-semibold px-1 ">Email</label>
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><FontAwesomeIcon icon={faEnvelope} /></div>
+                      <input type="email" {...register("email", { required: true })} className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="email@example.com" />
+                      {errors.password?.type === "required" && (
+                        <span className="text-red-700">is required</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex -mx-3">
+                  <div className="w-full px-3 mb-12">
+                    <label htmlFor="" className="text-lg font-semibold px-1">Mật khẩu</label>
+                    <div className="flex relative">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><FontAwesomeIcon icon={faLock} /></div>
+                      <input type={type} {...register("password", { required: true })} className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                      <span className="absolute cursor-pointer bottom-[10px] right-[20px]" onClick={handleToggle}><FontAwesomeIcon icon={icon} /></span>
+                      {errors.name?.type === "required" && (
+                        <span className="text-red-700">is required</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex -mx-3">
+                  <div className="w-full px-3 mb-5">
+                    <button className="block w-full max-w-xs mx-auto bg-black  focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Đăng ký </button>
+                  </div>
+                </div>
+                <div className="">Bạn đã có tài khoản? <Link href={'/login'}>Đăng nhập ngay</Link> </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

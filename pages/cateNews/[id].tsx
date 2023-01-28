@@ -1,17 +1,19 @@
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import React from "react";
 import Link from "next/link";
-import Sidebar from "./Sidebar";
-import News from "./News";
-import { GetStaticProps } from "next";
-import Head from "next/head";
-import { Tblog } from "../../models/blogs";
+import { get, getAll } from "../../Api/blogCateApi";
+import Sidebar from "../blogs/Sidebar";
+import News from "../blogs/News";
 import { TblogCate } from "../../models/blogCates";
+import Head from "next/head";
+
 type Props = {
-  posts: Tblog[];
+  cateNews: TblogCate;
   catePost: TblogCate[];
 };
 
-const index = ({ posts, catePost }: Props) => {
+const CateNews = ({ cateNews, catePost }: Props) => {
+  const news = cateNews.news;
   return (
     <div className="container-base ">
       <Head>
@@ -31,28 +33,36 @@ const index = ({ posts, catePost }: Props) => {
         </div>
       </div>
       <div className="container mx-auto flex flex-wrap py-6">
-        <News postsNews={posts} catePost={[]}></News>
+        <News postsNews={news} catePost={[]}></News>
         <Sidebar cateNews={catePost}></Sidebar>
       </div>
     </div>
-    
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("http://localhost:8000/api/news");
-  const posts = await res.json();
+export const getStaticPaths: GetStaticPaths = async () => {
+  const data = await getAll();
+  const pathsnews = data.map((cateNews) => ({ params: { id: cateNews._id } }));
+  return {
+    paths: pathsnews,
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
+  const id = context.params?.id as string;
+  const cateNews = await get(id);
 
   const req = await fetch("http://localhost:8000/api/CategoryNews");
   const catePost = await req.json();
 
   return {
     props: {
-      posts,
+      cateNews,
       catePost,
     },
     revalidate: 60,
   };
 };
 
-export default index;
+export default CateNews;

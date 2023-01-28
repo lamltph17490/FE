@@ -20,3 +20,8 @@ export const get = (id: string): Promise<Tvouche> => {
 export const update = (sale: Tvouche): Promise<Tvouche> => {
     return axiosClient.put(`/sales/${sale._id}`, sale);
 };
+
+export const useVoucher = ( data: any) => {
+    return axiosClient.post(`/use-voucher`, data);
+  };
+  

@@ -38,11 +38,11 @@ const ChangePassword :NextPageWithLayout  = (props: Props) => {
     };
     return (
         <div>
-            <div className="main w-[1410px] mx-auto mt-[80px]">
+            <div className="main w-[1410px] mx-auto mt-[80px] mb-[20px]">
                 <h2 className='text-2xl'>Trang chủ/ <a href="" className='text-red-500'>Tài khoản</a></h2>
                 <div className=' flex mt-[14px]'>
                     <UserNav />
-                    <div className='ml-[140px]'>
+                    <div className='ml-[60px]'>
                         <h2 className='text-xl'>Đổi mật khẩu</h2>
                         <form className='mt-[14px]' onSubmit={handleSubmit(onSubmit)}>
                             <input type="text" {...register("_id")} className="hidden" value={currentUser._id} />
