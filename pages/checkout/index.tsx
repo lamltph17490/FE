@@ -61,7 +61,7 @@ const CheckOut = (props: Props) => {
       };
       await addOrders({
         ...data,
-        totalPrice: total,
+        totalPrice: total - priceVoucher,
         userId: currentUser?._id,
       })
         .then((res: any) => {
