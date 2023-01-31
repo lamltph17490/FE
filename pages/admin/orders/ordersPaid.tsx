@@ -192,7 +192,7 @@ const OrdersPaid = (props: Props) => {
       key: "name",
     },
     {
-      title: "Address",
+      title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
     },

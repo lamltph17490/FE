@@ -249,15 +249,15 @@ const CheckOut = (props: Props) => {
               <h2 className="text-xl font-bold">Tổng thanh toán</h2>
               <div className="mt-8">
                 <div className="flex flex-col space-y-4">
-                  {cart?.map((item: any) => (
-                    <div className="flex space-x-4">
+                  {cart?.map((item: any,index:any) => (
+                    <div className="flex space-x-4" key={index}>
                       <div>
                         <img src={item?.id?.image} alt="image" className="w-60 max-h-30" />
                       </div>
                       <div>
                         <h2 className="text-xl font-bold">{item?.id?.name}</h2>
                         {/* <p className="text-sm" dangerouslySetInnerHTML={{ __html: item?.id?.desc }}></p> */}
-                        <span className="text-red-600">Giá</span>{" "}
+                        <span className="">Giá</span>{" "}
                         {thousandFormat(sumTotal(item?.id?.price, item?.quantity))}đ
                       </div>
                       <div>
@@ -348,9 +348,7 @@ const CheckOut = (props: Props) => {
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
                 Giảm giá<span className="ml-2">{thousandFormat(priceVoucher)} VNĐ</span>
               </div>
-              <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                Phí vận chuyển<span className="ml-2">30.000 VNĐ</span>
-              </div>
+             
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
                 Tổng tiền<span className="ml-2">{thousandFormat(total - priceVoucher)} VNĐ</span>
               </div>
