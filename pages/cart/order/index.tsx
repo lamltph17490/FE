@@ -173,15 +173,15 @@ const Cart = (props: Props) => {
            
             <div className="mt-4">
               <div className="py-4 rounded-md shadow">
-                <h3 className="text-xl font-bold text-blue-600">Tổng tiền</h3>
+                {/* <h3 className="text-xl font-bold text-blue-600">Tổng tiền</h3>
                 <div className="flex justify-between px-4">
                   <span className="font-bold">Tổng thu</span>
                   <span className="font-bold">{thousandFormat(total)} VNĐ</span>
-                </div>
-                <div className="flex justify-between px-4">
+                </div> */}
+                {/* <div className="flex justify-between px-4">
                   <span className="font-bold">Giảm giá</span>
                   <span className="font-bold text-red-600">-20.000VNĐ</span>
-                </div>
+                </div> */}
                 {/* <div className="flex justify-between px-4">
                   <span className="font-bold">Sales Tax</span>
                   <span className="font-bold">$2.25</span>
@@ -198,7 +198,7 @@ const Cart = (props: Props) => {
         "
                 >
                   <span className="text-xl font-bold">Tổng</span>
-                  <span className="text-2xl font-bold">{total}</span>
+                  <span className="text-2xl font-bold">{thousandFormat(total)} VNĐ</span>
                 </div>
               </div>
             </div>

@@ -171,7 +171,7 @@ const ProductDetail = (product: Props) => {
               </div>
             </Col>
           </Row>
-          <div className="leading-relaxed text-xl mt-4" dangerouslySetInnerHTML={{ __html: data.desc || "" }} />
+          <div className="text-lg mt-4" dangerouslySetInnerHTML={{ __html: data.desc || "" }} />
         </div>
       </section>
       <div className="container px-5 py-12 mx-auto">
