@@ -152,13 +152,13 @@ const AddBlog: NextPageWithLayout = (props: Props) => {
                                         Danh mục bài biết
                                     </label>
                                     <select {...register('categoryId', { required: true })} >
-                                        <option className="py-1">Categorys</option>
+                                        <option className="py-1">Category</option>
                                         {blogCate.map((item: any, index: any) => {
                                             return <option key={index} className="py-1" value={item._id}>{item.name}</option>
                                         })}
                                     </select>
                                     <div className="text-sm mt-0.5 text-red-500">
-
+                                        
                                     </div>
                                 </div>
 
