@@ -65,7 +65,7 @@ export default function ProductForm(props: ProductFormProps): ReactElement {
           }}
         />
       </Form.Item>
-      <Form.Item label="Danh mục sản phẩm" name="categoryId" rules={[{ required: true }]}>
+      <Form.Item label="Danh mục sản phẩm" name="categoryId" rules={[{ required: true,message: "Vui lòng không để trống" }]}>
         <Select options={categories.map((item) => ({ label: item.name, value: item._id }))} />
       </Form.Item>
       <div className="col-span-3">
