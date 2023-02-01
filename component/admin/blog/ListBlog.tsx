@@ -124,7 +124,7 @@ const BlogList = (props: Props) => {
             stt: index,
             title: item.title,
             desc: item.desc,
-            category: item.categoryId.name,
+            category: item.categoryId?.name,
             image: item.thumbnail,
             action: item
         }
