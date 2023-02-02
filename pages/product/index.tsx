@@ -36,9 +36,10 @@ const Product = (props: Props) => {
       console.log(data);
       setProduct(data)
     }
+    
     getPro()
-    dispatch(getProducts());
     dispatch(getprdCates())
+  
   }, [dispatch]);
 
   const { prdCates } = useSelector((state: RootState) => state.prdCate)
@@ -118,7 +119,7 @@ const Product = (props: Props) => {
                       className="flex-shrink text-xs mt-0.5 transition duration-150 ease-in focus:outline-none hover:text-heading"
                       aria-label="Clear All"
                     >
-                      Xoá hết
+                      Làm mới
                     </button>
                   </div>
                   <div className="mt-2 flex flex-col space-y-4">

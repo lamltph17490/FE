@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Tuser } from "../../../models/user";
 import { RootState } from "../../../redux/store";
 import Link from "next/link";
@@ -13,10 +13,17 @@ import { getNotificationApi, readedNotification } from "../../../Api/notificatio
 import { to } from "react-spring";
 import { useRouter } from "next/router";
 import { getOrders } from "../../../Api/orders";
+import { getAll } from "../../../Api/prdApi";
+import { filterProductS, getProducts } from "../../../redux/prdSlice";
+import { searchProduct } from "../../../Api/products";
 
 type Props = {};
 
 const header = (props: Props) => {
+  const products = useSelector((state: RootState) => state.prd.products);
+  const dispatch = useDispatch<any>();
+  const [product, setProduct] = useState([]);
+ 
   const curentUse = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
   console.log(curentUse);
 
@@ -34,17 +41,45 @@ const header = (props: Props) => {
     try {
       const res = await readedNotification(id)
       const dataRes = await getNotificationApi(userId)
-      setNotificationUser({...res, unRead:dataRes.unRead})
+      setNotificationUser({ ...res, unRead: dataRes.unRead })
       localStorage.setItem("readNo", status)
       router.push("/user/order")
-      
+
     } catch (error) {
       console.log(error);
       message.error(`${error.response.message}`, 4)
     }
   }
-  useEffect(() => {
+  const handleSerach = async () => {
+    const key = document.getElementById("s")
+    console.log(key.value);
+    if (key.value == "") {
+      message.warning("Vui lòng nhập từ khóa")
+    } else {
+      router.push("/product")
+      localStorage.setItem("search", "true")
+      try {
+        const res = await searchProduct(key.value)
+        console.log(res);
+        if(res.length == 0) {
+          message.warning("Không có sản phẩm phù hợp")
+          dispatch(getProducts());
 
+        }else{
+          message.success(res.length + " sản phẩm phù hợp")
+          dispatch(filterProductS(res));
+        }
+        
+      } catch (error) {
+        message.error(`${error.response.message}`, 4)
+      }
+      
+    }
+
+  }
+ 
+  useEffect(() => {
+     
     return () => {
       if (curentUse) {
         socket.emit("newUser", curentUse?._id);
@@ -60,13 +95,13 @@ const header = (props: Props) => {
             const res = await getOrders(data.orderId)
             localStorage.setItem("readNo", res.status)
             router.push("/user/order")
-            readedNotification(data._id).then( async (response) =>{
+            readedNotification(data._id).then(async (response) => {
               const dataRes = await getNotificationApi(data.userId)
-              setNotificationUser({...response, unRead: dataRes.unRead});
+              setNotificationUser({ ...response, unRead: dataRes.unRead });
             })
-            .catch(error =>{
-              message.error(`${error}`)
-            })
+              .catch(error => {
+                message.error(`${error}`)
+              })
           },
           style: {
             cursor: "pointer",
@@ -139,17 +174,16 @@ const header = (props: Props) => {
               {/* <a className="hover:text-gray-200 text-white" href="#">         
                 <FontAwesomeIcon className="text-2xl" icon={faSearch} />
               </a> */}
-              <div className="max-w-lg w-full lg:max-w-xs">
-                <form method="get" action="#" className="relative z-50">
-                  <button type="submit" id="searchsubmit" className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path>
-                    </svg>
-                  </button>
-                  <input type="text" name="s" id="s" className="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-white-200 text-gray-300 placeholder-gray-400 focus:outline-none focus:bg-white focus:text-gray-900 sm:text-sm transition duration-150 ease-in-out" placeholder="Tìm kiếm" />
-                </form>
+              <div style={{display:"flex"}} className="max-w-lg w-full lg:max-w-xs">
+                  <input type="text" name="s" id="s" className="block w-full pl-1 pr-3 py-2 border border-transparent rounded-md leading-5 bg-white-200 text-gray-300 placeholder-gray-400 focus:outline-none focus:bg-white focus:text-gray-900 sm:text-sm transition duration-150 ease-in-out" placeholder="Tìm kiếm sản phẩm" />
+                  
+                <button onClick={() => handleSerach()} style={{backgroundColor:"white", width:"40px", display:"flex", alignItems:"center", justifyContent:"center"}} type="submit" id="searchsubmit" className="ml-2 border border-transparent rounded-md">
+                <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path>
+                </svg>
+              </button>
               </div>
-
+             
               <a className="flex items-center hover:text-gray-200 text-white" href="#">
                 {isLogged ? (
                   <li className="relative group flex items-center ml-3 cursor-pointer before:absolute before:content-[''] before:top-full before:left-0 before:h-2 before:right-0 ">
@@ -182,8 +216,8 @@ const header = (props: Props) => {
 
                         {notificationUser?.notification.map((item, index) => {
                           return (
-                            <li style={{ backgroundColor: item.readed == true ? "white" : "#e7e7e7" }} 
-                            onClick={() => readNotification(item._id, item?.orderId?.status, item?.orderId?.userId)}className="relative mb-2" key={index} >
+                            <li style={{ backgroundColor: item.readed == true ? "white" : "#e7e7e7" }}
+                              onClick={() => readNotification(item._id, item?.orderId?.status, item?.orderId?.userId)} className="relative mb-2" key={index} >
                               <a className="dark:hover:bg-slate-900 ease py-1.2 clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors">
                                 <div className="flex py-1">
                                   {/* <div className="my-auto">
