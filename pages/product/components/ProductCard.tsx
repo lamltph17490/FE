@@ -13,7 +13,12 @@ const ProductCard = ( product : Props) => {
   const dispatch = useDispatch<any>();
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
-    dispatch(getProducts());
+    if(localStorage.getItem("search")) {
+      localStorage.removeItem("search")
+      return
+    }else{
+      dispatch(getProducts());
+    }
   }, [dispatch]);
 
   const postPerPage = 9;

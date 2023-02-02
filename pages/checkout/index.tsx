@@ -94,7 +94,7 @@ const CheckOut = (props: Props) => {
           } else {
             success("Đặt hàng thành công,đi tới trang thanh toán");
             localStorage.removeItem("cart");
-            sessionStorage.setItem("total", total);
+            sessionStorage.setItem("total", total - priceVoucher);
             setTimeout(() => {
               return route.push("/payment");
             }, 2000);
