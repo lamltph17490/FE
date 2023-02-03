@@ -143,7 +143,7 @@ const AddPrd: NextPageWithLayout = (props: Props) => {
               <span className="font-semibold mb-4 block text-xl">Thêm sản phẩm mới</span>
               <ProductForm form={form} onSubmit={onSubmit} categories={prdCate} preview={preview} setPreview={setPreview} />
             </div>
-            <h3>Sub Imgae</h3>
+            <h3>Thêm ảnh</h3>
             <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"

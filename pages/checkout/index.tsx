@@ -233,7 +233,7 @@ const CheckOut = (props: Props) => {
                         {...register("payment", { required: "vui lòng chọn phương thúc thanh toán" })}
                         value="online"
                       />
-                      <span className="p-1">Thanh toán ngay</span>
+                      <span className="p-1">Thanh toán online</span>
                     </label>
                     <p className="text-red-600 mt-1"> {errors?.payment?.message}</p>
                   </div>
