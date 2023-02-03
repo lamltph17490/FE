@@ -37,7 +37,7 @@ const index = (props: Props) => {
     reset({
       amount: total,
       bankCode: "NCB",
-      orderDescription: "Thanh toan don hang so tien: " + total + " VND",
+      orderDescription: "Thanh toán đơn hàng số tiền: " + total + " VNĐ",
     });
   }, []);
   return (

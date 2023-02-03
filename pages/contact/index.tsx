@@ -60,7 +60,7 @@ const Contact = (props: Props) => {
               </svg>
               <div>
                 <h3 className="text-xl">Email</h3>
-                <span className="text-[#6E6F7E]">example@gmail.com</span>
+                <span className="text-[#6E6F7E]">whitecatshopdantn@gmail.com</span>
               </div>
             </div>
             <div className="flex py-[20px]">

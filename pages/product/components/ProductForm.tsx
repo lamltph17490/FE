@@ -81,7 +81,7 @@ export default function ProductForm(props: ProductFormProps): ReactElement {
         </div>
       </div>
       <div style={{ margin: '32px 0' }} className="col-span-6">
-        <label className="block text-sm font-medium text-gray-700">Ảnh bài viết</label>
+        <label className="block text-sm font-medium text-gray-700">Ảnh sản phẩm</label>
         <div
           className="w-full mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
           <div className="space-y-1 text-center">
@@ -104,7 +104,7 @@ export default function ProductForm(props: ProductFormProps): ReactElement {
                 htmlFor="form__add-user-avatar"
                 className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
               >
-                <span>Upload a file</span>
+                <span>Thêm file</span>
                 <Form.Item name="image" rules={[{ required: true, message: "Vui lòng chọn ảnh" }]} />
                 <input
                   id="form__add-user-avatar"
@@ -121,9 +121,9 @@ export default function ProductForm(props: ProductFormProps): ReactElement {
                   className="sr-only"
                 />
               </label>
-              <p className="pl-1">or drag and drop</p>
+              <p className="pl-1">Hoặc kéo thả tại đây</p>
             </div>
-            <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+            <p className="text-xs text-gray-500">PNG, JPG, GIF lên tới 10MB</p>
           </div>
         </div>
       </div>
