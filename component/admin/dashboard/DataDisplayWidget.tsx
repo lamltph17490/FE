@@ -14,6 +14,12 @@ const DataDisplayWidget = (props: any) => {
           shape="square"
           icon={icon}
           className={`ant-avatar-${color}`}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'end',
+            backgroundColor: 'unset'
+          }}
         />
         <div className={vertical ? "mt-3 text-center" : "ml-3"}>
           <CustomStatistic {...customStatisticProps} />
