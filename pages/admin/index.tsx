@@ -50,6 +50,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
   const [seriesProducts, setSeriesProducts] = useState<Array<any>>([]);
   const [orders, setOrders] = useState<Array<Order>>([]);
   const [form] = Form.useForm();
+  const [yearSelected, setYearSelected] = useState(moment().year());
 
   const chartMonthOptions: ApexOptions = {
     noData: {
@@ -131,7 +132,10 @@ const Andex: NextPageWithLayout = (props: Props) => {
     setLoading(true);
     let params = {};
     if (datePicker) {
-      params = { startDate: datePicker[0].toDate(), endDate: datePicker[1].toDate() };
+      params = { ...params, startDate: datePicker[0].toDate(), endDate: datePicker[1].toDate() };
+    }
+    if (yearSelected) {
+     params = { ...params, yearSelected }
     }
     StatisticApi.dashboard(params).then((res: any) => {
       setStatisticDashboard(res);
@@ -149,10 +153,10 @@ const Andex: NextPageWithLayout = (props: Props) => {
       setOrders(res.orders);
       setLoading(false);
     });
-  }, [months]);
+  }, [months, yearSelected]);
   useEffect(() => {
     loadStatisticDashboard();
-  }, []);
+  }, [yearSelected]);
   moment.locale("en", {
     week: {
       dow: 1,
@@ -255,7 +259,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
         <Row gutter={16}>
           <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={6}>
             <DataDisplayWidget
-              icon={<FaProductHunt fill="#2587be" style={{ width: '100%', height: '100%' }} />}
+              icon={<FaProductHunt fill="#2587be" style={{ width: "100%", height: "100%" }} />}
               value={statisticDashboard.total.totalProducts}
               title="Tổng sản phẩm"
               avatarSize={55}
@@ -264,7 +268,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
           </Col>
           <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={6}>
             <DataDisplayWidget
-              icon={<FcSalesPerformance style={{ width: '100%', height: '100%' }} />}
+              icon={<FcSalesPerformance style={{ width: "100%", height: "100%" }} />}
               value={statisticDashboard.total.totalSaleProducts}
               title="Số lượng sản phẩm đã bán"
               avatarSize={55}
@@ -273,7 +277,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
           </Col>
           <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={6}>
             <DataDisplayWidget
-              icon={<MdDoneOutline fill="#49be25" style={{ width: '100%', height: '100%' }} />}
+              icon={<MdDoneOutline fill="#49be25" style={{ width: "100%", height: "100%" }} />}
               value={statisticDashboard.total.totalOrders}
               title="Tổng số đơn hàng"
               avatarSize={55}
@@ -282,7 +286,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
           </Col>
           <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={6}>
             <DataDisplayWidget
-              icon={<FaMoneyCheckAlt fill="#be4d25" style={{ width: '100%', height: '100%' }} />}
+              icon={<FaMoneyCheckAlt fill="#be4d25" style={{ width: "100%", height: "100%" }} />}
               value={statisticDashboard.total.totalRevenue}
               title="Doanh thu"
               avatarSize={55}
@@ -293,7 +297,16 @@ const Andex: NextPageWithLayout = (props: Props) => {
         </Row>
         <Row gutter={16}>
           <Col md={24} lg={12}>
-            <Card title="Doanh thu theo tháng">
+            <Card title="Doanh thu theo tháng" extra={<Select
+              defaultValue={moment().year()}
+              onChange={(event) => {
+                setYearSelected(event)
+              }}
+              style={{ width: 120 }}
+              options={Array.from(new Array(10)).map((_, index) => moment().year() - 9 + index).map((year) => ({
+                label: year,
+                value: year,
+              }))} />}>
               <ReactApexChart series={seriesMonthly} options={chartMonthOptions} type="line" height={350} />
             </Card>
           </Col>
