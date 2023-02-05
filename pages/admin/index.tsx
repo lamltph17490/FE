@@ -33,7 +33,7 @@ interface StatisticDashboard {
 }
 
 const Andex: NextPageWithLayout = (props: Props) => {
-  const months = Array.from(new Array(moment().month() + 1)).map((_, i) => (i + 1));
+  const [months, setMonths] = useState(Array.from(new Array(moment().month() + 1)).map((_, i) => (i + 1)));
   const [loading, setLoading] = useState(true);
   const [statisticDashboard, setStatisticDashboard] = useState<StatisticDashboard>({
     total: {
@@ -156,7 +156,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
   }, [months, yearSelected]);
   useEffect(() => {
     loadStatisticDashboard();
-  }, [yearSelected]);
+  }, [yearSelected, months]);
   moment.locale("en", {
     week: {
       dow: 1,
@@ -301,6 +301,8 @@ const Andex: NextPageWithLayout = (props: Props) => {
               defaultValue={moment().year()}
               onChange={(event) => {
                 setYearSelected(event)
+                const countMonths = moment().year() === event ? moment().month() + 1 : 12
+                setMonths(Array.from(new Array(countMonths)).map((_, i) => i+1))
               }}
               style={{ width: 120 }}
               options={Array.from(new Array(10)).map((_, index) => moment().year() - 9 + index).map((year) => ({
