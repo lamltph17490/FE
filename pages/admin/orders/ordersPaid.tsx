@@ -30,8 +30,8 @@ const OrdersPaid = (props: Props) => {
   orders = orders.filter((item: any) => item.paid === true);
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(getallorders());
-    dispatch(getallorderdetail());
+    // dispatch(getallorders());
+    // dispatch(getallorderdetail());
   }, [flag]);
   const showModal2 = (values: any) => {
     setIsModalOpen2(true);
@@ -41,20 +41,20 @@ const OrdersPaid = (props: Props) => {
     setIsModalOpen2(false);
     // console.log({ reason: reason, cancelData });
     // return;
-    if (cancelData) {
-      dispatch(updateOrder({ _id: cancelData.id, status: cancelData.status, reason: reason }))
-        .unwrap()
-        .then(() => {
-          Swal.fire({
-            icon: "success",
-            title: "Thành công",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setFlag(!flag);
-        })
-        .catch((err: any) => alert(err));
-    }
+    // if (cancelData) {
+    //   dispatch(updateOrder({ _id: cancelData.id, status: cancelData.status, reason: reason }))
+    //     .unwrap()
+    //     .then(() => {
+    //       Swal.fire({
+    //         icon: "success",
+    //         title: "Thành công",
+    //         showConfirmButton: false,
+    //         timer: 1500,
+    //       });
+    //       setFlag(!flag);
+    //     })
+    //     .catch((err: any) => alert(err));
+    // }
   };
 
   const handleCancel2 = () => {
@@ -72,14 +72,13 @@ const OrdersPaid = (props: Props) => {
         id: id,
       });
     } else {
-      dispatch(updateOrder({ _id: id, status: value }))
-        .unwrap()
-        .then(() => {
-          message.success({ content: "Đổi trạng thái thành công" });
-          setFlag(!flag);
-
-        })
-        .catch((err: any) => alert(err));
+      // dispatch(updateOrder({ _id: id, status: value }))
+      //   .unwrap()
+      //   .then(() => {
+      //     message.success({ content: "Đổi trạng thái thành công" });
+      //     setFlag(!flag);
+      //   })
+      //   .catch((err: any) => alert(err));
     }
   };
   const dataStatus = [
@@ -104,7 +103,7 @@ const OrdersPaid = (props: Props) => {
   };
 
   const getColumnSearchProps = (dataIndex: any): ColumnType<any> => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
@@ -138,13 +137,7 @@ const OrdersPaid = (props: Props) => {
           >
             Filter
           </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              close();
-            }}
-          >
+          <Button type="link" size="small" onClick={() => {}}>
             close
           </Button>
         </Space>

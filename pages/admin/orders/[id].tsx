@@ -78,8 +78,8 @@ const OrderDetail = (props: Props) => {
       };
     });
   React.useEffect(() => {
-    dispatch(getallorders());
-    dispatch(getallorderdetail());
+    // dispatch(getallorders());
+    // dispatch(getallorderdetail());
   }, [dispatch]);
   return (
     <>

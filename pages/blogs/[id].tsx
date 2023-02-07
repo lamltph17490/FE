@@ -18,27 +18,28 @@ const Blog = ({ blog }: Props) => {
   const blogs = useSelector((state: RootState) => state.blog.blogs);
   const dispatch = useDispatch<any>();
   const data = useMemo(() => blogs.find((item: any) => item._id === id), [id, blogs]);
-  // 
-  const render = document.getElementById('content')
-  if(render) {
-    render.innerHTML = data.content
+  //
+  const render = document.getElementById("content");
+  if (render) {
+    // render.innerHTML = data.content
   }
-  // 
-  const renders = document.getElementById('title')
-  if(renders) {
-    renders.innerHTML = data.title
+  //
+  const renders = document.getElementById("title");
+  if (renders) {
+    // renders.innerHTML = data.title
   }
   useEffect(() => {
     dispatch(getBlogs());
   }, [dispatch]);
   if (!data) return <div>loading...</div>;
-  return <div className="w-[1410px] mx-auto">
-    <div className="text-4xl mb-[20px] mt-[30px]" id="title"></div>  
-    <div className="mx-auto w-[1410px] text-lg" id="content">
-    {/* {data.content} */}
+  return (
+    <div className="w-[1410px] mx-auto">
+      <div className="text-4xl mb-[20px] mt-[30px]" id="title"></div>
+      <div className="mx-auto w-[1410px] text-lg" id="content">
+        {/* {data.content} */}
+      </div>
     </div>
-  </div>;
+  );
 };
-
 
 export default Blog;

@@ -10,7 +10,7 @@ import AlertMessage from "../../untils/alert";
 import { getLocalStorage, sumTotal } from "../../untils/cart";
 import { Tuser } from "../../models/user";
 import { useRouter } from "next/router";
-import { UseVoucher, useVoucher } from "../../Api/voucheApi";
+import { UseVoucher } from "../../Api/voucheApi";
 type Inputs = {
   customerName: string;
   email: string;
@@ -40,12 +40,12 @@ const CheckOut = (props: Props) => {
   const handleUseVoucher = async () => {
     const codeVou = document.getElementById("voucherCode");
     try {
-      const data = await UseVoucher({ code: codeVou.value, price: total });
-      setPriceVoucher(data);
+      // const data = await UseVoucher({ code: codeVou.value, price: total });
+      // setPriceVoucher(data);
       message.success("Áp voucher thành công");
     } catch (error) {
       setPriceVoucher(0);
-      message.error(`${error.response?.data?.message}`);
+      // message.error(`${error.response?.data?.message}`);
     }
   };
 
@@ -95,7 +95,7 @@ const CheckOut = (props: Props) => {
           } else {
             success("Đặt hàng thành công,đi tới trang thanh toán");
             localStorage.removeItem("cart");
-            sessionStorage.setItem("total", total - priceVoucher);
+            // sessionStorage.setItem("total", total - priceVoucher);
             setTimeout(() => {
               return route.push("/payment");
             }, 2000);

@@ -32,8 +32,8 @@ const OrdersPaid = (props: Props) => {
   orders = orders.filter((item: any) => item.paid === false);
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(getallorders());
-    dispatch(getallorderdetail());
+    // dispatch(getallorders());
+    // dispatch(getallorderdetail());
   }, [flag]);
   const showModal2 = (values: any) => {
     setIsModalOpen2(true);
@@ -43,34 +43,44 @@ const OrdersPaid = (props: Props) => {
     setIsModalOpen2(false);
     // console.log({ reason: reason, cancelData });
     // return;
-    if (cancelData) {
-      dispatch(updateOrder({ _id: cancelData.id, status: cancelData.status, reason: reason }))
-        .unwrap()
-        .then( async () => {
-          Swal.fire({
-            icon: "success",
-            title: "Thành công",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setFlag(!flag);
-          const res = await getOrders(cancelData.id) 
-          console.log(res);
+    // if (cancelData) {
+    //   dispatch(updateOrder({ _id: cancelData.id, status: cancelData.status, reason: reason }))
+    //     .unwrap()
+    //     .then(async () => {
+    //       Swal.fire({
+    //         icon: "success",
+    //         title: "Thành công",
+    //         showConfirmButton: false,
+    //         timer: 1500,
+    //       });
+    //       setFlag(!flag);
+    //       const res = await getOrders(cancelData.id);
+    //       console.log(res);
 
-            const notification = {
-              orderId: res._id,
-              userId: res.userId,
-              text: res.status == 0 ? "Đơn hàng của bạn đang chờ xử lý" : res.status == 1 ? "Đơn hàng của bạn đã được xác nhận" : res.status == 2 ? "Đơn hàng của bạn đã chuẩn bị xong và sớm sẽ được chuyển đi" : res.status == 3 ? "Đơn hàng của bạn đang vận chuyển" : res.status == 4 ? "Đơn hàng của bạn đã giao thành công" : "Đơn hàng của bạn đã bị hủy",
-              notificationType: "employee",
-              // employeeId: response.employeeId,
-            };
-            socket.emit("newNotification", notification);
-            socket.off("newNotification");
-            console.log("1");
-            
-        })
-        .catch((err: any) => alert(err));
-    }
+    //       const notification = {
+    //         orderId: res._id,
+    //         userId: res.userId,
+    //         text:
+    //           res.status == 0
+    //             ? "Đơn hàng của bạn đang chờ xử lý"
+    //             : res.status == 1
+    //             ? "Đơn hàng của bạn đã được xác nhận"
+    //             : res.status == 2
+    //             ? "Đơn hàng của bạn đã chuẩn bị xong và sớm sẽ được chuyển đi"
+    //             : res.status == 3
+    //             ? "Đơn hàng của bạn đang vận chuyển"
+    //             : res.status == 4
+    //             ? "Đơn hàng của bạn đã giao thành công"
+    //             : "Đơn hàng của bạn đã bị hủy",
+    //         notificationType: "employee",
+    //         // employeeId: response.employeeId,
+    //       };
+    //       socket.emit("newNotification", notification);
+    //       socket.off("newNotification");
+    //       console.log("1");
+    //     })
+    //     .catch((err: any) => alert(err));
+    // }
   };
 
   const handleCancel2 = () => {
@@ -81,34 +91,43 @@ const OrdersPaid = (props: Props) => {
     setReason(e.target.value);
   };
 
-  const onChange =  (id: any, value: any) => {
+  const onChange = (id: any, value: any) => {
     if (value == 5) {
       return showModal2({
         status: value,
         id: id,
       });
     } else {
-      dispatch( updateOrder({ _id: id, status: value }))
-        .unwrap()
-        .then( async() => {
-          message.success({ content: "Đổi trạng thái thành công" });
-          const res = await getOrders(id) 
-          console.log(res);
-
-          const notification = {
-            orderId: res._id,
-            userId: res.userId,
-            text: res.status == 0 ? "Đơn hàng của bạn đang chờ xử lý" : res.status == 1 ? "Đơn hàng của bạn đã được xác nhận" : res.status == 2 ? "Đơn hàng của bạn đã chuẩn bị xong và sớm sẽ được chuyển đi" : res.status == 3 ? "Đơn hàng của bạn đang vận chuyển" : res.status == 4 ? "Đơn hàng của bạn đã giao thành công" : "Đơn hàng của bạn đã bị hủy",
-            notificationType: "employee",
-            // employeeId: response.employeeId,
-          };
-            socket.emit("newNotification", notification);
-            socket.off("newNotification");
-            console.log("2");
-
-          setFlag(!flag);
-        })
-        .catch((err: any) => alert(err));
+      // dispatch(updateOrder({ _id: id, status: value }))
+      //   .unwrap()
+      //   .then(async () => {
+      //     message.success({ content: "Đổi trạng thái thành công" });
+      //     const res = await getOrders(id);
+      //     console.log(res);
+      //     const notification = {
+      //       orderId: res._id,
+      //       userId: res.userId,
+      //       text:
+      //         res.status == 0
+      //           ? "Đơn hàng của bạn đang chờ xử lý"
+      //           : res.status == 1
+      //           ? "Đơn hàng của bạn đã được xác nhận"
+      //           : res.status == 2
+      //           ? "Đơn hàng của bạn đã chuẩn bị xong và sớm sẽ được chuyển đi"
+      //           : res.status == 3
+      //           ? "Đơn hàng của bạn đang vận chuyển"
+      //           : res.status == 4
+      //           ? "Đơn hàng của bạn đã giao thành công"
+      //           : "Đơn hàng của bạn đã bị hủy",
+      //       notificationType: "employee",
+      //       // employeeId: response.employeeId,
+      //     };
+      //     socket.emit("newNotification", notification);
+      //     socket.off("newNotification");
+      //     console.log("2");
+      //     setFlag(!flag);
+      //   })
+      //   .catch((err: any) => alert(err));
     }
   };
   // this
@@ -134,7 +153,7 @@ const OrdersPaid = (props: Props) => {
   };
 
   const getColumnSearchProps = (dataIndex: any): ColumnType<any> => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
@@ -168,13 +187,7 @@ const OrdersPaid = (props: Props) => {
           >
             Filter
           </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              close();
-            }}
-          >
+          <Button type="link" size="small" onClick={() => {}}>
             close
           </Button>
         </Space>

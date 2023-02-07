@@ -25,7 +25,6 @@ const OrderPaid = (props: Props) => {
     setMessageReason(reason);
   };
 
-  
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -41,20 +40,20 @@ const OrderPaid = (props: Props) => {
     setIsModalOpen2(false);
     // console.log({ reason: reason, cancelData });
     // return;
-    if (cancelData) {
-      dispatch(updateOrder({ _id: cancelData._id, status: cancelData.status, reason: reason }))
-        .unwrap()
-        .then(() => {
-          Swal.fire({
-            icon: "success",
-            title: "Thành công",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setFlag(!flag);
-        })
-        .catch((err: any) => alert(err));
-    }
+    // if (cancelData) {
+    //   dispatch(updateOrder({ _id: cancelData._id, status: cancelData.status, reason: reason }))
+    //     .unwrap()
+    //     .then(() => {
+    //       Swal.fire({
+    //         icon: "success",
+    //         title: "Thành công",
+    //         showConfirmButton: false,
+    //         timer: 1500,
+    //       });
+    //       setFlag(!flag);
+    //     })
+    //     .catch((err: any) => alert(err));
+    // }
   };
 
   const handleCancel2 = () => {
@@ -73,29 +72,29 @@ const OrderPaid = (props: Props) => {
   const { orders, orderDetail } = useSelector((state: RootState) => state.orderReducer);
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(getallorders());
-    dispatch(getallorderdetail());
+    // dispatch(getallorders());
+    // dispatch(getallorderdetail());
   }, [flag]);
   // const [order, setOrder] = useState<any>([]);
-  const order = orders.filter((item: any) => item.userId?._id === currentUser?._id && item.paid == false);
-  const data0 = order
-    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
-    .filter((item: any) => item.status == 0);
-  const data1 = order
-    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
-    .filter((item: any) => item.status == 1);
-  const data2 = order
-    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
-    .filter((item: any) => item.status == 2);
-  const data3 = order
-    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
-    .filter((item: any) => item.status == 3);
-  const data4 = order
-    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
-    .filter((item: any) => item.status == 4);
-  const data5 = order
-    .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
-    .filter((item: any) => item.status == 5);
+  // const order = orders.filter((item: any) => item.userId?._id === currentUser?._id && item.paid == false);
+  // const data0 = order
+  //   .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
+  //   .filter((item: any) => item.status == 0);
+  // const data1 = order
+  //   .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
+  //   .filter((item: any) => item.status == 1);
+  // const data2 = order
+  //   .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
+  //   .filter((item: any) => item.status == 2);
+  // const data3 = order
+  //   .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
+  //   .filter((item: any) => item.status == 3);
+  // const data4 = order
+  //   .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
+  //   .filter((item: any) => item.status == 4);
+  // const data5 = order
+  //   .sort((b: any, a: any) => moment(a.date).unix() - moment(b.date).unix())
+  //   .filter((item: any) => item.status == 5);
   const columns: any = [
     {
       title: "Sản phẩm",
@@ -175,28 +174,28 @@ const OrderPaid = (props: Props) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Đồng ý",
     }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(updateOrder({ _id: values._id, status: values.status, date: new Date(), reason: "" }))
-          .unwrap()
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Thành công",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            setFlag(!flag);
-          })
-          .catch((err: any) => alert(err));
-      }
+      // if (result.isConfirmed) {
+      //   dispatch(updateOrder({ _id: values._id, status: values.status, date: new Date(), reason: "" }))
+      //     .unwrap()
+      //     .then(() => {
+      //       Swal.fire({
+      //         icon: "success",
+      //         title: "Thành công",
+      //         showConfirmButton: false,
+      //         timer: 1500,
+      //       });
+      //       setFlag(!flag);
+      //     })
+      //     .catch((err: any) => alert(err));
+      // }
     });
   };
   useEffect(() => {
-    if(localStorage.getItem("readNo")) {
-      setActive(localStorage.getItem("readNo"))
-      localStorage.removeItem("readNo")
+    if (localStorage.getItem("readNo")) {
+      setActive(localStorage.getItem("readNo"));
+      localStorage.removeItem("readNo");
     }
-  })
+  });
   return (
     <div>
       <Modal
@@ -238,7 +237,7 @@ const OrderPaid = (props: Props) => {
           <UserNav />
           <div className="ml-[60px] w-full min-h-[400px]">
             <h2 className="text-xl my-5">Đơn hàng của bạn</h2>
-            {order.length == 0 ? (
+            {/* {order.length == 0 ? (
               <div className="text-center font-bold text-2xl">Hiện tại bạn chưa có đơn hàng nào</div>
             ) : (
               <div>
@@ -404,7 +403,7 @@ const OrderPaid = (props: Props) => {
                   </tbody>
                 </table>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

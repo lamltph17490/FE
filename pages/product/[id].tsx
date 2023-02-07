@@ -48,9 +48,9 @@ const ProductDetail = (product: Props) => {
   };
 
   useEffect(() => {
-    if (data && data.colors.length > 0) {
-      setColorSelected(data.colors[0]);
-    }
+    // if (data && data.colors.length > 0) {
+    //   setColorSelected(data.colors[0]);
+    // }
   }, [data]);
   useEffect(() => {
     dispatch(getProducts());
@@ -79,20 +79,20 @@ const ProductDetail = (product: Props) => {
               {/* this */}
               <Carousel autoplay>
                 <Image width="500px" preview={false} alt="ecommerce" src={data.image} />
-                {data?.subImage.map((item: any, index: any) => (
+                {/* {data?.subImage.map((item: any, index: any) => (
                   <Image width="500px" preview={false} alt="ecommerce" src={item.thumbUrl} key={index} />
-                ))}
+                ))} */}
               </Carousel>
             </Col>
             <Col span={12}>
               {/* <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2> */}
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-6">{data.name}</h1>
-              <div className="text-xl title-font font-medium mb-4">{thousandFormat(data.price)} VNĐ</div>
+              {/* <div className="text-xl title-font font-medium mb-4">{thousandFormat(data.price)} VNĐ</div> */}
               <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: data.content || "" }} />
               <Form form={form} labelAlign="left" labelCol={{ span: 3 }} style={{ marginBottom: 30 }}>
                 <Form.Item name="color" label="Màu sắc" rules={[{ required: true, message: "Vui lòng chọn màu sắc" }]}>
                   <Space>
-                    {data.colors.map((color, index) => (
+                    {/* {data.colors.map((color, index) => (
                       <Button
                         value={color.colorName}
                         onClick={() => {
@@ -103,7 +103,7 @@ const ProductDetail = (product: Props) => {
                       >
                         {color.colorName}
                       </Button>
-                    ))}
+                    ))} */}
                   </Space>
                 </Form.Item>
                 <Form.Item name="size" label="Kích cỡ" rules={[{ required: true, message: "Vui lòng chọn kích cỡ" }]}>
@@ -127,11 +127,11 @@ const ProductDetail = (product: Props) => {
                   label="Số lượng"
                   name="quantity"
                   rules={[{ required: true, message: "Vui lòng chọn số lượng" }]}
-                  help={`${
-                    sizeSelected
-                      ? sizeSelected.amount
-                      : data.colors.map((i) => i.sizes.reduce((a, b) => a + b.amount, 0)).reduce((a, b) => a + b, 0)
-                  } sản phẩm có sẵn`}
+                  // help={`${
+                  //   sizeSelected
+                  //     ? sizeSelected.amount
+                  //     : data.colors.map((i) => i.sizes.reduce((a, b) => a + b.amount, 0)).reduce((a, b) => a + b, 0)
+                  // } sản phẩm có sẵn`}
                 >
                   <InputNumber
                     onChange={(value) => {

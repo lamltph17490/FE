@@ -1,22 +1,22 @@
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import Paginate from '../../../component/Paginate';
-import { getProducts } from '../../../redux/prdSlice';
-import { RootState } from '../../../redux/store';
-import { thousandFormat } from '../../../untils';
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Paginate from "../../../component/Paginate";
+import { getProducts } from "../../../redux/prdSlice";
+import { RootState } from "../../../redux/store";
+import { thousandFormat } from "../../../untils";
 
-type Props = {}
+type Props = {};
 
-const ProductCard = ( product : Props) => {
+const ProductCard = (product: Props) => {
   const products = useSelector((state: RootState) => state.prd.products);
   const dispatch = useDispatch<any>();
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
-    if(localStorage.getItem("search")) {
-      localStorage.removeItem("search")
-      return
-    }else{
+    if (localStorage.getItem("search")) {
+      localStorage.removeItem("search");
+      return;
+    } else {
       dispatch(getProducts());
     }
   }, [dispatch]);
@@ -28,9 +28,7 @@ const ProductCard = ( product : Props) => {
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const filterPosts = products.slice(indexOfFirstPost, indexOfLastPost);
   return (
-
     <div className="grid grid-cols-3 gap-[30px] lg:w-3/4 mx-auto pt-6 ml-[30px] ">
-      
       {filterPosts?.map((item, index) => (
         <div className="w-full pb-8" key={index}>
           <div className="p-0 bg-light group text-center">
@@ -44,7 +42,6 @@ const ProductCard = ( product : Props) => {
                       alt=""
                     />
                   </picture>
-
                 </div>
                 <div className="absolute flex flex-col top-4 right-4">
                   {/* <div className="flex items-center">
@@ -78,13 +75,10 @@ const ProductCard = ( product : Props) => {
                 </div>
               </div>
               <Link href={`/product/${item._id}`}>
-                <h3 className="mb-2 text-xl font-normal text-[#999999] uppercase">
-                  {item.name}
-                </h3>
+                <h3 className="mb-2 text-xl font-normal text-[#999999] uppercase">{item.name}</h3>
               </Link>
               <p className="text-lg font-semibold text-[#A71010] ">
-
-                <span>{thousandFormat(item.price)} VNĐ</span>
+                {/* <span>{thousandFormat(item.price)} VNĐ</span> */}
               </p>
             </div>
           </div>
@@ -99,9 +93,8 @@ const ProductCard = ( product : Props) => {
           postPerPage={postPerPage}
         />
       )}
-     
     </div>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;

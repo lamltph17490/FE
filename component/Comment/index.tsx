@@ -35,7 +35,7 @@ const Comment = ({ product }: CommentProps) => {
   useEffect(() => {
     if (product._id) {
       (async () => {
-        await dispatch(getCommentsByProduct(product?._id)).unwrap();
+        // await dispatch(getCommentsByProduct(product?._id)).unwrap();
       })();
     }
   }, [dispatch, product._id, product.slug]);
@@ -133,7 +133,7 @@ const Comment = ({ product }: CommentProps) => {
               <li className="flex py-4" key={index}>
                 <div className="w-16 h-16 object-cover rounded-full relative">
                   <picture>
-                    <img src={item.user.avatar} alt="" className="w-[40px] h-[40px]" />
+                    <img src={item?.user?.avatar} alt="" className="w-[40px] h-[40px]" />
                   </picture>
                 </div>
                 <div className="ml-2">
