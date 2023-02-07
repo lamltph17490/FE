@@ -28,7 +28,7 @@ const PostHome = (props: Props) => {
             />
           </picture>
           <div className="mt-8 text-center">
-            <span className="text-xs uppercase tracking-widest">{item.categoryId.name}</span>
+            <span className="text-xs uppercase tracking-widest">{item.categoryId?.name}</span>
             <h1 className="mt-4 text-2xl font-normal text-gray-800 capitalize dark:text-white">
               {item.title}
             </h1>

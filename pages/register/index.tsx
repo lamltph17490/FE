@@ -62,7 +62,7 @@ const Register = (props: Props) => {
                       <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><FontAwesomeIcon icon={faUser} /></div>
                       <input type="text" {...register("name", { required: true })} className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Nhập tên" />
                       {errors.name?.type === "required" && (
-                        <span className="text-red-700">is required</span>
+                        <span className="text-red-700">Không được để trống</span>
                       )}
                     </div>
                   </div>
@@ -70,10 +70,10 @@ const Register = (props: Props) => {
                     <label htmlFor="" className="text-lg font-semibold px-1">Số điện thoại</label>
                     <div className="flex">
                       <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><FontAwesomeIcon icon={faPhone} /></div>
-                      <input type="text" {...register("phone", { required: true })} className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Nhập SĐT" />
+                      <input type="number" {...register("phone", { required: true })} className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Nhập SĐT" />
                     </div>
                     {errors.phone?.type === "required" && (
-                      <span className="text-red-700">is required</span>
+                      <span className="text-red-700">Không được để trống</span>
                     )}
                   </div>
                 </div>
@@ -84,7 +84,7 @@ const Register = (props: Props) => {
                       <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><FontAwesomeIcon icon={faEnvelope} /></div>
                       <input type="email" {...register("email", { required: true })} className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="email@example.com" />
                       {errors.password?.type === "required" && (
-                        <span className="text-red-700">is required</span>
+                        <span className="text-red-700">Không được để trống</span>
                       )}
                     </div>
                   </div>
@@ -97,7 +97,7 @@ const Register = (props: Props) => {
                       <input type={type} {...register("password", { required: true })} className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
                       <span className="absolute cursor-pointer bottom-[10px] right-[20px]" onClick={handleToggle}><FontAwesomeIcon icon={icon} /></span>
                       {errors.name?.type === "required" && (
-                        <span className="text-red-700">is required</span>
+                        <span className="text-red-700">Không được để trống</span>
                       )}
                     </div>
                   </div>

@@ -152,13 +152,13 @@ const AddBlog: NextPageWithLayout = (props: Props) => {
                                         Danh mục bài biết
                                     </label>
                                     <select {...register('categoryId', { required: true })} >
-                                        <option className="py-1">Categorys</option>
+                                        <option className="py-1">Category</option>
                                         {blogCate.map((item: any, index: any) => {
                                             return <option key={index} className="py-1" value={item._id}>{item.name}</option>
                                         })}
                                     </select>
                                     <div className="text-sm mt-0.5 text-red-500">
-
+                                        
                                     </div>
                                 </div>
 
@@ -243,7 +243,7 @@ const AddBlog: NextPageWithLayout = (props: Props) => {
                                                     htmlFor="form__add-user-avatar"
                                                     className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                                                 >
-                                                    <span>Upload a file</span>
+                                                    <span>Thêm file</span>
                                                     <input
                                                         id="form__add-user-avatar"
                                                         {...register("thumbnail", {
@@ -258,10 +258,10 @@ const AddBlog: NextPageWithLayout = (props: Props) => {
                                                         className="sr-only"
                                                     />
                                                 </label>
-                                                <p className="pl-1">or drag and drop</p>
+                                                <p className="pl-1">Hoặc kéo thả tại đây</p>
                                             </div>
                                             <p className="text-xs text-gray-500">
-                                                PNG, JPG, GIF up to 10MB
+                                                PNG, JPG, GIF lên tới 10MB
                                             </p>
                                         </div>
                                     </div>

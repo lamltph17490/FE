@@ -77,6 +77,7 @@ const OrdersPaid = (props: Props) => {
         .then(() => {
           message.success({ content: "Đổi trạng thái thành công" });
           setFlag(!flag);
+
         })
         .catch((err: any) => alert(err));
     }
@@ -191,7 +192,7 @@ const OrdersPaid = (props: Props) => {
       key: "name",
     },
     {
-      title: "Address",
+      title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
     },

@@ -2,17 +2,19 @@ import React, { ReactElement, useCallback, useEffect, useMemo, useState } from "
 import { AdminLayout } from "../../layouts";
 import { NextPageWithLayout } from "../../models/layout";
 import { Avatar, Card, Col, List, Row, Select, Space, Spin, DatePicker, Typography, Form } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import DataDisplayWidget from "../../component/admin/dashboard/DataDisplayWidget";
 import "antd/dist/antd.css";
 import AppBreadcrumb from "../../layouts/AdminLayout/AdminBreadcrumb";
 import StatisticApi from "../../Api/statisticApi";
 import { Order } from "../../models/Order";
 import { ApexOptions } from "apexcharts";
-import moment, { Moment } from "moment";
+import moment from "moment";
 import dynamic from "next/dynamic";
 import { thousandFormat } from "../../untils";
 import { Tprd } from "../../models/prd";
+import { FaMoneyCheckAlt, FaProductHunt } from "react-icons/fa";
+import { FcSalesPerformance } from "react-icons/fc";
+import { MdDoneOutline } from "react-icons/md";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -31,7 +33,7 @@ interface StatisticDashboard {
 }
 
 const Andex: NextPageWithLayout = (props: Props) => {
-  const months = Array.from(new Array(moment().month() + 1)).map((_, i) => (i + 1));
+  const [months, setMonths] = useState(Array.from(new Array(moment().month() + 1)).map((_, i) => (i + 1)));
   const [loading, setLoading] = useState(true);
   const [statisticDashboard, setStatisticDashboard] = useState<StatisticDashboard>({
     total: {
@@ -48,6 +50,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
   const [seriesProducts, setSeriesProducts] = useState<Array<any>>([]);
   const [orders, setOrders] = useState<Array<Order>>([]);
   const [form] = Form.useForm();
+  const [yearSelected, setYearSelected] = useState(moment().year());
 
   const chartMonthOptions: ApexOptions = {
     noData: {
@@ -129,7 +132,10 @@ const Andex: NextPageWithLayout = (props: Props) => {
     setLoading(true);
     let params = {};
     if (datePicker) {
-      params = { startDate: datePicker[0].toDate(), endDate: datePicker[1].toDate() };
+      params = { ...params, startDate: datePicker[0].toDate(), endDate: datePicker[1].toDate() };
+    }
+    if (yearSelected) {
+     params = { ...params, yearSelected }
     }
     StatisticApi.dashboard(params).then((res: any) => {
       setStatisticDashboard(res);
@@ -143,14 +149,14 @@ const Andex: NextPageWithLayout = (props: Props) => {
         }),
       }];
       setSeriesMonthly(seriesMonthly);
-      setSeriesProducts(res.populateProducts);
+      setSeriesProducts(res.populateProducts.slice(0, 10));
       setOrders(res.orders);
       setLoading(false);
     });
-  }, [months]);
+  }, [months, yearSelected]);
   useEffect(() => {
     loadStatisticDashboard();
-  }, []);
+  }, [yearSelected, months]);
   moment.locale("en", {
     week: {
       dow: 1,
@@ -240,7 +246,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
                   }
                 }}
                 style={{ width: 120 }}
-                placeholder="Chọn tháng"
+                placeholder="Chọn thời gian"
                 options={analyticDateOptions.map(i => ({
                   label: i.label,
                   value: `${i.value.start.toDate()}_${i.value.end.toDate()}`,
@@ -253,40 +259,36 @@ const Andex: NextPageWithLayout = (props: Props) => {
         <Row gutter={16}>
           <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={6}>
             <DataDisplayWidget
-              icon={<UserOutlined />}
+              icon={<FaProductHunt fill="#2587be" style={{ width: "100%", height: "100%" }} />}
               value={statisticDashboard.total.totalProducts}
               title="Tổng sản phẩm"
-              color="cyan"
               avatarSize={55}
               loading={loading}
             />
           </Col>
           <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={6}>
             <DataDisplayWidget
-              icon={<UserOutlined />}
+              icon={<FcSalesPerformance style={{ width: "100%", height: "100%" }} />}
               value={statisticDashboard.total.totalSaleProducts}
               title="Số lượng sản phẩm đã bán"
-              color="cyan"
               avatarSize={55}
               loading={loading}
             />
           </Col>
           <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={6}>
             <DataDisplayWidget
-              icon={<UserOutlined />}
+              icon={<MdDoneOutline fill="#49be25" style={{ width: "100%", height: "100%" }} />}
               value={statisticDashboard.total.totalOrders}
               title="Tổng số đơn hàng"
-              color="cyan"
               avatarSize={55}
               loading={loading}
             />
           </Col>
           <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={6}>
             <DataDisplayWidget
-              icon={<UserOutlined />}
+              icon={<FaMoneyCheckAlt fill="#be4d25" style={{ width: "100%", height: "100%" }} />}
               value={statisticDashboard.total.totalRevenue}
               title="Doanh thu"
-              color="cyan"
               avatarSize={55}
               loading={loading}
               suffix="đ"
@@ -295,21 +297,22 @@ const Andex: NextPageWithLayout = (props: Props) => {
         </Row>
         <Row gutter={16}>
           <Col md={24} lg={12}>
-            <Card title="Doanh thu theo tháng">
+            <Card title="Doanh thu theo tháng" extra={<Select
+              defaultValue={moment().year()}
+              onChange={(event) => {
+                setYearSelected(event)
+                const countMonths = moment().year() === event ? moment().month() + 1 : 12
+                setMonths(Array.from(new Array(countMonths)).map((_, i) => i+1))
+              }}
+              style={{ width: 120 }}
+              options={Array.from(new Array(10)).map((_, index) => moment().year() - 9 + index).map((year) => ({
+                label: year,
+                value: year,
+              }))} />}>
               <ReactApexChart series={seriesMonthly} options={chartMonthOptions} type="line" height={350} />
             </Card>
           </Col>
-          <Col md={24} lg={6}>
-            <Card title="Tổng hóa đơn" extra={
-              <div>
-                <Typography>Tổng hóa đơn: {orders.length}</Typography>
-                <Typography>Thanh toán: {orders.filter(i => i.paid).length}</Typography>
-              </div>
-            }>
-              <ReactApexChart series={[10, 20]} options={todayChartOptions} type="pie" height={350} />
-            </Card>
-          </Col>
-          <Col md={24} lg={6}>
+          <Col md={24} lg={12}>
             <Card title="Sản phẩm bán chạy" extra="số lượng">
               <Spin spinning={loading}>
                 <List itemLayout="vertical" size="large" dataSource={seriesProducts} renderItem={(item, index) => (

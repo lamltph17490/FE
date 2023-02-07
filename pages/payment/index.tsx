@@ -37,7 +37,7 @@ const index = (props: Props) => {
     reset({
       amount: total,
       bankCode: "NCB",
-      orderDescription: "Thanh toan don hang so tien: " + total + " VND",
+      orderDescription: "Thanh toán đơn hàng số tiền: " + total + " VNĐ",
     });
   }, []);
   return (
@@ -125,7 +125,7 @@ const index = (props: Props) => {
                 type="submit"
                 className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                Save
+                Thanh toán
               </button>
             </div>
           </div>

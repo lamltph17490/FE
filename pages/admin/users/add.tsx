@@ -60,7 +60,7 @@ const AddUser: NextPageWithLayout = (props: Props) => {
           </h5>
           <span>Thêm Người Dùng</span>
         </div>
-        <Link href="/admin/user">
+        <Link href="/admin/users">
           <button
             type="button"
             className="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -224,7 +224,7 @@ const AddUser: NextPageWithLayout = (props: Props) => {
                           htmlFor="form__add-user-avatar"
                           className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
-                          <span>Upload a file</span>
+                          <span>Thêm file</span>
                           <input
                             id="form__add-user-avatar"
                             {...register("avatar", {
@@ -239,10 +239,10 @@ const AddUser: NextPageWithLayout = (props: Props) => {
                             className="sr-only"
                           />
                         </label>
-                        <p className="pl-1">or drag and drop</p>
+                        <p className="pl-1">Hoặc kéo thả tại đây</p>
                       </div>
                       <p className="text-xs text-gray-500">
-                        PNG, JPG, GIF up to 10MB
+                        PNG, JPG, GIF lên tới 10MB
                       </p>
                     </div>
                   </div>

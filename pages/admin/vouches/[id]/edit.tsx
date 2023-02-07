@@ -149,7 +149,7 @@ const AddUser: NextPageWithLayout = (props: Props) => {
                                         {errors.percent?.message}
                                     </div>
                                 </div> 
-                                <div className="col-span-6 md:col-span-3">
+                                {/* <div className="col-span-6 md:col-span-3">
                                     <label
                                         htmlFor="form__add-user-role"
                                         className="block text-sm font-medium text-gray-700"
@@ -169,7 +169,7 @@ const AddUser: NextPageWithLayout = (props: Props) => {
                                     <div className="text-sm mt-0.5 text-red-500">
                                         {errors.status?.message}
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="col-span-6 md:col-span-3">
                                     <label

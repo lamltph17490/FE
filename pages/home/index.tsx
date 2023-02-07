@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { ReactElement } from "react";
 import Hero from "../../component/Hero";
 import { ClientLayout } from "../../layouts";
@@ -6,6 +7,8 @@ import styles from "./home.module.css";
 type Props = {};
 
 const Home = (props: Props) => {
+  
+  
   return (
     <>
       <div id="carouselExampleCaptions" className="carousel slide relative" data-bs-ride="carousel">

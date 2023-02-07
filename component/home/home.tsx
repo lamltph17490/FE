@@ -4,80 +4,94 @@ import React from 'react'
 import CateHome from './catePrdHome'
 import PostHome from './postHome'
 import PrdHome from './prdHome'
-
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
 type Props = {}
 
 const HomePage = (props: Props) => {
+  const spanStyle = {
+    padding: '10px 29px',
+    background: '#efefef',
+    color: '#000000',
+    height: '40px',
+    width: '120px',
+    marginLeft:'38%'
+  }
+
+  const divStyle = {
+    // display: 'block',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundSize: 'cover',
+    height: '600px',
+    // margin:'auto',
+    position: 'relative'
+  }
+  const titleStyle = {
+    color: '#ffffff',
+    fontSize: '60px',
+    marginLeft:'60px'
+  }
+  const mainStyle ={
+    marginLeft:'500px',
+    position: 'absolute',
+    marginTop:'200px',
+   
+  }
+  const descStyle={
+    color: '#ffffff',
+    fontSize: '20px',
+    marginBottom:'36px'
+
+  }
+  const slideImages = [
+    {
+      url: 'img/hero/hero-1.jpg',
+      caption: 'Mua ngay',
+      title: 'Quần áo giới trẻ ',
+      desc: 'Phong cách phù hợp và đẳng cấp với sự sang trọng và thoải mái'
+    },
+    {
+      url: 'img/hero/hero-2.jpg',
+      caption: 'Mua ngay',
+      title: 'Quần áo giới trẻ ',
+      desc: 'Phong cách phù hợp và đẳng cấp với sự sang trọng và thoải mái'
+    },
+
+  ];
+
   return (
     <>
-    <Head>
-      <title>
-        Trang chủ
-      </title>
-    </Head>
+      <Head>
+        <title>
+          Trang chủ
+        </title>
+      </Head>
       <div
         id="carouselExampleCaptions"
         className="carousel slide relative"
         data-bs-ride="carousel"
       >
-        <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to={0}
-            className="active"
-            aria-current="true"
-            aria-label="Slide 1"
-          />
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to={1}
-            aria-label="Slide 2"
-          />
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to={2}
-            aria-label="Slide 3"
-          />
-        </div>
-        <div className="carousel-inner relative w-full overflow-hidden">
-          <div className="carousel-item active relative float-left w-full">
-            <picture>
-            <img src="img/hero/hero-1.jpg" className="block w-full" alt="..." />
-            </picture>
-            <div className="carousel-caption hidden md:block absolute text-center">
-              <h5 className="text-xl">First slide label</h5>
-              <p>Some representative placeholder content for the first slide.</p>
-            </div>
-          </div>
+        <div className="slide-container">
+          <Slide>
+            {slideImages.map((slideImage, index) => (
+              <div key={index}>
+                <div>
+                  <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }}>
+                    <div style={mainStyle}>
+                      <h1 style={titleStyle}>{slideImage.title}</h1>
+                      <h3 style={descStyle}>{slideImage.desc}</h3>
+                     <Link href='/product'><button style={spanStyle}>{slideImage.caption}</button></Link> 
+                    </div>
+                  </div>
+                </div>
 
-          <button
-            className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon inline-block bg-no-repeat"
-              aria-hidden="true"
-            />
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon inline-block bg-no-repeat"
-              aria-hidden="true"
-            />
-            <span className="visually-hidden">Next</span>
-          </button>
+              </div>
+            ))}
+          </Slide>
         </div>
+
+
       </div>
 
       <section className="pt-20 lg:pt-[120px] pb-12 lg:pb-[90px] w-[1410px] mx-auto">
@@ -369,14 +383,14 @@ const HomePage = (props: Props) => {
 
       {/* service */}
       <section className="categories container-full py-5 bg-rose-50" data-aos="zoom-in-up">
-        <CateHome posts={[]}/>
+        <CateHome posts={[]} />
       </section>
 
       {/* Product Section Begin */}
-      
+
       <PrdHome products={[]} />
 
-      
+
 
       {/* Product Section End */}
       <section className="mb-32 text-gray-800 text-center lg:text-left">
@@ -384,11 +398,11 @@ const HomePage = (props: Props) => {
           <div className="flex flex-wrap items-center">
             <div className="grow-0 shrink-0 basis-auto hidden lg:flex lg:w-6/12 xl:w-1/2">
               <picture>
-              <img
-                src="img/about/testimonial-pic.jpg"
-                alt="Trendy Pants and Shoes"
-                className="w-full "
-              />
+                <img
+                  src="img/about/testimonial-pic.jpg"
+                  alt="Trendy Pants and Shoes"
+                  className="w-full "
+                />
               </picture>
             </div>
             <div className="grow-0 shrink-0 basis-auto w-full lg:w-6/12 xl:w-1/2">
@@ -587,10 +601,10 @@ const HomePage = (props: Props) => {
               Tin Tức Thời Trang
             </h1>
           </div>
-          
-           <PostHome posts={[]}/>
 
-          
+          <PostHome posts={[]} />
+
+
         </div>
       </section>
 

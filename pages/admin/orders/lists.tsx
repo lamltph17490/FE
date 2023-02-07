@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import OrdersPaid from "./ordersPaid";
 import OrdersUnpaid from "./ordersUnpaid";
+
 type Props = {};
 const ListOrders = (props: Props) => {
   const [active2, setActive2] = useState(0);
   const isToggle2 = (number: number) => {
     setActive2(number);
   };
+ 
+  
+  
   return (
     <>
+      
       <div className="mt-10">
         <button
           onClick={() => isToggle2(0)}
@@ -18,7 +23,7 @@ const ListOrders = (props: Props) => {
               : "border rounded-md px-4 py-2 border-red-500 text-lg mx-3"
           }
         >
-          Chưa thanh toán
+          Thanh toán khi nhận hàng
         </button>
         <button
           onClick={() => isToggle2(1)}
@@ -28,7 +33,7 @@ const ListOrders = (props: Props) => {
               : "border rounded-md px-4 py-2 border-blue-500 text-lg mx-3"
           }
         >
-          Đã thanh toán
+          Thanh toán online
         </button>
       </div>
       <div className={active2 == 0 ? "" : "hidden"}>

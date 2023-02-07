@@ -8,13 +8,20 @@ import { RootState } from "../../redux/store";
 import { Button, Col, Divider, Form, Image, InputNumber, Row, Select, Space, Typography } from "antd";
 import { thousandFormat } from "../../untils";
 import { addToCart } from "../../untils/cart";
-
+import { Carousel } from 'antd';
 type Props = {
   product: Tprd;
 };
 
 const ProductDetail = (product: Props) => {
   const router = useRouter();
+  const contentStyle: React.CSSProperties = {
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+  };
   const { id } = router.query;
   const products = useSelector((state: RootState) => state.prd.products);
   const dispatch = useDispatch<any>();
@@ -69,15 +76,22 @@ const ProductDetail = (product: Props) => {
         <div className="container px-5 py-24 mx-auto">
           <Row gutter={32}>
             <Col span={12}>
-              <Image preview={false} alt="ecommerce" src={data.image} />
+              
+              {/* this */}
+              <Carousel autoplay>
+              <Image width="500px" preview={false} alt="ecommerce" src={data.image} />
+                {data?.subImage.map((item) =>  
+                     <Image width="500px" preview={false} alt="ecommerce" src={item.thumbUrl} />
+                )}
+              </Carousel>
             </Col>
             <Col span={12}>
               {/* <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2> */}
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-6">{data.name}</h1>
-              <div className="text-xl mb-4">              
+              <div className="text-xl title-font font-medium mb-4">
                 {thousandFormat(data.price)} VNĐ
               </div>
-              <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: data.content || "" }} />             
+              <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: data.content || "" }} />
               <Form form={form} labelAlign="left" labelCol={{ span: 3 }} style={{ marginBottom: 30 }}>
                 <Form.Item name="color" label="Màu sắc" rules={[{ required: true, message: "Vui lòng chọn màu sắc" }]}>
                   <Space>
@@ -117,8 +131,8 @@ const ProductDetail = (product: Props) => {
                   name="quantity"
                   rules={[{ required: true, message: "Vui lòng chọn số lượng" }]}
                   help={`${sizeSelected
-                      ? sizeSelected.amount
-                      : data.colors.map((i) => i.sizes.reduce((a, b) => a + b.amount, 0)).reduce((a, b) => a + b, 0)
+                    ? sizeSelected.amount
+                    : data.colors.map((i) => i.sizes.reduce((a, b) => a + b.amount, 0)).reduce((a, b) => a + b, 0)
                     } sản phẩm có sẵn`}
                 >
                   <InputNumber
@@ -149,15 +163,15 @@ const ProductDetail = (product: Props) => {
                 >
                   Thêm vào giỏ
                 </Button>
-                <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                {/* <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                   <svg fill="currentColor" className="w-5 h-5" viewBox="0 0 24 24">
                     <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
                   </svg>
-                </button>
+                </button> */}
               </div>
             </Col>
           </Row>
-          <div className="leading-relaxed text-xl mt-4" dangerouslySetInnerHTML={{ __html: data.desc || "" }} />
+          <div className="text-lg mt-4" dangerouslySetInnerHTML={{ __html: data.desc || "" }} />
         </div>
       </section>
       <div className="container px-5 py-12 mx-auto">
