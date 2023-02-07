@@ -149,7 +149,7 @@ const Andex: NextPageWithLayout = (props: Props) => {
         }),
       }];
       setSeriesMonthly(seriesMonthly);
-      setSeriesProducts(res.populateProducts);
+      setSeriesProducts(res.populateProducts.slice(0, 10));
       setOrders(res.orders);
       setLoading(false);
     });
