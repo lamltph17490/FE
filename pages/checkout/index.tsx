@@ -7,7 +7,7 @@ import { addOrders } from "../../Api/orders";
 import { RootState } from "../../redux/store";
 import { thousandFormat } from "../../untils";
 import AlertMessage from "../../untils/alert";
-import { getLocalStorage, sumTotal } from "../../untils/cart";
+import { clearCart, getLocalStorage, sumTotal } from "../../untils/cart";
 import { Tuser } from "../../models/user";
 import { useRouter } from "next/router";
 import { useVoucher } from "../../Api/voucheApi";
@@ -92,9 +92,10 @@ const CheckOut = (props: Props) => {
                 return route.push("/");
               },
             );
+            clearCart()
           } else {
             success("Đặt hàng thành công,đi tới trang thanh toán");
-            localStorage.removeItem("cart");
+            clearCart()
             sessionStorage.setItem("total", total - priceVoucher);
             setTimeout(() => {
               return route.push("/payment");
