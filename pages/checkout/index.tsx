@@ -35,6 +35,7 @@ const CheckOut = (props: Props) => {
     formState: { errors },
     reset,
   } = useForm<Inputs>();
+  console.log('cart', cart);
 
   const handleUseVoucher = async () => {
     const codeVou = document.getElementById("voucherCode");
@@ -44,7 +45,7 @@ const CheckOut = (props: Props) => {
     message.success("Áp voucher thành công");
    } catch (error) {
     setPriceVoucher(0)
-     message.error(`${error.response?.data?.message}`);  
+     message.error(`${error.response?.data?.message}`);
    }
   }
 
@@ -348,7 +349,7 @@ const CheckOut = (props: Props) => {
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
                 Giảm giá<span className="ml-2">{thousandFormat(priceVoucher)} VNĐ</span>
               </div>
-             
+
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
                 Tổng tiền<span className="ml-2">{thousandFormat(total - priceVoucher)} VNĐ</span>
               </div>
