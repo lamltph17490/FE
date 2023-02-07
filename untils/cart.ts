@@ -12,6 +12,9 @@ export const getLocalStorage = (key: string) => {
     }
 };
 
+export const clearCart = () => {
+    localStorage.setItem('cart', JSON.stringify([]))
+};
 
  const getCart = ()=>{
     if (typeof window !== 'undefined') {
@@ -42,10 +45,10 @@ export const addToCart = (newItem: any, next: any) => {
                 icon: 'warning',
                 title: "Số lượng sản phẩm trong giỏ hàng của bạn không được thêm quá số lượng kho ",
               })
-              
+
         }
         // eslint-disable-next-line no-plusplus
-        
+
         Swal.fire({
             icon: 'success',
             title: "Sản phẩm này đã có trong giỏ, tăng số lượng thêm " + newItem.quantity,
@@ -68,8 +71,8 @@ export const increaseItemInCart = (id: any, next: () => void) => {
 export const decreaseItemInCart = (id: any, next: () => void) => {
     getCart()
     const currenProduct = cart.find((product:any) => (product?.randomid === id));
- 
-    
+
+
     currenProduct.quantity--;
     // nếu sản phẩm giảm nhỏ hơn 1 thì xóa
     if (currenProduct.quantity < 1) {
@@ -88,7 +91,7 @@ export const removeItemInCart = (newItem: any, next: () => void) => {
     cart = cart.filter((item:any)=>item.randomid !== newItem.randomid);
     localStorage.setItem('cart', JSON.stringify(cart));
     console.log(newItem);
-    
-    
+
+
     next();
 }
