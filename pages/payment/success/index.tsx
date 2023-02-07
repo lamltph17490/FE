@@ -4,7 +4,7 @@ import { getLocalStorage } from "../../../untils/cart";
 import { updateOrders, updatePaidOrder } from "../../../Api/orders";
 type Props = {};
 
-const index = (props: Props) => {
+const Success = (props: Props) => {
   React.useEffect(() => {
     const id: any = sessionStorage.getItem("oderId");
     const updateOder = async () => {
@@ -22,4 +22,4 @@ const index = (props: Props) => {
   );
 };
 
-export default index;
+export default Success;

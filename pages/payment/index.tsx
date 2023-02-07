@@ -10,7 +10,7 @@ type Inputs = {
   bankCode: string;
   orderDescription: string;
 };
-const index = (props: Props) => {
+const Payments = (props: Props) => {
   const route = useRouter();
   const { success, error } = AlertMessage();
   const {
@@ -135,4 +135,4 @@ const index = (props: Props) => {
   );
 };
 
-export default index;
+export default Payments;

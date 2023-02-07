@@ -9,10 +9,10 @@ import { RootState } from "../../../redux/store";
 
 type Props = {};
 
-const index = (props: Props) => {
+const Users = (props: Props) => {
   const curentUser = useSelector((state: RootState) => state.auth.currentUser) as Tuser;
   console.log(curentUser);
- 
+
   return (
     <>
       <Head>
@@ -50,6 +50,6 @@ const index = (props: Props) => {
   );
 };
 
-index.getLayout = (page: ReactElement) => <AdminLayout>{page}</AdminLayout>;
+Users.getLayout = (page: ReactElement) => <AdminLayout>{page}</AdminLayout>;
 
-export default index;
+export default Users;

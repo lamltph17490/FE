@@ -12,7 +12,7 @@ import OrderPaid from "./orderPaid";
 import OrderUnpaid from "./orderUnpaid";
 type Props = {};
 
-const userCart = (props: Props) => {
+const UserCart = (props: Props) => {
   const [active2, setActive2] = useState(0);
   const isToggle2 = (number: number) => {
     setActive2(number);
@@ -39,7 +39,7 @@ const userCart = (props: Props) => {
               : "border rounded-md px-4 py-2 border-blue-500 text-lg mx-3"
           }
         >
-         Thanh toán online
+          Thanh toán online
         </button>
       </div>
       <div className="">
@@ -54,4 +54,4 @@ const userCart = (props: Props) => {
   );
 };
 
-export default userCart;
+export default UserCart;

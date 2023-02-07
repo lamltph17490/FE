@@ -35,7 +35,7 @@ const Comment = ({ product }: CommentProps) => {
   useEffect(() => {
     if (product._id) {
       (async () => {
-        await dispatch(getCommentsByProduct(product._id)).unwrap();
+        await dispatch(getCommentsByProduct(product?._id)).unwrap();
       })();
     }
   }, [dispatch, product._id, product.slug]);
@@ -81,7 +81,7 @@ const Comment = ({ product }: CommentProps) => {
       }
     });
   };
-  // 
+  //
   const imagePerRow = 4;
   const [next, setNext] = useState(imagePerRow);
   const handleMoreImage = () => {
@@ -118,10 +118,13 @@ const Comment = ({ product }: CommentProps) => {
             </button>
           </form>
         ) : (
-          <div>Vui lòng đăng nhập để bình luận
-            <div><Link className="" href="/login">
-              <p className="text-red-500">Đăng nhập</p>
-            </Link></div>
+          <div>
+            Vui lòng đăng nhập để bình luận
+            <div>
+              <Link className="" href="/login">
+                <p className="text-red-500">Đăng nhập</p>
+              </Link>
+            </div>
           </div>
         )}
         <div>
@@ -146,15 +149,17 @@ const Comment = ({ product }: CommentProps) => {
                         Xóa
                       </li>
                     )}
-                    
                   </ul>
                 </div>
               </li>
             ))}
             {next < comments?.length && (
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[100px]" onClick={handleMoreImage}>
-              Xem thêm 
-            </button>
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[100px]"
+                onClick={handleMoreImage}
+              >
+                Xem thêm
+              </button>
             )}
           </ul>
         </div>

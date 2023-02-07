@@ -10,7 +10,7 @@ import AlertMessage from "../../untils/alert";
 import { getLocalStorage, sumTotal } from "../../untils/cart";
 import { Tuser } from "../../models/user";
 import { useRouter } from "next/router";
-import { useVoucher } from "../../Api/voucheApi";
+import { UseVoucher, useVoucher } from "../../Api/voucheApi";
 type Inputs = {
   customerName: string;
   email: string;
@@ -35,19 +35,19 @@ const CheckOut = (props: Props) => {
     formState: { errors },
     reset,
   } = useForm<Inputs>();
-  console.log('cart', cart);
+  console.log("cart", cart);
 
   const handleUseVoucher = async () => {
     const codeVou = document.getElementById("voucherCode");
-   try {
-    const data = await useVoucher( {code:codeVou.value, price: total})
-    setPriceVoucher(data)
-    message.success("Áp voucher thành công");
-   } catch (error) {
-    setPriceVoucher(0)
-     message.error(`${error.response?.data?.message}`);
-   }
-  }
+    try {
+      const data = await UseVoucher({ code: codeVou.value, price: total });
+      setPriceVoucher(data);
+      message.success("Áp voucher thành công");
+    } catch (error) {
+      setPriceVoucher(0);
+      message.error(`${error.response?.data?.message}`);
+    }
+  };
 
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
     const payment = data.payment;
@@ -250,7 +250,7 @@ const CheckOut = (props: Props) => {
               <h2 className="text-xl font-bold">Tổng thanh toán</h2>
               <div className="mt-8">
                 <div className="flex flex-col space-y-4">
-                  {cart?.map((item: any,index:any) => (
+                  {cart?.map((item: any, index: any) => (
                     <div className="flex space-x-4" key={index}>
                       <div>
                         <img src={item?.id?.image} alt="image" className="w-60 max-h-30" />
@@ -258,8 +258,7 @@ const CheckOut = (props: Props) => {
                       <div>
                         <h2 className="text-xl font-bold">{item?.id?.name}</h2>
                         {/* <p className="text-sm" dangerouslySetInnerHTML={{ __html: item?.id?.desc }}></p> */}
-                        <span className="">Giá</span>{" "}
-                        {thousandFormat(sumTotal(item?.id?.price, item?.quantity))}đ
+                        <span className="">Giá</span> {thousandFormat(sumTotal(item?.id?.price, item?.quantity))}đ
                       </div>
                       <div>
                         <svg
@@ -295,7 +294,7 @@ const CheckOut = (props: Props) => {
                         />
                         <span className="block text-green-600"></span>
                         <button
-                        onClick={() => handleUseVoucher()}
+                          onClick={() => handleUseVoucher()}
                           className="
             px-6
             py-2
