@@ -18,7 +18,7 @@ const CateHome = (props: Props) => {
   }, [dispatch]);
   return (
     <div className="w-[1410px] mx-auto  flex-wrap  flex justify-center">
-        {cateProduct?.map((item, index) => (
+        {cateProduct.slice(0, 4)?.map((item, index) => (
           <div className="cate_item lg:w-1/5  md:w-2/5 pr-4 pl-4" key={index}>
             <a href="#">
               <picture>
