@@ -23,7 +23,7 @@ const ListOrders = (props: Props) => {
               : "border rounded-md px-4 py-2 border-red-500 text-lg mx-3"
           }
         >
-          Chưa thanh toán
+          Thanh toán khi nhận hàng
         </button>
         <button
           onClick={() => isToggle2(1)}
@@ -33,7 +33,7 @@ const ListOrders = (props: Props) => {
               : "border rounded-md px-4 py-2 border-blue-500 text-lg mx-3"
           }
         >
-          Đã thanh toán
+          Thanh toán online
         </button>
       </div>
       <div className={active2 == 0 ? "" : "hidden"}>
